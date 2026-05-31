@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diamond at Dunluce — Investor Return Calculator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400;0,700;1,400&family=Alegreya+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+*, *::before, *::after { box-sizing: border-box; }
+:root {
+  --green:       #275D43;
+  --green-dark:  #1d4532;
+  --green-light: #e8f2ed;
+  --green-border:#a3c4b2;
+  --pinecone:    #E09964;
+  --mist:        #FAFAF2;
+  --kiswah:      #353535;
+  --yaqoot:      #BB2D37;
+  --yaqoot-lt:   #f8eaeb;
+  --border:      #d8d8cc;
+  --text:        #3a3a3a;
+  --muted:       #666;
+  --serif:       'Alegreya', Georgia, serif;
+  --sans:        'Alegreya Sans', system-ui, sans-serif;
+}
+body {
+  font-family: var(--sans);
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text);
+  background: #e0e0d0;
+  margin: 0;
+  padding: 1.5rem;
+}
+.page {
+  max-width: 880px;
+  margin: 0 auto;
+  background: var(--mist);
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 6px 40px rgba(39,93,67,0.18);
+}
+
+/* Header */
+.header {
+  background: var(--green);
+  color: white;
+  padding: 2rem 2.25rem 1.75rem;
+  position: relative;
+  overflow: hidden;
+}
+.header::before {
+  content: '';
+  position: absolute;
+  bottom: -80px; right: -80px;
+  width: 260px; height: 260px;
+  border-radius: 50%;
+  border: 40px solid rgba(255,255,255,0.06);
+  pointer-events: none;
+}
+.header::after {
+  content: '';
+  position: absolute;
+  top: -40px; right: 80px;
+  width: 140px; height: 140px;
+  border-radius: 50%;
+  border: 22px solid rgba(255,255,255,0.04);
+  pointer-events: none;
+}
+.eyebrow {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.55);
+  margin: 0 0 8px;
+}
+.header h1 {
+  font-family: var(--serif);
+  font-size: 26px;
+  font-weight: 700;
+  margin: 0 0 8px;
+  line-height: 1.2;
+}
+.header-sub {
+  font-size: 13px;
+  color: rgba(255,255,255,0.7);
+  margin: 0;
+  max-width: 580px;
+  line-height: 1.55;
+}
+
+/* Body */
+.body { padding: 1.75rem 2.25rem; }
+
+/* Section label */
+.sec {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--green);
+  margin: 1.5rem 0 10px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid var(--border);
+}
+.sec:first-child { margin-top: 0; }
+
+/* Raise cards */
+.raise-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1.2fr;
+  gap: 8px;
+  margin-bottom: 1.5rem;
+}
+.rcard {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 12px 14px;
+}
+.rcard.accent { border-color: var(--green); background: var(--green-light); }
+.rl { font-size: 10px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted); margin: 0 0 4px; }
+.rv { font-family: var(--serif); font-size: 21px; font-weight: 700; margin: 0; color: var(--kiswah); line-height: 1.2; }
+.rcard.accent .rv { color: var(--green); }
+.rs { font-size: 11px; color: var(--muted); margin: 3px 0 0; }
+
+/* The main return display */
+.return-hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 1.5rem;
+}
+.rh-card {
+  border-radius: 4px;
+  padding: 16px 18px;
+  text-align: center;
+}
+.rh-card.current {
+  background: var(--green);
+  color: white;
+}
+.rh-card.max {
+  background: var(--green-light);
+  border: 1px solid var(--green-border);
+}
+.rh-card.coverage {
+  background: white;
+  border: 1px solid var(--border);
+}
+.rh-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin: 0 0 6px;
+  opacity: 0.7;
+}
+.rh-card.current .rh-label { color: rgba(255,255,255,0.8); opacity:1; }
+.rh-value {
+  font-family: var(--serif);
+  font-size: 36px;
+  font-weight: 700;
+  margin: 0;
+  line-height: 1;
+}
+.rh-card.current .rh-value { color: white; }
+.rh-card.max .rh-value { color: var(--green); }
+.rh-card.coverage .rh-value { color: var(--kiswah); }
+.rh-sub {
+  font-size: 11px;
+  margin: 6px 0 0;
+  opacity: 0.7;
+}
+.rh-card.current .rh-sub { color: rgba(255,255,255,0.8); opacity: 1; }
+
+/* Sliders */
+.sr { display: flex; align-items: center; gap: 10px; margin-bottom: 9px; }
+.sl { font-size: 12px; color: var(--text); min-width: 220px; }
+.sv { font-size: 12px; font-weight: 700; min-width: 100px; text-align: right; color: var(--kiswah); }
+input[type=range] { flex: 1; cursor: pointer; accent-color: var(--green); }
+
+/* Charts */
+.charts { display: grid; grid-template-columns: 1fr 1.4fr; gap: 16px; margin: 1rem 0 1.5rem; }
+.ct { font-size: 11px; color: var(--muted); margin: 0 0 6px; font-style: italic; }
+.cw { position: relative; height: 220px; }
+.leg { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 7px; font-size: 11px; color: var(--muted); align-items: center; }
+.ld { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 3px; vertical-align: middle; }
+
+/* Scenarios */
+.scenarios { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 1.25rem; }
+.sbtn {
+  font-family: var(--sans);
+  padding: 5px 12px;
+  border-radius: 3px;
+  border: 1px solid var(--border);
+  background: white;
+  cursor: pointer;
+  font-size: 12px;
+  color: var(--muted);
+  white-space: nowrap;
+  transition: all 0.15s;
+}
+.sbtn:hover { border-color: var(--green); color: var(--green); }
+.sbtn.active { background: var(--green); color: white; border-color: var(--green); font-weight: 700; }
+
+/* Note */
+.note {
+  font-size: 11px;
+  color: var(--green-dark);
+  background: var(--green-light);
+  border: 1px solid var(--green-border);
+  border-radius: 3px;
+  padding: 8px 12px;
+  margin-top: 4px;
+  line-height: 1.5;
+}
+.note.warn {
+  color: #7a1018;
+  background: var(--yaqoot-lt);
+  border-color: #e0a0a5;
+}
+
+/* Tags */
+.tag { font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 3px; margin-left: 5px; }
+.tag-conf { color: var(--green); background: var(--green-light); }
+.tag-pend { color: #8a6800; background: #fef3cd; }
+
+/* Breakdown */
+.brow { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid var(--border); font-size: 12px; }
+.brow:last-child { border-bottom: none; }
+.brow.grant { color: var(--green); font-weight: 500; }
+.brow.raise { font-weight: 700; color: var(--green); }
+.brow.total { font-family: var(--serif); font-weight: 700; font-size: 14px; border-top: 2px solid var(--green); border-bottom: none; margin-top: 4px; padding-top: 8px; }
+
+/* Footer */
+.footer {
+  background: var(--kiswah);
+  color: rgba(255,255,255,0.5);
+  font-size: 11px;
+  padding: 12px 2.25rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.footer strong { color: rgba(255,255,255,0.85); }
+
+/* Divider */
+.divider { height: 1px; background: var(--border); margin: 1.25rem 0; }
+
+@media (max-width: 620px) {
+  .raise-row { grid-template-columns: 1fr 1fr; }
+  .return-hero { grid-template-columns: 1fr 1fr; }
+  .charts { grid-template-columns: 1fr; }
+  .sl { min-width: 140px; }
+  .body { padding: 1.25rem; }
+  .header { padding: 1.5rem; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="header">
+  <p class="eyebrow">Halal Community Infrastructure Fund · halalfund.ca</p>
+  <h1>Diamond at Dunluce — Investor Return Calculator</h1>
+  <p class="header-sub">More grant and philanthropic capital reduces the total raise — allowing us to offer a higher return to Halal investors on the same NOI.</p>
+</div>
+
+<div class="body">
+
+  <!-- What we raise -->
+  <p class="sec">What we need to raise</p>
+  <div class="raise-row">
+    <div class="rcard">
+      <p class="rl">Halal Financing</p>
+      <p class="rv" id="rc-halal">$8,487,089</p>
+      <p class="rs">↓ reduced by grants</p>
+    </div>
+    <div class="rcard">
+      <p class="rl">Owner Equity Buyback</p>
+      <p class="rv">$15,015,708</p>
+      <p class="rs">repaid years 1–4, fixed</p>
+    </div>
+    <div class="rcard accent">
+      <p class="rl">Total raise</p>
+      <p class="rv" id="rc-total">$23,502,797</p>
+      <p class="rs">both earn the offered rate</p>
+    </div>
+  </div>
+
+  <!-- Return hero -->
+  <p class="sec">Investor return</p>
+  <div class="return-hero">
+    <div class="rh-card current">
+      <p class="rh-label">Offered rate</p>
+      <p class="rh-value" id="rh-offered">2.75%</p>
+      <p class="rh-sub" id="rh-cost">costs $646,327/yr</p>
+    </div>
+    <div class="rh-card max">
+      <p class="rh-label" style="color:var(--green);">Max supportable rate</p>
+      <p class="rh-value" id="rh-max">3.62%</p>
+      <p class="rh-sub" style="color:var(--muted);">NOI ceiling on this raise</p>
+    </div>
+    <div class="rh-card coverage">
+      <p class="rh-label">Debt coverage (DCR)</p>
+      <p class="rh-value" id="rh-dcr">1.31x</p>
+      <p class="rh-sub" style="color:var(--muted);">NOI ÷ total financing</p>
+    </div>
+  </div>
+  <div id="coverage-note" class="note">✓ 2.75% is covered with 1.31x DCR — $203,518 of NOI remains after all financing.</div>
+
+  <!-- Scenarios -->
+  <p class="sec">Scenarios</p>
+  <div class="scenarios">
+    <button class="sbtn" id="btn-worst"  onclick="applyScenario('worst')">Worst — no BCH</button>
+    <button class="sbtn active" id="btn-base"  onclick="applyScenario('base')">Base — original proforma</button>
+    <button class="sbtn" id="btn-ahpp9"  onclick="applyScenario('ahpp9')">AHPP $9M confirmed</button>
+    <button class="sbtn" id="btn-best"   onclick="applyScenario('best')">$2M Philanthropic</button>
+    <button class="sbtn" id="btn-custom">Custom</button>
+  </div>
+
+  <!-- Grant sliders -->
+  <p class="sec">Grant & philanthropic capital — shrinks the raise, raises the max return</p>
+
+  <p style="font-size:11px;color:var(--muted);margin:-4px 0 12px;"><span style="font-weight:600;color:var(--green);">City of Edmonton: $3,582,346</span> — confirmed maximum, already included.</p>
+
+  <div class="sr">
+    <span class="sl">Province — AHPP <span class="tag tag-conf">up to $9M</span></span>
+    <input type="range" id="s-ahpp" min="6454127" max="9000000" step="10000" value="6454127" oninput="onSlider()">
+    <span class="sv" id="v-ahpp">$6,454,127</span>
+  </div>
+  <div class="sr">
+    <span class="sl">Federal — BCH <span class="tag tag-pend">pending</span></span>
+    <input type="range" id="s-bch" min="0" max="4000000" step="10000" value="4000000" oninput="onSlider()">
+    <span class="sv" id="v-bch">$4,000,000</span>
+  </div>
+  <div class="sr">
+    <span class="sl">Philanthropic gift <span class="tag tag-conf">non-repayable</span></span>
+    <input type="range" id="s-phil" min="0" max="4000000" step="10000" value="0" oninput="onSlider()">
+    <span class="sv" id="v-phil">$0</span>
+  </div>
+  <div class="sr">
+    <span class="sl">0% interest loan <span class="tag tag-pend">balloon repayment</span></span>
+    <input type="range" id="s-loan" min="0" max="5000000" step="10000" value="0" oninput="onSlider()">
+    <span class="sv" id="v-loan">$0</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+    <span class="sl" style="font-size:11px;color:var(--muted);">↳ Balloon due</span>
+    <div style="display:flex;border:1px solid var(--border);border-radius:3px;overflow:hidden;font-size:11px;">
+      <button id="term-5" onclick="setTerm(5)"
+        style="padding:3px 14px;border:none;cursor:pointer;font-family:var(--sans);font-weight:700;background:var(--green);color:white;">Year 5</button>
+      <button id="term-10" onclick="setTerm(10)"
+        style="padding:3px 14px;border:none;border-left:1px solid var(--border);cursor:pointer;font-family:var(--sans);font-weight:400;background:white;color:var(--muted);">Year 10</button>
+    </div>
+    <input type="hidden" id="s-loanterm" value="5">
+    <span id="v-loanterm" style="font-size:11px;color:var(--muted);">full balance due year 5</span>
+  </div>
+
+  <div class="divider"></div>
+
+    <!-- Offered rate slider -->
+  <p class="sec" style="margin-top:0;">Adjust offered rate — see what NOI can support</p>
+  <div class="sr">
+    <span class="sl">Rate offered to investors</span>
+    <input type="range" id="s-rate" min="1.00" max="8.00" step="0.05" value="2.75" oninput="onSlider()">
+    <span class="sv" id="v-rate">2.75%</span>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Zakat -->
+  <p class="sec" style="margin-top:0;">Zakat operating support — raises the NOI ceiling</p>
+  <div class="sr">
+    <span class="sl">Annual Zakat (rent supplement)</span>
+    <input type="range" id="s-zakat" min="0" max="300000" step="5000" value="0" oninput="onSlider()">
+    <span class="sv" id="v-zakat">$0/yr</span>
+  </div>
+
+  <!-- Charts -->
+  <div class="charts">
+    <div>
+      <p class="ct">Capital stack</p>
+      <div class="cw"><canvas id="cStack"></canvas></div>
+      <div class="leg">
+        <span><span class="ld" style="background:#275D43;"></span>Gov grants</span>
+        <span><span class="ld" style="background:#a3c4b2;"></span>Philanthropic</span>
+        <span><span class="ld" style="background:#E09964;"></span>0% loan</span>
+        <span><span class="ld" style="background:#5a9fd4;"></span>Halal</span>
+        <span><span class="ld" style="background:#aaa;"></span>Equity</span>
+      </div>
+    </div>
+    <div>
+      <p class="ct">Max supportable return vs total concessional capital — dot shows current position</p>
+      <div class="cw"><canvas id="cROI"></canvas></div>
+      <div class="leg">
+        <span><span class="ld" style="background:#275D43;"></span>Max supportable</span>
+        <span><span class="ld" style="background:#E09964;"></span>Offered rate</span>
+        <span><span class="ld" style="background:#BB2D37;border-radius:50%;"></span>Current</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Breakdown -->
+  <p class="sec">Funding breakdown</p>
+  <div class="brow grant"><span>City of Edmonton grant</span><span id="b-city">$3,582,346</span></div>
+  <div class="brow grant"><span>Province — AHPP</span><span id="b-ahpp">$6,454,127</span></div>
+  <div class="brow grant"><span>Federal — Build Canada Homes</span><span id="b-bch">$4,000,000</span></div>
+  <div class="brow grant"><span>Philanthropic (one-time)</span><span id="b-phil">$0</span></div>
+  <div class="brow grant"><span>0% interest loan</span><span id="b-loan">$0</span></div>
+  <div class="brow raise"><span>Halal investor financing</span><span id="b-halal">$8,487,089</span></div>
+  <div class="brow raise"><span>Owner equity (buyback yrs 1–4)</span><span>$15,015,708</span></div>
+  <div class="brow" style="font-style:italic;color:var(--muted);"><span>Zakat — operating only (annual)</span><span id="b-zakat">$0/yr</span></div>
+  <div class="brow total"><span>Total project cost</span><span>$37,539,270</span></div>
+
+  <!-- Equations -->
+  <p class="sec">How the numbers are calculated</p>
+  <div style="background:white;border:1px solid var(--border);border-radius:4px;padding:16px 18px;font-size:12px;line-height:2;">
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0 32px;">
+
+      <div>
+        <p style="font-size:10px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--green);margin:0 0 8px;">Capital stack</p>
+
+        <div style="margin-bottom:6px;">
+          <span style="color:var(--muted);">Equity (fixed)</span><br>
+          <code style="background:var(--mist);padding:2px 6px;border-radius:3px;font-size:12px;">= Total project cost × 40%</code><br>
+          <code style="background:var(--mist);padding:2px 6px;border-radius:3px;font-size:12px;">= $37,539,270 × 0.40 = <strong>$15,015,708</strong></code>
+        </div>
+
+        <div style="margin-bottom:6px;">
+          <span style="color:var(--muted);">Halal raise</span><br>
+          <code style="background:var(--mist);padding:2px 6px;border-radius:3px;font-size:12px;">= Total − Equity − City − AHPP − BCH − Phil − Loan</code><br>
+          <code style="background:var(--mist);padding:2px 6px;border-radius:3px;font-size:12px;">Base: $37,539,270 − $15,016k − $3,582k − $6,454k − $4,000k = <strong id="eq-halal">$8,487,089</strong></code>
+        </div>
+
+        <div style="margin-bottom:6px;">
+          <span style="color:var(--muted);">Total raise</span><br>
+          <code style="background:var(--mist);padding:2px 6px;border-radius:3px;font-size:12px;">= Halal raise + Owner equity</code><br>
+          <code style="background:var(--mist);padding:2px 6px;border-radius:3px;font-size:12px;">= <span id="eq-halal2">$8,487,089</span> + $15,015,708 = <strong id="eq-total-raise">$23,502,797</strong></code>
+        </div>
+      </div>
+
+      <div>
+        <p style="font-size:10px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--green);margin:0 0 8px;">Returns</p>
+
+        <div style="margin-bottom:6px;">
+          <span style="color:var(--muted);">Annual financing cost</span><br>
+          <code style="background:var(--mist);padding:2px 6px;border-radius:3px;font-size:12px;">= Total raise × Offered rate</code><br>
+          <code style="background:var(--mist);padding:2px 6px;border-radius:3px;font-size:12px;">= <span id="eq-raise3">$23,502,797</span> × <span id="eq-rate2">2.75%</span> = <strong id="eq-fincost">$646,327</strong>/yr</code>
+        </div>
+
+        <div style="margin-bottom:6px;">
+          <span style="color:var(--muted);">Max supportable rate</span><br>
+          <code style="background:var(--mist);padding:2px 6px;border-radius:3px;font-size:12px;">= Effective NOI ÷ Total raise</code><br>
+          <code style="background:var(--mist);padding:2px 6px;border-radius:3px;font-size:12px;">Effective NOI = Year 1 NOI + Zakat − annual sinking fund reserve (loan ÷ term)</code><br>
+          <code style="background:var(--mist);padding:2px 6px;border-radius:3px;font-size:12px;">= <span id="eq-noi">$849,845</span> ÷ <span id="eq-raise4">$23,502,797</span> = <strong id="eq-maxrate">3.62%</strong></code>
+        </div>
+
+        <div style="margin-bottom:6px;">
+          <span style="color:var(--muted);">Debt coverage ratio (DCR)</span><br>
+          <code style="background:var(--mist);padding:2px 6px;border-radius:3px;font-size:12px;">= Year 1 NOI ÷ Annual financing cost</code><br>
+          <code style="background:var(--mist);padding:2px 6px;border-radius:3px;font-size:12px;">= $849,845 ÷ <span id="eq-fincost2">$646,327</span> = <strong id="eq-dcr2">1.31x</strong></code>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border);color:var(--muted);font-size:11px;line-height:1.6;">
+      <strong style="color:var(--kiswah);">Key assumptions:</strong>
+      Year 1 NOI = <strong>$849,845</strong> (proforma revenue $1,469,884 − operating expenses $620,040).
+      Equity = 40% of total project cost, fixed.
+      Both tranches (Halal financing + owner equity buyback) earn the same offered rate.
+      <strong>Philanthropic gifts</strong> are permanent capital — they reduce the Halal raise with no repayment obligation, leaving full NOI available for investors.
+      <strong>0% loans</strong> also reduce the Halal raise. A balloon repayment requires an annual sinking fund reserve (loan ÷ term) set aside from NOI — so a year 5 balloon drains more NOI per year than a year 10 balloon, resulting in a lower max supportable rate. The toggle reflects this: year 10 → smaller reserve → higher rate.
+      Zakat is operating support only; it increases NOI but does not reduce the raise.
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <span>Halal Community Infrastructure Fund · <strong>halalfund.ca</strong></span>
+  <span>Diamond at Dunluce · Edmonton, Treaty 6 Territory</span>
+</div>
+</div>
+
+<script>
+// ── Exact constants from spreadsheet ────────────────────────────────────
+const TOTAL      = 37539270.30;
+const EQUITY     = TOTAL * 0.40;   // 15,015,708.12 — bought back yrs 1-4
+const HALAL_BASE = 8487089.15;     // original proforma Halal raise
+const NOI_Y1     = 849844.83;      // Year 1 NOI before financing (Revenue sheet D90)
+const CITY_BASE  = 3582346.29;
+
+// Max rate = NOI / (EQUITY + halal)
+// Both tranches earn the same offered rate.
+// DCR = NOI / ((EQUITY + halal) * rate)
+
+const fmt  = n => '$' + Math.round(n).toLocaleString();
+const fmtM = n => '$' + (n / 1e6).toFixed(2) + 'M';
+const pct  = (n, dp=2) => (n * 100).toFixed(dp) + '%';
+
+let cStack, cROI, ready = false;
+
+function inputs() {
+  return {
+    city:     3582346.29,   // confirmed maximum, fixed — not a slider
+    ahpp:     +document.getElementById('s-ahpp').value,
+    bch:      +document.getElementById('s-bch').value,
+    phil:     +document.getElementById('s-phil').value,
+    loan:     +document.getElementById('s-loan').value,
+    loanterm: +document.getElementById('s-loanterm').value,
+    zakat:    +document.getElementById('s-zakat').value,
+    rate:     +document.getElementById('s-rate').value / 100
+  };
+}
+
+function calc(v) {
+  const govGrants    = v.city + v.ahpp + v.bch;
+  const conc         = govGrants + v.phil + v.loan;
+  const halal        = Math.max(1, TOTAL - EQUITY - v.city - v.ahpp - v.bch - v.phil - v.loan);
+  const totalRaise   = EQUITY + halal;
+  const noi          = NOI_Y1 + v.zakat;
+  // Balloon repayment requires an annual sinking fund reserve = loan ÷ term
+  // This comes out of NOI available to investors.
+  // Year 5 balloon → higher annual reserve → lower max rate
+  // Year 10 balloon → lower annual reserve → higher max rate
+  const loanRepay    = v.loan > 0 ? v.loan / v.loanterm : 0;
+  const noiNetOfLoan = noi - loanRepay;
+  const netMaxRate   = noiNetOfLoan / totalRaise;
+  const finCost      = totalRaise * v.rate;
+  const dcr          = noiNetOfLoan / finCost;
+  const remaining    = noiNetOfLoan - finCost;
+  const covered      = v.rate <= netMaxRate;
+  return { govGrants, conc, halal, totalRaise, noi, loanRepay, noiNetOfLoan, netMaxRate, finCost, dcr, remaining, covered };
+}
+
+function buildCurve(zakat, rate) {
+  const pts = [];
+  for (let c = 0; c <= 18000000; c += 100000) {
+    const h    = Math.max(1, TOTAL - EQUITY - c);
+    // Curve assumes concessional capital is grants/phil (no repayment drag)
+    // so it shows the theoretical max at each level of non-repayable capital
+    const noi  = NOI_Y1 + zakat;
+    const maxR = noi / (EQUITY + h);
+    pts.push({ c, maxR: maxR * 100, offered: rate * 100 });
+  }
+  return pts;
+}
+
+function initCharts() {
+  cROI = new Chart(document.getElementById('cROI').getContext('2d'), {
+    type: 'line',
+    data: { labels: [], datasets: [
+      { label: 'Max supportable', data: [],
+        borderColor: '#275D43', backgroundColor: 'rgba(39,93,67,0.1)',
+        fill: true, tension: 0.4, pointRadius: 0, borderWidth: 2.5 },
+      { label: 'Offered rate', data: [],
+        borderColor: '#E09964', borderDash: [5,3], borderWidth: 2,
+        pointRadius: 0, fill: false },
+      { label: 'Current', data: [],
+        borderColor: '#BB2D37', backgroundColor: '#BB2D37',
+        pointRadius: 8, showLine: false }
+    ]},
+    options: {
+      responsive: true, maintainAspectRatio: false, animation: false,
+      plugins: { legend: { display: false }, tooltip: { callbacks: {
+        title: i => 'Concessional capital: ' + i[0].label,
+        label: ctx => ctx.datasetIndex === 2
+          ? 'Current: ' + ctx.parsed.y.toFixed(2) + '%'
+          : ctx.datasetIndex === 0
+            ? 'Max supportable: ' + ctx.parsed.y.toFixed(2) + '%'
+            : 'Offered: ' + ctx.parsed.y.toFixed(2) + '%'
+      }}},
+      scales: {
+        x: { ticks: { maxRotation: 0, autoSkip: true, maxTicksLimit: 7, font: { size: 10 } }, grid: { display: false } },
+        y: { min: 0,
+             ticks: { callback: v => v.toFixed(1) + '%', font: { size: 10 } },
+             title: { display: true, text: 'Return rate (% p.a.)', font: { size: 10 }, color: '#888' } }
+      }
+    }
+  });
+
+  cStack = new Chart(document.getElementById('cStack').getContext('2d'), {
+    type: 'bar',
+    data: { labels: [''],
+      datasets: [
+        { label: 'Gov grants',    data: [0], backgroundColor: '#275D43' },
+        { label: 'Philanthropic', data: [0], backgroundColor: '#a3c4b2' },
+        { label: '0% loan',       data: [0], backgroundColor: '#E09964' },
+        { label: 'Halal',         data: [0], backgroundColor: '#5a9fd4' },
+        { label: 'Equity',        data: [EQUITY], backgroundColor: '#aaa' }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false, animation: false,
+      plugins: { legend: { display: false }, tooltip: { callbacks: {
+        label: ctx => ctx.dataset.label + ': ' + fmt(ctx.parsed.y) }}},
+      scales: {
+        x: { stacked: true, ticks: { display: false }, grid: { display: false } },
+        y: { stacked: true, max: 40000000,
+             ticks: { callback: v => fmtM(v), font: { size: 10 } } }
+      }
+    }
+  });
+
+  ready = true;
+  update();
+}
+
+function update() {
+  const v = inputs();
+  const c = calc(v);
+
+  // Slider labels
+  document.getElementById('v-ahpp').textContent  = fmt(v.ahpp);
+  document.getElementById('v-bch').textContent   = fmt(v.bch);
+  document.getElementById('v-phil').textContent  = fmt(v.phil);
+  document.getElementById('v-loan').textContent  = fmt(v.loan);
+  const loanRepay = v.loan > 0 ? v.loan / v.loanterm : 0;
+  document.getElementById('v-loanterm').textContent =
+    v.loan > 0
+      ? 'yr ' + v.loanterm + ' balloon — ' + fmt(Math.round(loanRepay)) + '/yr reserve'
+      : 'full balance due year ' + v.loanterm;
+  document.getElementById('v-zakat').textContent = fmt(v.zakat) + '/yr';
+  document.getElementById('v-rate').textContent  = pct(v.rate);
+
+  // Raise cards
+  document.getElementById('rc-halal').textContent = fmt(c.halal);
+  document.getElementById('rc-total').textContent = fmt(c.totalRaise);
+
+  // Return hero
+  const offEl = document.getElementById('rh-offered');
+  offEl.textContent = pct(v.rate);
+
+  document.getElementById('rh-cost').textContent = 'costs ' + fmt(c.finCost) + '/yr';
+  document.getElementById('rh-max').textContent  = pct(c.netMaxRate);
+
+  const dcrEl = document.getElementById('rh-dcr');
+  dcrEl.textContent = c.dcr.toFixed(2) + 'x';
+  dcrEl.style.color = c.dcr >= 1.2 ? 'var(--kiswah)' : c.dcr >= 1.0 ? '#b07000' : 'var(--yaqoot)';
+
+  // Coverage note
+  const noteEl = document.getElementById('coverage-note');
+  const loanNote = v.loan > 0 ? ' (includes ' + fmt(Math.round(loanRepay)) + '/yr sinking fund reserve for ' + fmt(v.loan) + ' balloon due year ' + v.loanterm + ')' : '';
+  if (c.covered) {
+    noteEl.className = 'note';
+    noteEl.textContent = '✓ ' + pct(v.rate) + ' is covered — ' + fmt(Math.round(c.remaining)) + ' remaining after financing' + loanNote + '. DCR: ' + c.dcr.toFixed(2) + 'x.';
+  } else {
+    noteEl.className = 'note warn';
+    noteEl.textContent = '⚠ ' + pct(v.rate) + ' exceeds what NOI can support' + loanNote + '. Add more grant capital or lower the offered rate.';
+  }
+
+  // Breakdown
+  document.getElementById('b-city').textContent  = fmt(v.city);
+  document.getElementById('b-ahpp').textContent  = fmt(v.ahpp);
+  document.getElementById('b-bch').textContent   = fmt(v.bch);
+  document.getElementById('b-phil').textContent  = fmt(v.phil);
+  document.getElementById('b-loan').textContent  = fmt(v.loan);
+  document.getElementById('b-halal').textContent = fmt(c.halal);
+  document.getElementById('b-zakat').textContent = fmt(v.zakat) + '/yr';
+
+  // Equations section
+  document.getElementById('eq-noi').textContent       = fmt(Math.round(c.noiNetOfLoan));
+  document.getElementById('eq-halal').textContent     = fmt(c.halal);
+  document.getElementById('eq-halal2').textContent    = fmt(c.halal);
+  document.getElementById('eq-total-raise').textContent = fmt(c.totalRaise);
+  document.getElementById('eq-raise3').textContent    = fmt(c.totalRaise);
+  document.getElementById('eq-rate2').textContent     = pct(v.rate);
+  document.getElementById('eq-fincost').textContent   = fmt(c.finCost);
+  document.getElementById('eq-raise4').textContent    = fmt(c.totalRaise);
+  document.getElementById('eq-maxrate').textContent   = pct(c.netMaxRate);
+  document.getElementById('eq-fincost2').textContent  = fmt(c.finCost);
+  document.getElementById('eq-dcr2').textContent      = c.dcr.toFixed(2) + 'x';
+
+  if (!ready) return;
+
+  cStack.data.datasets[0].data = [c.govGrants];
+  cStack.data.datasets[1].data = [v.phil];
+  cStack.data.datasets[2].data = [v.loan];
+  cStack.data.datasets[3].data = [c.halal];
+  cStack.data.datasets[4].data = [EQUITY];
+  cStack.update('none');
+
+  const pts = buildCurve(v.zakat, v.rate);
+  cROI.data.labels = pts.map(d => fmtM(d.c));
+  cROI.data.datasets[0].data = pts.map(d => d.maxR);
+  cROI.data.datasets[1].data = pts.map(d => d.offered);
+  // Dot x = current concessional level, dot y = actual max rate after loan repayment drag
+  // This shows the loan drag pulling the dot below the curve vs a pure philanthropic gift
+  const dotY = c.netMaxRate * 100;
+  const idx  = pts.reduce((b, d, i) =>
+    Math.abs(d.c - c.conc) < Math.abs(pts[b].c - c.conc) ? i : b, 0);
+  cROI.data.datasets[2].backgroundColor = c.covered ? '#275D43' : '#BB2D37';
+  cROI.data.datasets[2].borderColor      = c.covered ? '#275D43' : '#BB2D37';
+  cROI.data.datasets[2].data = pts.map((_, i) => i === idx ? dotY : null);
+  cROI.update('none');
+}
+
+function setTerm(t) {
+  document.getElementById('s-loanterm').value = t;
+  document.getElementById('term-5').style.background  = t === 5  ? 'var(--green)' : 'white';
+  document.getElementById('term-5').style.color        = t === 5  ? 'white' : 'var(--muted)';
+  document.getElementById('term-5').style.fontWeight   = t === 5  ? '700' : '400';
+  document.getElementById('term-10').style.background = t === 10 ? 'var(--green)' : 'white';
+  document.getElementById('term-10').style.color       = t === 10 ? 'white' : 'var(--muted)';
+  document.getElementById('term-10').style.fontWeight  = t === 10 ? '700' : '400';
+  onSlider();
+}
+
+function onSlider() {
+  ['worst','base','ahpp9','best'].forEach(s =>
+    document.getElementById('btn-'+s).classList.remove('active'));
+  document.getElementById('btn-custom').classList.add('active');
+  update();
+}
+
+function applyScenario(s) {
+  ['worst','base','ahpp9','best','custom'].forEach(id =>
+    document.getElementById('btn-'+id).classList.toggle('active', id === s));
+  const sl = (id, val) => document.getElementById(id).value = val;
+  if (s === 'worst') {
+    sl('s-ahpp',6454127); sl('s-bch',0);
+    sl('s-phil',0); sl('s-loan',0); sl('s-zakat',0); sl('s-rate',2.75);
+  } else if (s === 'base') {
+    sl('s-ahpp',6454127); sl('s-bch',4000000);
+    sl('s-phil',0); sl('s-loan',0); sl('s-zakat',0); sl('s-rate',2.75);
+  } else if (s === 'ahpp9') {
+    sl('s-ahpp',9000000); sl('s-bch',4000000);
+    sl('s-phil',0); sl('s-loan',0); sl('s-zakat',0); sl('s-rate',2.75);
+  } else if (s === 'best') {
+    sl('s-ahpp',9000000); sl('s-bch',4000000);
+    sl('s-phil',2000000); sl('s-loan',0); sl('s-zakat',0); sl('s-rate',2.75);
+  }
+  update();
+}
+
+window.addEventListener('load', initCharts);
+</script>
+</body>
+</html>
