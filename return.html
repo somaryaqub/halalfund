@@ -457,7 +457,7 @@ input[type=range] { flex: 1; cursor: pointer; accent-color: var(--green); }
         <div style="margin-bottom:6px;">
           <span style="color:var(--muted);">Max supportable rate</span><br>
           <code style="background:var(--mist);padding:2px 6px;border-radius:3px;font-size:12px;">= Effective NOI ÷ Total raise</code><br>
-          <code style="background:var(--mist);padding:2px 6px;border-radius:3px;font-size:12px;">Effective NOI = Year 1 NOI + Zakat − annual sinking fund reserve (loan ÷ term)</code><br>
+          <code style="background:var(--mist);padding:2px 6px;border-radius:3px;font-size:12px;">Effective NOI = Year 1 NOI + Zakat (0% loan has no annual cash impact — refinanced at maturity)</code><br>
           <code style="background:var(--mist);padding:2px 6px;border-radius:3px;font-size:12px;">= <span id="eq-noi">$849,845</span> ÷ <span id="eq-raise4">$23,502,797</span> = <strong id="eq-maxrate">3.62%</strong></code>
         </div>
 
@@ -476,7 +476,7 @@ input[type=range] { flex: 1; cursor: pointer; accent-color: var(--green); }
       Equity = 40% of total project cost, fixed.
       Both tranches (Halal financing + owner equity buyback) earn the same offered rate.
       <strong>Philanthropic gifts</strong> are permanent capital — they reduce the Halal raise with no repayment obligation, leaving full NOI available for investors.
-      <strong>0% loans</strong> also reduce the Halal raise. A balloon repayment requires an annual sinking fund reserve (loan ÷ term) set aside from NOI — so a year 5 balloon drains more NOI per year than a year 10 balloon, resulting in a lower max supportable rate. The toggle reflects this: year 10 → smaller reserve → higher rate.
+      <strong>0% loans</strong> reduce the Halal raise with no annual cash impact — they are refinanced at maturity (year 5 or 10), the same way Halal financing is handled. The toggle shows when the refinance obligation falls due.
       Zakat is operating support only; it increases NOI but does not reduce the raise.
     </div>
   </div>
@@ -526,12 +526,12 @@ function calc(v) {
   const halal        = Math.max(1, TOTAL - EQUITY - v.city - v.ahpp - v.bch - v.phil - v.loan);
   const totalRaise   = EQUITY + halal;
   const noi          = NOI_Y1 + v.zakat;
-  // Balloon repayment requires an annual sinking fund reserve = loan ÷ term
-  // This comes out of NOI available to investors.
-  // Year 5 balloon → higher annual reserve → lower max rate
-  // Year 10 balloon → lower annual reserve → higher max rate
-  const loanRepay    = v.loan > 0 ? v.loan / v.loanterm : 0;
-  const noiNetOfLoan = noi - loanRepay;
+  // 0% loan is refinanced at maturity (yr 5 or yr 10) — same as Halal financing.
+  // No annual sinking fund or repayment from NOI.
+  // It reduces the Halal raise now (same effect as philanthropic),
+  // and increases the refinance obligation at the balloon due date.
+  const loanRepay    = 0;
+  const noiNetOfLoan = noi;
   const netMaxRate   = noiNetOfLoan / totalRaise;
   const finCost      = totalRaise * v.rate;
   const dcr          = noiNetOfLoan / finCost;
@@ -622,11 +622,10 @@ function update() {
   document.getElementById('v-bch').textContent   = fmt(v.bch);
   document.getElementById('v-phil').textContent  = fmt(v.phil);
   document.getElementById('v-loan').textContent  = fmt(v.loan);
-  const loanRepay = v.loan > 0 ? v.loan / v.loanterm : 0;
   document.getElementById('v-loanterm').textContent =
     v.loan > 0
-      ? 'yr ' + v.loanterm + ' balloon — ' + fmt(Math.round(loanRepay)) + '/yr reserve'
-      : 'full balance due year ' + v.loanterm;
+      ? fmt(v.loan) + ' refinanced year ' + v.loanterm
+      : 'refinanced at year ' + v.loanterm;
   document.getElementById('v-zakat').textContent = fmt(v.zakat) + '/yr';
   document.getElementById('v-rate').textContent  = pct(v.rate);
 
@@ -647,7 +646,7 @@ function update() {
 
   // Coverage note
   const noteEl = document.getElementById('coverage-note');
-  const loanNote = v.loan > 0 ? ' (includes ' + fmt(Math.round(loanRepay)) + '/yr sinking fund reserve for ' + fmt(v.loan) + ' balloon due year ' + v.loanterm + ')' : '';
+  const loanNote = v.loan > 0 ? ' (0% loan of ' + fmt(v.loan) + ' refinanced year ' + v.loanterm + ')' : '';
   if (c.covered) {
     noteEl.className = 'note';
     noteEl.textContent = '✓ ' + pct(v.rate) + ' is covered — ' + fmt(Math.round(c.remaining)) + ' remaining after financing' + loanNote + '. DCR: ' + c.dcr.toFixed(2) + 'x.';
