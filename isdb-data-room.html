@@ -1,0 +1,1414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IslamicFamily — IsDB Data Room | Halal Affordable Housing Investment Fund</title>
+<link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400;0,500;0,700;1,400&family=Alegreya+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --if-green: #275D43;
+    --if-green-light: #e8f2ed;
+    --if-green-mid: #3d7a5a;
+    --if-brown: #E09964;
+    --if-brown-light: #fdf5ec;
+    --if-mist: #FAFAF2;
+    --if-black: #353535;
+    --if-red: #BB2D37;
+    --if-border: rgba(39,93,67,0.15);
+    --if-border-mid: rgba(39,93,67,0.25);
+    --text-secondary: #5a5a5a;
+    --text-muted: #888;
+    --radius: 8px;
+    --radius-lg: 12px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Alegreya Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--if-black);
+    background: var(--if-mist);
+  }
+
+  /* TOP BANNER */
+  .top-banner {
+    background: var(--if-green);
+    color: white;
+    padding: 10px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+  }
+  .top-banner a { color: rgba(255,255,255,0.7); text-decoration: none; }
+  .top-banner .badge {
+    background: var(--if-brown);
+    color: white;
+    padding: 3px 10px;
+    border-radius: 3px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  /* HEADER */
+  header {
+    background: white;
+    border-bottom: 1px solid var(--if-border);
+    padding: 28px 40px 24px;
+  }
+  .header-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    display: flex;
+    align-items: flex-start;
+    gap: 32px;
+  }
+  .org-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+  }
+  .logo-icon {
+    width: 52px;
+    height: 52px;
+  }
+  .org-name {
+    font-family: 'Alegreya', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--if-green);
+    line-height: 1.1;
+  }
+  .org-tagline {
+    font-size: 11px;
+    color: var(--text-secondary);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+  .header-divider {
+    width: 1px;
+    height: 52px;
+    background: var(--if-border);
+    flex-shrink: 0;
+  }
+  .header-right {
+    flex: 1;
+  }
+  .header-right h1 {
+    font-family: 'Alegreya', serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--if-black);
+    line-height: 1.2;
+  }
+  .header-right .subtitle {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-top: 4px;
+  }
+  .header-meta {
+    display: flex;
+    gap: 16px;
+    margin-top: 12px;
+    flex-wrap: wrap;
+  }
+  .meta-pill {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--text-secondary);
+    background: var(--if-green-light);
+    padding: 4px 10px;
+    border-radius: 20px;
+  }
+  .meta-pill.active {
+    background: var(--if-green);
+    color: white;
+    font-weight: 500;
+  }
+
+  /* HAMBURGER NAV */
+  .nav-toggle {
+    position: fixed;
+    top: 16px;
+    right: 20px;
+    z-index: 200;
+    width: 40px;
+    height: 40px;
+    background: var(--if-green);
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 0;
+    box-shadow: 0 2px 8px rgba(39,93,67,0.25);
+  }
+  .nav-toggle span {
+    display: block;
+    width: 18px;
+    height: 2px;
+    background: white;
+    border-radius: 2px;
+    transition: transform 0.2s, opacity 0.2s;
+  }
+  .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-toggle.open span:nth-child(2) { opacity: 0; }
+  .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  .nav-drawer {
+    position: fixed;
+    top: 0;
+    right: -260px;
+    width: 240px;
+    height: 100vh;
+    background: white;
+    border-left: 1px solid var(--if-border);
+    z-index: 190;
+    transition: right 0.25s ease;
+    overflow-y: auto;
+    padding: 64px 0 32px;
+    box-shadow: -4px 0 20px rgba(39,93,67,0.08);
+  }
+  .nav-drawer.open { right: 0; }
+  .nav-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(39,93,67,0.15);
+    z-index: 180;
+  }
+  .nav-overlay.open { display: block; }
+  .nav-drawer ul { list-style: none; padding: 0; }
+  .nav-drawer ul li a {
+    display: block;
+    padding: 11px 24px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    text-decoration: none;
+    border-left: 3px solid transparent;
+    transition: color 0.15s, border-color 0.15s, background 0.15s;
+  }
+  .nav-drawer ul li a:hover {
+    color: var(--if-green);
+    border-left-color: var(--if-green);
+    background: var(--if-green-light);
+  }
+  .nav-drawer .nav-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--if-brown);
+    padding: 16px 24px 6px;
+  }
+
+  /* MAIN */
+  main {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 40px 40px 80px;
+  }
+
+  /* SECTION */
+  .section {
+    margin-bottom: 56px;
+  }
+  .section-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--if-brown);
+    margin-bottom: 8px;
+  }
+  .section h2 {
+    font-family: 'Alegreya', serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--if-green);
+    margin-bottom: 4px;
+  }
+  .section-intro {
+    font-size: 15px;
+    color: var(--text-secondary);
+    margin-bottom: 24px;
+    max-width: 680px;
+    line-height: 1.7;
+  }
+  .section-rule {
+    border: none;
+    border-top: 1px solid var(--if-border);
+    margin-bottom: 24px;
+  }
+
+  /* MILESTONE CALLOUT */
+  .milestone-callout {
+    background: var(--if-green);
+    color: white;
+    padding: 20px 28px;
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 40px;
+  }
+  .milestone-callout .date-block {
+    flex-shrink: 0;
+    text-align: center;
+    background: rgba(255,255,255,0.12);
+    border-radius: var(--radius);
+    padding: 10px 18px;
+  }
+  .milestone-callout .date-block .day {
+    font-family: 'Alegreya', serif;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1;
+  }
+  .milestone-callout .date-block .month {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.8;
+    margin-top: 2px;
+  }
+  .milestone-callout .content h3 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .milestone-callout .content p {
+    font-size: 13px;
+    opacity: 0.85;
+    line-height: 1.5;
+  }
+  .milestone-callout .amount {
+    margin-left: auto;
+    flex-shrink: 0;
+    text-align: right;
+  }
+  .milestone-callout .amount .figure {
+    font-family: 'Alegreya', serif;
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1;
+  }
+  .milestone-callout .amount .label {
+    font-size: 11px;
+    opacity: 0.75;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  /* STAT GRID */
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+  .stat-card {
+    background: white;
+    border: 0.5px solid var(--if-border);
+    border-radius: var(--radius);
+    padding: 16px;
+    text-align: center;
+  }
+  .stat-card .value {
+    font-family: 'Alegreya', serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--if-green);
+    line-height: 1;
+  }
+  .stat-card .label {
+    font-size: 11px;
+    color: var(--text-secondary);
+    margin-top: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    line-height: 1.3;
+  }
+  .stat-card.highlight {
+    background: var(--if-green-light);
+    border-color: rgba(39,93,67,0.3);
+  }
+  .stat-card.highlight .value { color: var(--if-green); }
+
+  /* INFO CARD */
+  .info-card {
+    background: white;
+    border: 0.5px solid var(--if-border);
+    border-radius: var(--radius-lg);
+    padding: 24px 28px;
+    margin-bottom: 16px;
+  }
+  .info-card h3 {
+    font-family: 'Alegreya', serif;
+    font-size: 18px;
+    color: var(--if-green);
+    margin-bottom: 12px;
+  }
+  .info-card p {
+    font-size: 15px;
+    color: var(--if-black);
+    line-height: 1.7;
+  }
+  .info-card .card-meta {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 8px;
+  }
+  .info-card.accent-left {
+    border-left: 3px solid var(--if-green);
+  }
+  .info-card.accent-brown {
+    border-left: 3px solid var(--if-brown);
+  }
+
+  /* TWO COLUMN */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  /* THREE COLUMN */
+  .three-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+  }
+
+  /* DETAIL TABLE */
+  .detail-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    background: white;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 0.5px solid var(--if-border);
+  }
+  .detail-table th {
+    background: var(--if-green-light);
+    color: var(--if-green);
+    font-weight: 600;
+    padding: 10px 16px;
+    text-align: left;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid var(--if-border);
+  }
+  .detail-table td {
+    padding: 10px 16px;
+    border-bottom: 0.5px solid var(--if-border);
+    vertical-align: top;
+  }
+  .detail-table tr:last-child td { border-bottom: none; }
+  .detail-table td:first-child {
+    font-weight: 500;
+    color: var(--text-secondary);
+    width: 35%;
+  }
+  .detail-table tr:hover td { background: var(--if-mist); }
+
+  /* DOCUMENT LIST */
+  .doc-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .doc-item {
+    background: white;
+    border: 0.5px solid var(--if-border);
+    border-radius: var(--radius);
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    text-decoration: none;
+    color: var(--if-black);
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .doc-item:hover {
+    border-color: var(--if-green);
+    background: var(--if-green-light);
+  }
+  .doc-icon {
+    width: 36px;
+    height: 36px;
+    background: var(--if-green-light);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .doc-icon svg { width: 18px; height: 18px; fill: var(--if-green); }
+  .doc-title {
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.3;
+    color: var(--if-black);
+  }
+  .doc-type {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-top: 2px;
+  }
+
+  /* TIMELINE */
+  .timeline {
+    position: relative;
+    padding-left: 28px;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 6px;
+    bottom: 6px;
+    width: 1px;
+    background: var(--if-border-mid);
+  }
+  .timeline-item {
+    position: relative;
+    margin-bottom: 24px;
+  }
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -24px;
+    top: 6px;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: white;
+    border: 2px solid var(--if-green);
+  }
+  .timeline-item.complete::before { background: var(--if-green); }
+  .timeline-item.active::before {
+    background: var(--if-brown);
+    border-color: var(--if-brown);
+    box-shadow: 0 0 0 3px rgba(224,153,100,0.25);
+  }
+  .timeline-year {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--if-brown);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+  }
+  .timeline-event {
+    font-size: 14px;
+    color: var(--if-black);
+    line-height: 1.5;
+  }
+  .timeline-event strong { color: var(--if-green); }
+
+  /* AWARDS */
+  .award-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 0;
+    border-bottom: 0.5px solid var(--if-border);
+  }
+  .award-row:last-child { border-bottom: none; }
+  .award-icon {
+    width: 32px;
+    height: 32px;
+    background: var(--if-brown-light);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 15px;
+  }
+  .award-name { font-size: 14px; font-weight: 500; }
+  .award-org { font-size: 12px; color: var(--text-secondary); }
+
+  /* CAPITAL STACK */
+  .capital-bar {
+    height: 24px;
+    border-radius: 4px;
+    overflow: hidden;
+    display: flex;
+    margin-bottom: 10px;
+  }
+  .capital-segment {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    color: white;
+  }
+  .cap-gov { background: var(--if-green); width: 30%; }
+  .cap-fund { background: var(--if-brown); width: 22.5%; }
+  .cap-remain { background: #c0c0b8; width: 47.5%; }
+  .capital-legend {
+    display: flex;
+    gap: 20px;
+    font-size: 12px;
+    color: var(--text-secondary);
+    flex-wrap: wrap;
+  }
+  .capital-legend span { display: flex; align-items: center; gap: 6px; }
+  .cap-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* CONTACT */
+  .contact-card {
+    background: white;
+    border: 0.5px solid var(--if-border);
+    border-radius: var(--radius-lg);
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .contact-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--if-green-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Alegreya', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--if-green);
+    flex-shrink: 0;
+  }
+  .contact-name {
+    font-weight: 600;
+    font-size: 15px;
+  }
+  .contact-role { font-size: 13px; color: var(--text-secondary); }
+  .contact-email {
+    font-size: 13px;
+    color: var(--if-green);
+    text-decoration: none;
+    display: block;
+    margin-top: 2px;
+  }
+  .contact-email:hover { text-decoration: underline; }
+
+  /* SHARIAH BOX */
+  .shariah-box {
+    background: var(--if-green-light);
+    border: 1px solid rgba(39,93,67,0.2);
+    border-radius: var(--radius-lg);
+    padding: 22px 28px;
+  }
+  .shariah-box h3 {
+    font-family: 'Alegreya', serif;
+    font-size: 18px;
+    color: var(--if-green);
+    margin-bottom: 10px;
+  }
+  .shariah-box .arabic {
+    font-size: 20px;
+    color: var(--if-green);
+    font-weight: 400;
+    margin-bottom: 8px;
+    direction: rtl;
+    text-align: right;
+    opacity: 0.7;
+  }
+  .principles-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 14px;
+  }
+  .principle {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    line-height: 1.4;
+  }
+  .principle-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--if-green);
+    flex-shrink: 0;
+    margin-top: 5px;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--if-green);
+    color: rgba(255,255,255,0.7);
+    padding: 24px 40px;
+    text-align: center;
+    font-size: 12px;
+  }
+  footer a { color: rgba(255,255,255,0.5); }
+
+  /* LINK */
+  a.ext {
+    color: var(--if-green);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(39,93,67,0.3);
+  }
+  a.ext:hover { border-bottom-color: var(--if-green); }
+
+  /* BADGE */
+  .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .badge-green { background: var(--if-green-light); color: var(--if-green); }
+  .badge-brown { background: var(--if-brown-light); color: #8a5a2a; }
+  .badge-active { background: #e8f7f0; color: #0a6640; }
+
+  @media (max-width: 720px) {
+    .header-inner { flex-direction: column; gap: 16px; }
+    .header-divider { display: none; }
+    main { padding: 24px 20px 60px; }
+    .two-col, .three-col, .doc-list { grid-template-columns: 1fr; }
+    .top-banner { padding: 10px 20px; flex-direction: column; gap: 6px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<div class="top-banner">
+  <span>Prepared for: <strong style="color:white;">Islamic Development Bank (IsDB)</strong> &mdash; Confidential Data Room &mdash; June 2026</span>
+  <span class="badge">Active Capital Raise</span>
+</div>
+
+<header>
+  <div class="header-inner">
+    <div class="org-logo">
+      <img src="https://halalfund.ca/islamicfamily.png" alt="IslamicFamily logo" class="logo-icon" style="object-fit: contain;">
+      <div>
+        <div class="org-name">IslamicFamily</div>
+        <div class="org-tagline">created to serve · est. 1992</div>
+      </div>
+    </div>
+    <div class="header-divider"></div>
+    <div class="header-right">
+      <h1>Halal Affordable Housing Investment Fund</h1>
+      <div class="subtitle">Canada's first institutional-quality, Shariah-empowered housing investment vehicle</div>
+      <div class="header-meta">
+        <span class="meta-pill active">&#x25CF; &nbsp;Active Capital Raise</span>
+        <span class="meta-pill">&#x1F3D7;&nbsp; Diamond at Dunluce — Edmonton</span>
+        <span class="meta-pill">First close: August 15, 2026</span>
+        <span class="meta-pill">Fund partner: SVX Canada</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="nav-overlay" id="navOverlay" onclick="closeNav()"></div>
+
+<button class="nav-toggle" id="navToggle" aria-label="Open navigation menu" onclick="toggleNav()">
+  <span></span><span></span><span></span>
+</button>
+
+<nav class="nav-drawer" id="navDrawer">
+  <div class="nav-label">Data Room</div>
+  <ul>
+    <li><a href="#about" onclick="closeNav()">About IslamicFamily</a></li>
+    <li><a href="#charitable" onclick="closeNav()">Charitable Status</a></li>
+    <li><a href="#shariah" onclick="closeNav()">Shariah Compliance</a></li>
+    <li><a href="#fund" onclick="closeNav()">The Fund</a></li>
+    <li><a href="#impact" onclick="closeNav()">Impact Stories</a></li>
+    <li><a href="#project" onclick="closeNav()">Pilot Project</a></li>
+    <li><a href="#capital" onclick="closeNav()">Capital Stack</a></li>
+    <li><a href="#team" onclick="closeNav()">Team</a></li>
+    <li><a href="#documents" onclick="closeNav()">Documents</a></li>
+    <li><a href="#contact" onclick="closeNav()">Contact</a></li>
+  </ul>
+</nav>
+
+<main>
+
+  <!-- BIG ASK -->
+  <div style="background: white; border: 1px solid var(--if-border); border-radius: var(--radius-lg); padding: 28px 32px; margin-top: 8px; margin-bottom: 20px; display: flex; align-items: center; gap: 32px; flex-wrap: wrap;">
+    <div style="flex: 1; min-width: 240px;">
+      <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--if-brown); margin-bottom: 6px;">Canada's First Institutional-Quality Halal Housing Fund</div>
+      <div style="font-family: 'Alegreya', serif; font-size: 48px; font-weight: 700; color: var(--if-green); line-height: 1;">$25 Million</div>
+      <div style="font-size: 16px; color: var(--text-secondary); margin-top: 4px;">LP Offering — Shariah-compliant, equity-based, affordable housing</div>
+    </div>
+    <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+      <div style="text-align: center; padding: 14px 20px; background: var(--if-green-light); border-radius: var(--radius);">
+        <div style="font-family: 'Alegreya', serif; font-size: 22px; font-weight: 700; color: var(--if-green);">96</div>
+        <div style="font-size: 11px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 2px;">Affordable homes</div>
+      </div>
+      <div style="text-align: center; padding: 14px 20px; background: var(--if-green-light); border-radius: var(--radius);">
+        <div style="font-family: 'Alegreya', serif; font-size: 22px; font-weight: 700; color: var(--if-green);">~3%</div>
+        <div style="font-size: 11px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 2px;">Target annual return</div>
+      </div>
+      <div style="text-align: center; padding: 14px 20px; background: var(--if-green-light); border-radius: var(--radius);">
+        <div style="font-family: 'Alegreya', serif; font-size: 22px; font-weight: 700; color: var(--if-green);">~$11.1M</div>
+        <div style="font-size: 11px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 2px;">Govt. capital in first</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FIRST-CLOSE NOTICE -->
+  <div style="background: var(--if-green); color: white; border-radius: var(--radius); padding: 10px 20px; margin-bottom: 32px; display: flex; align-items: center; gap: 14px; font-size: 13px; flex-wrap: wrap;">
+    <span style="font-weight: 700; letter-spacing: 0.04em; flex-shrink: 0;">&#x26A0; First-close milestone: August 15, 2026</span>
+    <span style="opacity: 0.85;">The fund must secure a $400,000 initial commitment to exercise the Option to Purchase on 365 Dunluce Rd NW. Early conversations are encouraged.</span>
+  </div>
+
+  <!-- SECONDARY STATS -->
+  <div class="stat-grid" style="margin-bottom: 40px;">
+    <div class="stat-card">
+      <div class="value">264</div>
+      <div class="label">Total bedrooms</div>
+    </div>
+    <div class="stat-card">
+      <div class="value">~$37.6M</div>
+      <div class="label">Pilot project value</div>
+    </div>
+    <div class="stat-card">
+      <div class="value">30+</div>
+      <div class="label">Years of service</div>
+    </div>
+    <div class="stat-card">
+      <div class="value">$50K</div>
+      <div class="label">Min. individual investment</div>
+    </div>
+    <div class="stat-card">
+      <div class="value">8+2</div>
+      <div class="label">Fund term (years)</div>
+    </div>
+    <div class="stat-card highlight">
+      <div class="value">~19%</div>
+      <div class="label">Cash surplus as % of revenue</div>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section class="section" id="about">
+    <div class="section-label">About the Proponent</div>
+    <h2>IslamicFamily — Three Decades of Community Service</h2>
+    <p class="section-intro">IslamicFamily (Islamic Family and Social Services Association) is an Edmonton-based registered charity with over 30 years of service to Muslim and broader communities. The Halal Affordable Housing Investment Fund is the culmination of a generation of groundwork.</p>
+    <hr class="section-rule">
+
+    <div class="two-col">
+      <div class="info-card accent-left">
+        <h3>Who We Are</h3>
+        <p>Founded in September 1992 and incorporated under the Societies Act of Alberta, IslamicFamily has grown from a small community association into one of Canada's most recognized nonprofits. Our programs span family counselling, food security, newcomer settlement, domestic violence support, and now affordable housing development.</p>
+        <p style="margin-top: 10px;">We hold <strong>Imagine Canada accreditation</strong> — a rigorous national standard that fewer than 1% of Canadian charities achieve — attesting to our financial transparency, governance, and program effectiveness.</p>
+      </div>
+      <div>
+        <div class="info-card" style="margin-bottom: 0;">
+          <h3>Organizational Profile</h3>
+          <table class="detail-table" style="border: none; border-radius: 0; font-size: 13px;">
+            <tr><td>Legal Name</td><td>Islamic Family and Social Services Association (IslamicFamily)</td></tr>
+            <tr><td>Incorporated</td><td>September 16, 1992 — Societies Act of Alberta</td></tr>
+            <tr><td>Society Number</td><td>50538821</td></tr>
+            <tr><td>CRA Charity Number</td><td>873835193 RR 0001</td></tr>
+            <tr><td>Territory</td><td>Treaty 6 / Amiskwaciwâskahikan (Edmonton, Alberta)</td></tr>
+            <tr><td>Accreditation</td><td>Imagine Canada Standards Program</td></tr>
+            <tr><td>Executive Director</td><td>Omar Yaqub (ICD.D, DSL, MBA, BSc)</td></tr>
+            <tr><td>Website</td><td><a href="https://islamicfamily.ca" class="ext" target="_blank">islamicfamily.ca</a></td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top: 24px;">
+      <div class="info-card accent-brown">
+        <h3>Institutional History in Housing</h3>
+        <p style="font-size: 14px; margin-bottom: 16px;">This fund is not a new initiative — it is the result of three decades of community need, a decade of barrier-identification, and three years of purpose-built fund design.</p>
+        <div class="timeline">
+          <div class="timeline-item complete">
+            <div class="timeline-year">1992–2015</div>
+            <div class="timeline-event">IslamicFamily incorporated. Housing identified as the underlying crisis in nearly every family intake file. Organizational capacity building begins.</div>
+          </div>
+          <div class="timeline-item complete">
+            <div class="timeline-year">2016–2019</div>
+            <div class="timeline-event">Partnership with <strong>Right at Home</strong> housing developer advanced — then collapsed when conventional interest-bearing debt (prohibited under Shariah) was required. The financing barrier was formally identified.</div>
+          </div>
+          <div class="timeline-item complete">
+            <div class="timeline-year">2021–2023</div>
+            <div class="timeline-event"><strong>Halal Housing Lab</strong> — funded by CMHC — brings together affordable housing, architecture, Islamic finance, and urban planning experts. Wins both a provincial and <strong>national planning award (AIP/CIP)</strong>. Produces the fund structure underpinning HAHIF.</div>
+          </div>
+          <div class="timeline-item complete">
+            <div class="timeline-year">2023–2025</div>
+            <div class="timeline-event">Board formally adopts affordable housing as a strategic priority. <strong>Vivid Homes</strong> identified as development partner. City of Edmonton awards land at Dunluce. Provincial and municipal grants secured (~$10M). SVX Canada engaged as fund management partner.</div>
+          </div>
+          <div class="timeline-item active">
+            <div class="timeline-year">2025–2026 (Now)</div>
+            <div class="timeline-event"><strong>Construction underway</strong> on Diamond at Dunluce. Fund documentation finalized with Pallett Valo LLP. Shariah compliance certified by Mufti Zain Baig. Active capital raise live at <a href="https://halalfund.ca" class="ext" target="_blank">halalfund.ca</a>.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top: 20px;">
+      <p class="section-label" style="margin-bottom: 12px;">Recognition & Awards</p>
+      <div class="info-card">
+        <div class="award-row">
+          <div class="award-icon">🏆</div>
+          <div>
+            <div class="award-name">National Planning Award — Canadian Institute of Planners (CIP)</div>
+            <div class="award-org">Halal Housing Lab — Awarded for innovation in community-led housing design</div>
+          </div>
+        </div>
+        <div class="award-row">
+          <div class="award-icon">🏅</div>
+          <div>
+            <div class="award-name">Alberta Provincial Planning Award — Alberta Institute of Planners (AIP)</div>
+            <div class="award-org">Halal Housing Lab — Recognized for excellence in affordable housing planning</div>
+          </div>
+        </div>
+        <div class="award-row">
+          <div class="award-icon">🏛</div>
+          <div>
+            <div class="award-name">Government of Alberta Inspiration Award — Combatting Domestic Violence</div>
+            <div class="award-org">Province of Alberta — Recognizing IslamicFamily's leadership in family safety and gender-based violence response</div>
+          </div>
+        </div>
+        <div class="award-row">
+          <div class="award-icon">🏅</div>
+          <div>
+            <div class="award-name">Canadian Mental Health Association Award for Professional Care</div>
+            <div class="award-org">CMHA — Recognized for excellence in mental health service delivery within the Muslim community</div>
+          </div>
+        </div>
+        <div class="award-row">
+          <div class="award-icon">⚖</div>
+          <div>
+            <div class="award-name">Alberta Justice Award</div>
+            <div class="award-org">Government of Alberta — Recognizing IslamicFamily's contributions to justice and community wellbeing</div>
+          </div>
+        </div>
+        <div class="award-row">
+          <div class="award-icon">✦</div>
+          <div>
+            <div class="award-name">UmmahWide — Top 40 Most Innovative Muslim Organizations</div>
+            <div class="award-org">National recognition for organizational innovation within the Canadian Muslim nonprofit sector</div>
+          </div>
+        </div>
+        <div class="award-row">
+          <div class="award-icon">✓</div>
+          <div>
+            <div class="award-name">Imagine Canada Standards Accreditation</div>
+            <div class="award-org">National accreditation for governance, financial accountability, and program quality — held by fewer than 1% of Canadian charities</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHARITABLE STATUS -->
+  <section class="section" id="charitable">
+    <div class="section-label">Legal & Charitable Standing</div>
+    <h2>Verified Charitable Registration</h2>
+    <hr class="section-rule">
+
+    <div class="two-col">
+      <div class="info-card">
+        <h3>Canada Revenue Agency Registration</h3>
+        <table class="detail-table" style="border: none; border-radius: 0; font-size: 13px;">
+          <tr><td>CRA Registration Number</td><td><strong>873835193 RR 0001</strong></td></tr>
+          <tr><td>Charity Type</td><td>Public Charitable Organization</td></tr>
+          <tr><td>Status</td><td><span class="badge badge-active">Registered &amp; Active</span></td></tr>
+          <tr><td>Reporting Period</td><td>Annual T3010 returns filed and public</td></tr>
+          <tr><td>Authorized to issue</td><td>Official donation tax receipts (Canada)</td></tr>
+        </table>
+        <div class="card-meta" style="margin-top: 12px;">
+          <a href="https://apps.cra-arc.gc.ca/ebci/hacc/srch/pub/dsplyRprtngPrd/873835193RR0001" class="ext" target="_blank">View CRA public registry listing →</a>
+        </div>
+      </div>
+      <div class="info-card">
+        <h3>Incorporation Document</h3>
+        <p>IslamicFamily holds an original Certificate of Incorporation issued September 16, 1992 under the Societies Act of the Province of Alberta, signed by the Office of the Registrar of Corporations (Consumer and Corporate Affairs), bearing Society Number <strong>50538821</strong>.</p>
+        <p style="margin-top: 10px; font-size: 14px; color: var(--text-secondary);">A certified copy of this certificate is available below in the document package for due diligence review.</p>
+      </div>
+    </div>
+
+    <div class="info-card accent-left" style="margin-top: 16px;">
+      <h3>Board of Directors</h3>
+      <p>IslamicFamily's board is composed of community leaders, professionals, and governance specialists. Board terms of reference and current member profiles are maintained in our governance documentation system.</p>
+      <div class="card-meta" style="margin-top: 8px;">
+        <a href="https://app.notion.com/p/islamicfamily/2aeb46d4433c81e09e5ac0bae5b6e642?v=2aeb46d4433c81b69d90000c005dee3f" class="ext" target="_blank">View current Board of Directors →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SHARIAH -->
+  <section class="section" id="shariah">
+    <div class="section-label">Shariah Compliance</div>
+    <h2>Islamic Finance at the Foundation</h2>
+    <p class="section-intro">Shariah compliance is not an overlay on this fund — it is the reason the fund exists. Every structural element has been designed from first principles to align with Islamic finance.</p>
+    <hr class="section-rule">
+
+    <div class="shariah-box">
+      <div class="arabic">لا رِبَا — No Interest. No Ambiguity.</div>
+      <h3>Certified Shariah-Compliant Structure</h3>
+      <p style="font-size: 14px; line-height: 1.7;">The Halal Affordable Housing Investment Fund is reviewed and certified by <strong>Mufti Zain Baig</strong>, an independent Shariah advisor. The fund uses a <strong>Musharakah (profit-sharing)</strong> structure — investors hold proportional equity, returns derive from real asset performance, and no interest-bearing instruments are used at any level of the capital stack. This structure has been reviewed by legal counsel Pallett Valo LLP and confirmed compatible with Alberta securities regulation.</p>
+      <div class="principles-grid">
+        <div class="principle"><div class="principle-dot"></div><div><strong>No riba (interest).</strong> All returns are profit-sharing based on real asset performance.</div></div>
+        <div class="principle"><div class="principle-dot"></div><div><strong>Asset-backed.</strong> Every unit of capital is tied to a tangible real property.</div></div>
+        <div class="principle"><div class="principle-dot"></div><div><strong>Risk-sharing.</strong> Investors and GP share in the risks and rewards proportionally.</div></div>
+        <div class="principle"><div class="principle-dot"></div><div><strong>Socially responsible.</strong> Proceeds serve affordable housing, a fard kifaya (collective duty).</div></div>
+        <div class="principle"><div class="principle-dot"></div><div><strong>No gharar.</strong> Terms, risk distribution, and return waterfall are fully transparent.</div></div>
+        <div class="principle"><div class="principle-dot"></div><div><strong>Residual to charity.</strong> Residual proceeds, after LP distributions, return to IslamicFamily for charitable purposes.</div></div>
+      </div>
+    </div>
+
+    <div class="two-col" style="margin-top: 16px;">
+      <div class="info-card">
+        <h3>Shariah Advisor</h3>
+        <p><strong>Mufti Zain Baig</strong> serves as independent Shariah compliance advisor to the fund. He has reviewed the GP/LP structure, the Musharakah investment agreement, the LP term sheet, and the investor documentation and issued a compliance certification. Mufti Zain Baig is available for direct engagement with Islamic institutional investors.</p>
+      </div>
+      <div class="info-card">
+        <h3>Fund Structure Summary</h3>
+        <table class="detail-table" style="border: none; border-radius: 0; font-size: 13px;">
+          <tr><td>Structure type</td><td>GP/LP Limited Partnership</td></tr>
+          <tr><td>Islamic finance mode</td><td>Musharakah (joint equity)</td></tr>
+          <tr><td>Return basis</td><td>Net Operating Income (proportional)</td></tr>
+          <tr><td>No interest</td><td>Confirmed at all levels of capital stack</td></tr>
+          <tr><td>Shariah review</td><td>Mufti Zain Baig (independent)</td></tr>
+          <tr><td>Legal counsel</td><td>Pallett Valo LLP</td></tr>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- FUND -->
+  <section class="section" id="fund">
+    <div class="section-label">Investment Structure</div>
+    <h2>Fund Terms &amp; Investor Classes</h2>
+    <hr class="section-rule">
+
+    <table class="detail-table" style="margin-bottom: 20px;">
+      <thead>
+        <tr>
+          <th>Term</th>
+          <th>Detail</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Fund Name</td><td>Halal Affordable Housing Investment Fund LP 1</td></tr>
+        <tr><td>General Partner</td><td>Joint venture company — IslamicFamily (60%) + SVX Canada (40%)</td></tr>
+        <tr><td>Target Fund Size</td><td>$25 million (CAD)</td></tr>
+        <tr><td>Fund Term</td><td>8+2 years</td></tr>
+        <tr><td>Management Fee</td><td>1.75% (impact-linked; +50 bps from Year 2 on achievement of impact targets)</td></tr>
+        <tr><td>Investment Minimum</td><td>$50,000 (individual) / $250,000 (institutional)</td></tr>
+        <tr><td>Target Investors</td><td>Accredited investors — foundations, faith-based institutions, family offices, HNWIs, institutional impact investors</td></tr>
+        <tr><td>Securities Exemption</td><td>Private Issuer Exemption (Alberta Securities Commission)</td></tr>
+        <tr><td>Legal Counsel</td><td>Pallett Valo LLP</td></tr>
+        <tr><td>First Close Target</td><td>$400,000 by August 15, 2026</td></tr>
+        <tr><td>Final Close Target</td><td>March 31, 2028</td></tr>
+      </tbody>
+    </table>
+
+    <div class="three-col">
+      <div class="info-card" style="text-align: center; border-top: 3px solid #888;">
+        <div class="badge badge-brown" style="margin-bottom: 10px;">Class 0</div>
+        <div style="font-family: 'Alegreya', serif; font-size: 20px; color: var(--if-black); font-weight: 700; margin-bottom: 4px;">Capital Return Only</div>
+        <div style="font-size: 13px; color: var(--text-secondary); line-height: 1.5;">Return of principal over a 5-year horizon. For concessional, catalytic, or mission-first investors. No profit above return of capital.</div>
+      </div>
+      <div class="info-card" style="text-align: center; border-top: 3px solid var(--if-green);">
+        <div class="badge badge-green" style="margin-bottom: 10px;">Class 1</div>
+        <div style="font-family: 'Alegreya', serif; font-size: 20px; color: var(--if-green); font-weight: 700; margin-bottom: 4px;">~3% Annual Return</div>
+        <div style="font-size: 13px; color: var(--text-secondary); line-height: 1.5;">Target equity return of 2.5–3% above return of capital over a 10-year horizon. For accredited impact investors seeking modest risk-adjusted returns.</div>
+      </div>
+      <div class="info-card" style="text-align: center; border-top: 3px solid var(--if-brown);">
+        <div class="badge badge-brown" style="margin-bottom: 10px;">Class 2</div>
+        <div style="font-family: 'Alegreya', serif; font-size: 20px; color: var(--if-brown); font-weight: 700; margin-bottom: 4px;">IslamicFamily Equity</div>
+        <div style="font-size: 13px; color: var(--text-secondary); line-height: 1.5;">Residual equity position held by IslamicFamily after all LP investor distributions. Residual proceeds flow to charitable purposes.</div>
+      </div>
+    </div>
+
+    <div class="info-card accent-left" style="margin-top: 16px;">
+      <h3>Philanthropic Pathway (Available to IsDB and Foundations)</h3>
+      <p>In addition to LP equity investment, IsDB and aligned foundations may provide philanthropic or grant contributions directly to IslamicFamily in support of the Dunluce project. Charitable funds bypass the fund structure entirely and flow directly to IslamicFamily for use in the property purchase. Charitable contribution receipts are available for qualifying contributors under CRA guidelines.</p>
+    </div>
+  </section>
+
+  <!-- IMPACT STORIES -->
+  <section class="section" id="impact">
+    <div class="section-label">The Human Reality</div>
+    <h2>The Families Behind the Need</h2>
+    <p class="section-intro">These are not hypothetical profiles. They are composite cases drawn directly from IslamicFamily's intake files — families who have walked through our doors and whom our current capacity, limited to referrals and emergency support, cannot adequately serve. Diamond at Dunluce is built for them.</p>
+    <hr class="section-rule">
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+      <div class="info-card" style="border-left: 3px solid var(--if-brown); padding: 0; overflow: hidden;">
+        <img src="https://halalfund.ca/grandmother.png" alt="A grandmother, daughter and young grandchildren crowded together in a small apartment" style="width: 100%; height: 180px; object-fit: cover; display: block;">
+        <div style="padding: 16px 18px;">
+          <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--if-brown); margin-bottom: 8px;">Housing Intake — Edmonton, 2024</div>
+          <p style="font-size: 14px; font-family: 'Alegreya', serif; font-style: italic; line-height: 1.7; color: var(--if-black);">"A grandmother, her daughter, and four grandchildren shared a 700 sq ft apartment for eleven months while on the waiting list. Three of the children slept in the living room. Their caseworker noted: there is simply nothing available at the size they need."</p>
+          <div style="font-size: 12px; color: var(--text-muted); margin-top: 8px;">Composite case — IslamicFamily intake files</div>
+        </div>
+      </div>
+      <div class="info-card" style="border-left: 3px solid var(--if-brown); padding: 0; overflow: hidden;">
+        <img src="https://halalfund.ca/adam.png" alt="A large extended Muslim family crowded together in a small Edmonton living room" style="width: 100%; height: 180px; object-fit: cover; display: block;">
+        <div style="padding: 16px 18px;">
+          <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--if-brown); margin-bottom: 8px;">Newcomer Support — IslamicFamily</div>
+          <p style="font-size: 14px; font-family: 'Alegreya', serif; font-style: italic; line-height: 1.7; color: var(--if-black);">"Because of the war, Adam now cares for his nephews, nieces, and his own children — a family of twelve. There's no apartment large enough. They end up scattered across multiple units. He wishes that after all this hardship, they could simply be together under one roof."</p>
+          <div style="font-size: 12px; color: var(--text-muted); margin-top: 8px;">Composite case — IslamicFamily newcomer support files</div>
+        </div>
+      </div>
+      <div class="info-card" style="border-left: 3px solid var(--if-brown); padding: 0; overflow: hidden;">
+        <img src="https://halalfund.ca/family8.png" alt="A father at the kitchen table, family moving around him in a cramped home" style="width: 100%; height: 180px; object-fit: cover; display: block;">
+        <div style="padding: 16px 18px;">
+          <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--if-brown); margin-bottom: 8px;">IslamicFamily — 2025</div>
+          <p style="font-size: 14px; font-family: 'Alegreya', serif; font-style: italic; line-height: 1.7; color: var(--if-black);">"A newly landed refugee family of eight was offered a three-bedroom unit — the largest available under subsidy. They accepted, because they had no other choice. Their cultural expectation of privacy and space was considered an unaffordable luxury by every system they encountered."</p>
+          <div style="font-size: 12px; color: var(--text-muted); margin-top: 8px;">Composite case — IslamicFamily housing intake, Edmonton, 2025</div>
+        </div>
+      </div>
+      <div class="info-card" style="border-left: 3px solid var(--if-brown); padding: 0; overflow: hidden;">
+        <img src="https://halalfund.ca/sarah.png" alt="A Muslim woman sitting alone, looking weary and burdened" style="width: 100%; height: 180px; object-fit: cover; display: block;">
+        <div style="padding: 16px 18px;">
+          <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--if-brown); margin-bottom: 8px;">Domestic Violence Support — IslamicFamily</div>
+          <p style="font-size: 14px; font-family: 'Alegreya', serif; font-style: italic; line-height: 1.7; color: var(--if-black);">"A mother living in an abusive situation who cares for both her children and her parents. She wants to leave — but shelters won't accept her whole family. The choice she is given is to leave her parents, abandon her children, or stay. This is not a choice."</p>
+          <div style="font-size: 12px; color: var(--text-muted); margin-top: 8px;">Composite case — IslamicFamily domestic violence support files</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="background: var(--if-green-light); border-radius: var(--radius); padding: 16px 20px; margin-top: 16px; font-size: 14px; color: var(--if-green); line-height: 1.6;">
+      <strong>Housing underpins everything.</strong> IslamicFamily's case files consistently show that stable, appropriately-sized housing is the precondition for every other outcome: employment, mental health, children's education, family unity, and integration. A referral-only model cannot address this at scale. Diamond at Dunluce is how we stop referring and start building.
+    </div>
+  </section>
+
+  <!-- PROJECT -->
+  <section class="section" id="project">
+    <div class="section-label">Pilot Project</div>
+    <h2>Diamond at Dunluce — 365 Dunluce Rd NW, Edmonton</h2>
+    <p class="section-intro">The fund's first investment is a near-shovel-ready, purpose-built affordable housing development designed specifically for extended and newcomer families — the demographic most underserved by Canada's affordable housing system.</p>
+    <hr class="section-rule">
+
+    <div class="two-col">
+      <div>
+        <table class="detail-table" style="margin-bottom: 16px;">
+          <thead><tr><th>Project Specification</th><th></th></tr></thead>
+          <tbody>
+            <tr><td>Address</td><td>365 Dunluce Rd NW, Edmonton, Alberta</td></tr>
+            <tr><td>Total Units</td><td>96 homes across 4 four-storey buildings</td></tr>
+            <tr><td>Total Bedrooms</td><td>264 bedrooms</td></tr>
+            <tr><td>Unit Mix</td><td>92% with 2+ bedrooms; 30% with 4–5 bedrooms</td></tr>
+            <tr><td>Affordability</td><td>50–100% of market rents (depending on grant outcomes)</td></tr>
+            <tr><td>Developer</td><td>Vivid Homes (self-financing construction; no riba at build level)</td></tr>
+            <tr><td>Operator</td><td>IslamicFamily</td></tr>
+            <tr><td>Total Project Value</td><td>~$37.6 million (CAD)</td></tr>
+            <tr><td>Purchase Price (Fund)</td><td>$17,000,000 (initial close, March 2028)</td></tr>
+            <tr><td>Construction status</td><td><span class="badge badge-active">Underway</span></td></tr>
+          </tbody>
+        </table>
+        <div class="info-card" style="background: var(--if-green-light); border-color: rgba(39,93,67,0.2);">
+          <h3 style="color: var(--if-green); font-size: 15px;">Why This Project Matters</h3>
+          <p style="font-size: 13px; line-height: 1.6;">Black Muslim families in Edmonton are 16× more likely to live in subsidized housing than the general population. Muslim Canadians face a core housing need rate of 11% — vs. 4.9% nationally. The average family waits 3–4 years for an affordable family-sized unit. Diamond at Dunluce is purpose-built to change this — 264 bedrooms sized for the families the market has consistently failed.</p>
+        </div>
+      </div>
+      <div>
+        <div class="info-card" style="margin-bottom: 16px;">
+          <h3>Financial Profile at Stabilization</h3>
+          <table class="detail-table" style="border: none; font-size: 13px; border-radius: 0;">
+            <tr><td>Annual gross revenue</td><td><strong>$1,473,079</strong></td></tr>
+            <tr><td>Annual operating expenses</td><td>$1,190,011</td></tr>
+            <tr><td>Cash surplus set aside</td><td>$283,068</td></tr>
+            <tr><td>Cash surplus as % of revenue</td><td><strong>~19.2%</strong></td></tr>
+            <tr><td>Vacancy assumption</td><td>4%</td></tr>
+          </table>
+          <p style="font-size: 12px; color: var(--text-muted); margin-top: 10px;">Revenue includes tenant rent (mixed affordable/market), $100,000/year Zakat rent supplement, and parking income.</p>
+        </div>
+        <div class="info-card">
+          <h3>Community Impact Metrics</h3>
+          <div style="font-size: 13px; line-height: 1.6;">
+            <p>&#x2714;&nbsp; 96 families permanently housed in dignified, affordable, appropriately-sized homes</p>
+            <p style="margin-top: 6px;">&#x2714;&nbsp; Priority for families with core housing need (&lt;30% of pre-tax income on housing)</p>
+            <p style="margin-top: 6px;">&#x2714;&nbsp; Annual impact reporting to investors aligned with SDG 11 (Sustainable Cities) and SDG 1 (No Poverty)</p>
+            <p style="margin-top: 6px;">&#x2714;&nbsp; Community ownership model — residual value returns to charity in perpetuity</p>
+            <p style="margin-top: 6px;">&#x2714;&nbsp; Replicable model for future halal affordable housing across Canada</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CAPITAL STACK -->
+  <section class="section" id="capital">
+    <div class="section-label">Capital Structure</div>
+    <h2>Capital Stack — Investors Are Not First In</h2>
+    <p class="section-intro">Approximately 30% of the total capital budget has already been secured through government grants and land contribution, significantly reducing first-mover risk for incoming investors.</p>
+    <hr class="section-rule">
+
+    <div class="info-card" style="margin-bottom: 16px;">
+      <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 10px;">$37.6M total project capital — committed vs. remaining</p>
+      <div class="capital-bar">
+        <div class="capital-segment cap-gov">Govt. ~$11.1M</div>
+        <div class="capital-segment cap-fund">Fund ~$5.67M</div>
+        <div class="capital-segment cap-remain" style="color: #555;">Remaining ~$20.8M</div>
+      </div>
+      <div class="capital-legend">
+        <span><div class="cap-dot" style="background: var(--if-green);"></div>Government grants + land (~$11.1M — committed)</span>
+        <span><div class="cap-dot" style="background: var(--if-brown);"></div>Halal Fund LP contribution (~$5.67M modelled)</span>
+        <span><div class="cap-dot" style="background: #c0c0b8;"></div>Remaining (AHPP, Build Canada Homes, other grants)</span>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div class="info-card">
+        <h3>Committed Capital (As of June 2026)</h3>
+        <table class="detail-table" style="border: none; font-size: 13px; border-radius: 0;">
+          <tr><td>Land (City of Edmonton)</td><td><strong>~$1.1M</strong> (awarded)</td></tr>
+          <tr><td>City &amp; provincial grants</td><td><strong>~$10M</strong> (committed)</td></tr>
+          <tr><td>Total secured resources</td><td><strong>~$11.1M</strong></td></tr>
+          <tr><td>% of total budget secured</td><td><strong>~30%</strong></td></tr>
+        </table>
+      </div>
+      <div class="info-card">
+        <h3>Remaining Capital Plan</h3>
+        <table class="detail-table" style="border: none; font-size: 13px; border-radius: 0;">
+          <tr><td>Halal Fund LP raise</td><td>~$25M (target)</td></tr>
+          <tr><td>AHPP / Build Canada Homes</td><td>Active applications</td></tr>
+          <tr><td>Philanthropic grants to IslamicFamily</td><td>Open for contribution</td></tr>
+          <tr><td>Owner equity (Vivid Homes)</td><td>Contribution committed</td></tr>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section class="section" id="team">
+    <div class="section-label">Leadership &amp; Advisors</div>
+    <h2>Fund Team</h2>
+    <hr class="section-rule">
+
+    <div class="two-col" style="gap: 12px; margin-bottom: 12px;">
+      <div class="contact-card">
+        <div class="contact-avatar">OY</div>
+        <div>
+          <div class="contact-name">Omar Yaqub</div>
+          <div class="contact-role">Executive Director, IslamicFamily — Operational Management</div>
+          <div style="font-size: 12px; color: var(--text-muted);">ICD.D, DSL, MBA, BSc</div>
+          <a href="mailto:o.yaqub@islamicfamily.ca" class="contact-email">o.yaqub@islamicfamily.ca</a>
+        </div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-avatar">AS</div>
+        <div>
+          <div class="contact-name">Adam Spence</div>
+          <div class="contact-role">Founder &amp; CEO, SVX Canada — Fund Oversight</div>
+          <div style="font-size: 12px; color: var(--text-muted);">Lead fund partner; $500M+ capital mobilized across the Americas</div>
+          <a href="mailto:adam.spence@svx.ca" class="contact-email">adam.spence@svx.ca</a>
+        </div>
+      </div>
+    </div>
+    <div class="two-col" style="gap: 12px; margin-bottom: 12px;">
+      <div class="contact-card">
+        <div class="contact-avatar">KT</div>
+        <div>
+          <div class="contact-name">Kevin Taylor, MBA</div>
+          <div class="contact-role">VP Fund Management, SVX — Fund Management</div>
+        </div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-avatar">AV</div>
+        <div>
+          <div class="contact-name">Ameeta Vijay, CPA</div>
+          <div class="contact-role">President, CFO &amp; CCO, SVX — Fund Oversight &amp; Compliance</div>
+        </div>
+      </div>
+    </div>
+    <div class="two-col" style="gap: 12px; margin-bottom: 12px;">
+      <div class="contact-card">
+        <div class="contact-avatar">OK</div>
+        <div>
+          <div class="contact-name">Omar Kalim, CPA</div>
+          <div class="contact-role">Financial Controller, IslamicFamily — Financial Management</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-card" style="margin-top: 4px;">
+      <h3>Advisors &amp; Service Providers</h3>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin-top: 8px; font-size: 13px;">
+        <div><strong>Shariah Compliance:</strong><br>Mufti Zain Baig (independent)</div>
+        <div><strong>Legal Counsel:</strong><br>Pallett Valo LLP</div>
+        <div><strong>Impact Platform:</strong><br>SVX Canada</div>
+        <div><strong>Fund Advisor:</strong><br>Anna Bubel (Another Way)</div>
+      </div>
+    </div>
+
+    <div class="info-card accent-left" style="margin-top: 14px;">
+      <h3>About SVX Canada — Fund Management Partner</h3>
+      <p style="font-size: 14px; line-height: 1.6;">SVX is a nonprofit, diversified financial services firm with $48.4M in assets under management, 527 institutional and retail investors, and over $218M in capital mobilized for affordable housing. SVX has structured, launched, and managed over a dozen investment funds including affordable housing funds, community loan funds, venture capital funds, and outcomes bonds. As co-owner of the GP (40%) and contracted fund manager, SVX brings institutional-grade fund management to the Halal fund structure. <a href="https://svx.ca" class="ext" target="_blank">svx.ca →</a></p>
+    </div>
+  </section>
+
+  <!-- DOCUMENTS -->
+  <section class="section" id="documents">
+    <div class="section-label">Due Diligence Package</div>
+    <h2>Documents &amp; References</h2>
+    <p class="section-intro">Core documentation for institutional review. Additional materials available on request.</p>
+    <hr class="section-rule">
+
+    <div class="doc-list">
+      <a href="https://halalfund.ca/investor.html" class="doc-item" target="_blank">
+        <div class="doc-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6zm-1 1.5L18.5 9H13V3.5zM6 4h5v7h7v9H6V4z"/></svg></div>
+        <div>
+          <div class="doc-title">Full Investor Overview — halalfund.ca/investor.html</div>
+          <div class="doc-type">Interactive document · June 2026</div>
+        </div>
+      </a>
+      <a href="https://apps.cra-arc.gc.ca/ebci/hacc/srch/pub/dsplyRprtngPrd/873835193RR0001" class="doc-item" target="_blank">
+        <div class="doc-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-1 14l-3-3 1.41-1.41L11 12.17l4.59-4.58L17 9l-6 6z"/></svg></div>
+        <div>
+          <div class="doc-title">CRA Charity Registry — Annual Returns</div>
+          <div class="doc-type">Government of Canada · Public record</div>
+        </div>
+      </a>
+      <div class="doc-item" style="cursor: default; opacity: 0.75;">
+        <div class="doc-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6zm-1 1.5L18.5 9H13V3.5zM6 4h5v7h7v9H6V4z"/></svg></div>
+        <div>
+          <div class="doc-title">Certificate of Incorporation (1992)</div>
+          <div class="doc-type">Alberta Societies Act · Attached to this package</div>
+        </div>
+      </div>
+      <a href="https://halalfund.ca" class="doc-item" target="_blank">
+        <div class="doc-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V5a2 2 0 00-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg></div>
+        <div>
+          <div class="doc-title">Fund Hub — halalfund.ca</div>
+          <div class="doc-type">Term sheet, financial model, LP documentation</div>
+        </div>
+      </a>
+      <div class="doc-item" style="cursor: default; opacity: 0.75;">
+        <div class="doc-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V5a2 2 0 00-2-2zm-7 14l-5-5 1.41-1.41L12 14.17l7.59-7.59L21 8l-9 9z"/></svg></div>
+        <div>
+          <div class="doc-title">One-Pager — HAHIF (June 2026)</div>
+          <div class="doc-type">PDF · Attached to this package</div>
+        </div>
+      </div>
+      <div class="doc-item" style="cursor: default; opacity: 0.75;">
+        <div class="doc-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V5a2 2 0 00-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg></div>
+        <div>
+          <div class="doc-title">Investor Presentation Deck (June 2026)</div>
+          <div class="doc-type">PDF · 43 slides · Attached to this package</div>
+        </div>
+      </div>
+      <a href="https://app.notion.com/p/islamicfamily/2aeb46d4433c81e09e5ac0bae5b6e642?v=2aeb46d4433c81b69d90000c005dee3f" class="doc-item" target="_blank">
+        <div class="doc-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 11H7V9h10v2zm0 4H7v-2h10v2zM19 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V5a2 2 0 00-2-2z"/></svg></div>
+        <div>
+          <div class="doc-title">Board of Directors — Current Members</div>
+          <div class="doc-type">Governance documentation</div>
+        </div>
+      </a>
+      <div class="doc-item" style="cursor: default; opacity: 0.6;">
+        <div class="doc-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg></div>
+        <div>
+          <div class="doc-title">Shariah Compliance Certificate</div>
+          <div class="doc-type">Available on request — Mufti Zain Baig</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="section" id="contact">
+    <div class="section-label">Next Steps</div>
+    <h2>Invitation to Explore</h2>
+    <hr class="section-rule">
+
+    <div class="info-card accent-left" style="margin-bottom: 20px;">
+      <h3>Three Ways IsDB Can Participate</h3>
+      <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-top: 10px; font-size: 14px;">
+        <div>
+          <div style="font-weight: 600; color: var(--if-green); margin-bottom: 4px;">&#x25B6;&nbsp; Invest</div>
+          <p style="color: var(--text-secondary); line-height: 1.5;">Subscribe for LP units as an accredited institutional investor (Class 0 or Class 1). Minimum $250,000 for institutional investors.</p>
+        </div>
+        <div>
+          <div style="font-weight: 600; color: var(--if-green); margin-bottom: 4px;">&#x25B6;&nbsp; Fund (Philanthropic)</div>
+          <p style="color: var(--text-secondary); line-height: 1.5;">Provide a grant or concessional contribution directly to IslamicFamily in support of the Dunluce project. CRA tax receipts available.</p>
+        </div>
+        <div>
+          <div style="font-weight: 600; color: var(--if-green); margin-bottom: 4px;">&#x25B6;&nbsp; Connect</div>
+          <p style="color: var(--text-secondary); line-height: 1.5;">Introduce us to aligned investors, Islamic finance institutions, foundations, or community partners within your network.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div class="contact-card">
+        <div class="contact-avatar">OY</div>
+        <div>
+          <div class="contact-name">Omar Yaqub</div>
+          <div class="contact-role">Executive Director, IslamicFamily</div>
+          <a href="mailto:o.yaqub@islamicfamily.ca" class="contact-email">o.yaqub@islamicfamily.ca</a>
+          <div style="font-size: 12px; color: var(--text-muted); margin-top: 4px;"><a href="https://islamicfamily.ca" class="ext" target="_blank">islamicfamily.ca</a> &nbsp;·&nbsp; <a href="https://halalfund.ca" class="ext" target="_blank">halalfund.ca</a></div>
+        </div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-avatar">AS</div>
+        <div>
+          <div class="contact-name">Adam Spence</div>
+          <div class="contact-role">CEO, SVX Canada — Fund Management Partner</div>
+          <a href="mailto:adam.spence@svx.ca" class="contact-email">adam.spence@svx.ca</a>
+          <div style="font-size: 12px; color: var(--text-muted); margin-top: 4px;"><a href="https://svx.ca" class="ext" target="_blank">svx.ca</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p>IslamicFamily &mdash; Islamic Family and Social Services Association &mdash; CRA Charity #873835193 RR 0001</p>
+  <p style="margin-top: 6px;">This document is for informational purposes only and does not constitute an offer to sell or solicitation to buy securities. Any offering is made only pursuant to definitive offering documents. Exempt market investments involve risk, including possible loss of capital. Prospective investors should consult their own advisors.</p>
+  <p style="margin-top: 8px;"><a href="https://halalfund.ca" target="_blank">halalfund.ca</a> &nbsp;·&nbsp; <a href="https://islamicfamily.ca" target="_blank">islamicfamily.ca</a> &nbsp;·&nbsp; Prepared June 2026</p>
+</footer>
+
+<script>
+function toggleNav() {
+  var toggle = document.getElementById('navToggle');
+  var drawer = document.getElementById('navDrawer');
+  var overlay = document.getElementById('navOverlay');
+  toggle.classList.toggle('open');
+  drawer.classList.toggle('open');
+  overlay.classList.toggle('open');
+}
+function closeNav() {
+  document.getElementById('navToggle').classList.remove('open');
+  document.getElementById('navDrawer').classList.remove('open');
+  document.getElementById('navOverlay').classList.remove('open');
+}
+</script>
+</body>
+</html>
