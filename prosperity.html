@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Housing Prosperity Fund · IslamicFamily</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400;0,700;1,400;1,700&family=Alegreya+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Alegreya+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
 <script async src="https://tally.so/widgets/embed.js"></script>
 <!-- Fundraise Up: the new standard for online giving -->
 <script>(function(w,d,s,n,a){if(!w[n]){var l='call,catch,on,once,set,then,track,openCheckout'
@@ -1045,6 +1045,26 @@ nav.scrolled { box-shadow: 0 1px 16px rgba(39,93,67,0.08); }
   background: var(--bg-green);
   border-top: 1px solid var(--on-green-border);
   padding: 96px 0;
+  position: relative;
+}
+.partners-bg-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Alegreya', serif;
+  font-weight: 900;
+  font-size: clamp(220px, 34vw, 620px);
+  line-height: 1;
+  color: rgba(255,255,255,0.05);
+  white-space: nowrap;
+  user-select: none;
+  pointer-events: none;
+  z-index: 0;
+}
+.section-major-partners .container {
+  position: relative;
+  z-index: 1;
 }
 .major-partners-grid {
   display: grid;
@@ -1341,6 +1361,73 @@ footer {
   font-weight: 300;
   color: var(--text-muted);
   line-height: 1.75;
+}
+
+/* Inline glossary tooltip */
+.glossary-term {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted #8B5E7A;
+  cursor: help;
+}
+.glossary-term--on-green {
+  border-bottom-color: rgba(250,250,242,0.55);
+}
+.glossary-term .glossary-tooltip {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  width: 240px;
+  max-width: 78vw;
+  background: var(--kiswah);
+  color: var(--moon-mist);
+  font-family: 'Alegreya Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 1.6;
+  padding: 14px 16px;
+  border-radius: 6px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.18s ease, transform 0.18s ease;
+  z-index: 20;
+  pointer-events: none;
+}
+.glossary-term .glossary-tooltip::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: var(--kiswah);
+}
+.glossary-term:hover .glossary-tooltip,
+.glossary-term:focus .glossary-tooltip {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+/* Right-aligned variant — for terms sitting in the right-hand columns of a
+   narrow grid, so the tooltip extends leftward instead of off the edge */
+.glossary-term--align-right .glossary-tooltip {
+  left: auto;
+  right: -12px;
+  transform: translateY(4px);
+}
+.glossary-term--align-right .glossary-tooltip::after {
+  left: auto;
+  right: 20px;
+  transform: none;
+}
+.glossary-term--align-right:hover .glossary-tooltip,
+.glossary-term--align-right:focus .glossary-tooltip {
+  transform: translateY(0);
+}
+@media (max-width: 480px) {
+  .glossary-term .glossary-tooltip { width: 220px; }
 }
 
 /* ─────────────────────────────────────────
@@ -2060,11 +2147,11 @@ body > div[id^="tally-"]:not([style*="display: block"]) {
       </div>
       <div class="problem-card problem-card--3 reveal reveal-d2">
         <div class="problem-card-title">Investment Gap</div>
-        <p class="problem-card-body">Values-aligned investors have very few institutional-quality, stable, semi-liquid investment options in Canada. Halal options are especially scarce despite the segment representing a significant and growing pool of  capital seeking real-asset exposure. <strong>This fund offers impact investors stable returns and semi-liquidity while tackling SDG priorities.</strong></p>
+        <p class="problem-card-body">Values-aligned investors have very few institutional-quality, stable, semi-liquid investment options in Canada. <span class="glossary-term glossary-term--align-right" tabindex="0">Halal<span class="glossary-tooltip">Halal finance is based on shared reward and risk. It avoids societal harms and focuses heavily on real assets. Like halal food, halal finance isn't just for Muslims.</span></span> options are especially scarce despite the segment representing a significant and growing pool of  capital seeking real-asset exposure. <strong>This fund offers impact investors stable returns and semi-liquidity while tackling SDG priorities.</strong></p>
       </div>
       <div class="problem-card problem-card--4 reveal reveal-d2">
         <div class="problem-card-title">Ongoing Maintenance</div>
-        <p class="problem-card-body">Most affordable housing financing covers construction only, leaving no dedicated source of revenue for long-term operations. Restricted philanthropic giving, like the roughly half a billion dollars in zakat Canadian Muslim communities distribute each year, has never been channeled toward solving that gap. <strong>This fund fixes that with an unprecedented, ongoing rent-supplement model.</strong></p>
+        <p class="problem-card-body">Most affordable housing financing covers construction only, leaving no dedicated source of revenue for long-term operations. Restricted philanthropic giving, like the roughly half a billion dollars in <span class="glossary-term glossary-term--align-right" tabindex="0">zakat<span class="glossary-tooltip">Zakat is a direct wealth transfer to those in need. In Canada it's estimated at ½B per year.</span></span> Canadian Muslim communities distribute each year, has never been channeled toward solving that gap. <strong>This fund fixes that with an unprecedented, ongoing rent-supplement model.</strong></p>
       </div>
     </div>
   </div>
@@ -2143,7 +2230,7 @@ body > div[id^="tally-"]:not([style*="display: block"]) {
 
     <div class="stories-grid">
       <div class="story-card reveal">
-        <span class="story-quote-mark">"</span>
+        <span class="story-quote-mark">“</span>
         <p class="story-text">
           Imagine <strong>Sarah</strong>, a mother living in an abusive situation who cares for both her kids and her parents. She wants to leave. But shelters won't accept her whole family. The choice she's given is to leave her parents, abandon her kids, or stay in an abusive situation.
           <br><br>
@@ -2152,7 +2239,7 @@ body > div[id^="tally-"]:not([style*="display: block"]) {
       </div>
 
       <div class="story-card reveal reveal-d1">
-        <span class="story-quote-mark">"</span>
+        <span class="story-quote-mark">“</span>
         <p class="story-text">
           Because of the war, <strong>Adam</strong> now cares for his nephews, nieces, and his own kids, a family of 12. There's no apartment big enough, so they end up scattered across multiple units.
           <br><br>
@@ -2182,13 +2269,14 @@ body > div[id^="tally-"]:not([style*="display: block"]) {
 
 <!-- ══════════════ MAJOR PARTNERS ══════════════ -->
 <section class="section-major-partners on-green" id="partners">
+  <div class="partners-bg-text" aria-hidden="true">4P</div>
   <div class="container">
     <div class="eyebrow reveal" style="color: rgba(238,203,175,0.75);">Built By</div>
     <h2 class="section-headline reveal" style="color: var(--on-green-heading);">
       Three organizations.<br><em>One integrated team.</em>
     </h2>
     <p class="body-text reveal" style="color: var(--on-green-body); max-width: 720px; margin-top: 20px;">
-      This fund is structured as a <strong style="color: var(--on-green-heading);">4P partnership</strong>: Public capital from the City of Edmonton and other levels of government, Private capital from impact investors, Philanthropic capital from zakat and charitable giving, and People, the communities this housing serves. Four distinct kinds of capital, working through one integrated structure.
+      This fund is structured as a <strong style="color: var(--on-green-heading);">4P partnership</strong>: Public capital from the City of Edmonton and other levels of government, Private capital from impact investors, Philanthropic capital from <span class="glossary-term glossary-term--on-green" tabindex="0">zakat<span class="glossary-tooltip">Zakat is a direct wealth transfer to those in need. In Canada it's estimated at ½B per year.</span></span> and charitable giving, and People, the communities this housing serves. Four distinct kinds of capital, working through one integrated structure.
     </p>
 
     <div class="major-partners-grid">
@@ -2326,7 +2414,7 @@ body > div[id^="tally-"]:not([style*="display: block"]) {
   <div class="container">
     <div class="testimonial-inner">
       <div class="testimonial-quote reveal">
-        <span class="story-quote-mark">"</span>
+        <span class="story-quote-mark">“</span>
         <p class="story-text">
           I came to this country with nothing and found a city that invested in me. Now it's time for community, impact investors and government to invest in the families waiting the longest for affordable housing. IslamicFamily &amp; Vivid Homes are leading that charge, innovating on how we build while never losing sight of the community we build for.
         </p>
