@@ -1,0 +1,1702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IslamicFamily — Affordable Housing Communication Plan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400;0,700;1,400;1,700&family=Alegreya+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+
+/* ─────────────────────────────────────────
+   BRAND TOKENS — IslamicFamily
+   ───────────────────────────────────────── */
+:root {
+  --nabawi:       #275D43;
+  --nabawi-dark:  #1C4433;
+  --nabawi-mid:   #326B50;
+  --pinecone:     #E09964;
+  --moon-mist:    #FAFAF2;
+  --kiswah:       #353535;
+  --sun:          #F7AF29;
+  --warm-sand:    #EECBAF;
+  --arabica:      #DCD9B8;
+  --bg-light:     #FAFAF2;
+  --bg-green:     #275D43;
+  --bg-green-card:#2E6B4E;
+  --text-primary: #353535;
+  --text-muted:   #6B6B5E;
+  --border:       #E2DDD3;
+  --on-green-heading: #FAFAF2;
+  --on-green-body:    rgba(250,250,242,0.72);
+  --on-green-muted:   rgba(250,250,242,0.45);
+  --on-green-border:  rgba(255,255,255,0.1);
+  --on-green-card-bg: rgba(255,255,255,0.06);
+  --accent:       #E09964;
+}
+
+/* ─────────────────────────────────────────
+   RESET + BASE
+   ───────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Alegreya Sans', sans-serif;
+  font-weight: 300;
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--text-primary);
+  background: var(--bg-light);
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; text-decoration: none; }
+
+/* ─────────────────────────────────────────
+   LAYOUT
+   ───────────────────────────────────────── */
+.container { max-width: 1060px; margin: 0 auto; padding: 0 48px; }
+.section    { padding: 80px 0; }
+.section--sm { padding: 56px 0; }
+
+/* ─────────────────────────────────────────
+   NAV
+   ───────────────────────────────────────── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 200;
+  background: rgba(250,250,242,0.86);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  transition: box-shadow 0.3s;
+}
+nav.scrolled { box-shadow: 0 1px 16px rgba(39,93,67,0.08); }
+.nav-inner {
+  max-width: 1060px;
+  margin: 0 auto;
+  padding: 0 48px;
+  height: 68px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.nav-logo-text {
+  font-family: 'Alegreya Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--kiswah);
+  letter-spacing: 0.01em;
+  line-height: 1.2;
+}
+.nav-logo-sub {
+  font-size: 11px;
+  font-weight: 300;
+  color: var(--text-muted);
+  display: block;
+}
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.doc-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: 'Alegreya Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--nabawi);
+  background: rgba(39,93,67,0.07);
+  border: 1px solid rgba(39,93,67,0.2);
+  padding: 5px 12px;
+  white-space: nowrap;
+}
+.nav-hamburger {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 26px; height: 18px;
+  background: none; border: none; cursor: pointer; padding: 0;
+}
+.nav-hamburger span {
+  display: block; width: 100%; height: 1.5px;
+  background: var(--kiswah); transition: all 0.25s;
+}
+.nav-hamburger:hover span { background: var(--nabawi); }
+.nav-overlay {
+  position: fixed; inset: 0;
+  background: rgba(28,68,48,0.4);
+  z-index: 290; opacity: 0; pointer-events: none;
+  transition: opacity 0.3s; backdrop-filter: blur(2px);
+}
+.nav-overlay.open { opacity: 1; pointer-events: all; }
+.nav-drawer {
+  position: fixed; top: 0; right: 0;
+  width: 320px; height: 100vh;
+  background: var(--bg-light);
+  border-left: 1px solid var(--border);
+  z-index: 300;
+  transform: translateX(100%);
+  transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+}
+.nav-drawer.open { transform: translateX(0); }
+.nav-drawer-inner { display: flex; flex-direction: column; height: 100%; }
+.nav-drawer-header {
+  height: 68px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 32px;
+  border-bottom: 1px solid var(--border); flex-shrink: 0;
+}
+.nav-drawer-label {
+  font-family: 'Alegreya Sans', sans-serif;
+  font-size: 11px; font-weight: 500;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--text-muted);
+}
+.nav-drawer-close {
+  background: none; border: 1px solid var(--border);
+  width: 30px; height: 30px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; color: var(--text-muted);
+  font-size: 14px; transition: all 0.2s;
+  font-family: 'Alegreya Sans', sans-serif;
+}
+.nav-drawer-close:hover { border-color: var(--nabawi); color: var(--nabawi); }
+.drawer-links {
+  display: flex; flex-direction: column;
+  padding: 12px 0; flex: 1;
+  border-bottom: 1px solid var(--border);
+  overflow-y: auto;
+}
+.drawer-link {
+  font-family: 'Alegreya Sans', sans-serif;
+  font-size: 14px; font-weight: 400;
+  color: var(--text-muted);
+  padding: 9px 32px;
+  transition: color 0.2s, background 0.2s;
+  display: block;
+}
+.drawer-link:hover { color: var(--nabawi); background: rgba(39,93,67,0.04); }
+.drawer-contact { padding: 20px 32px; flex-shrink: 0; }
+.drawer-contact-line {
+  font-family: 'Alegreya Sans', sans-serif;
+  font-size: 12px; font-weight: 300;
+  color: var(--text-muted); line-height: 1.9;
+}
+
+/* ─────────────────────────────────────────
+   COVER / HERO
+   ───────────────────────────────────────── */
+.cover {
+  padding-top: 68px;
+  background: var(--nabawi-dark);
+  position: relative;
+  overflow: hidden;
+}
+.cover::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(28,68,51,0.95) 0%, rgba(39,93,67,0.85) 100%);
+}
+.cover-inner {
+  max-width: 1060px; margin: 0 auto;
+  padding: 72px 48px 64px;
+  position: relative; z-index: 1;
+}
+.cover-tag {
+  display: inline-flex;
+  align-items: center; gap: 8px;
+  font-family: 'Alegreya Sans', sans-serif;
+  font-size: 11px; font-weight: 500;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--pinecone);
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  padding: 6px 14px; margin-bottom: 28px;
+  opacity: 0; animation: fadeUp 0.5s 0.1s forwards;
+}
+.cover h1 {
+  font-family: 'Alegreya', serif;
+  font-size: clamp(36px, 5vw, 68px);
+  font-weight: 400; line-height: 1.08;
+  letter-spacing: -0.01em; color: white;
+  max-width: 700px; margin-bottom: 20px;
+  opacity: 0; animation: fadeUp 0.6s 0.2s forwards;
+}
+.cover h1 em { font-style: italic; color: var(--pinecone); }
+.cover-sub {
+  font-family: 'Alegreya Sans', sans-serif;
+  font-size: 17px; font-weight: 300;
+  color: rgba(250,250,242,0.75); line-height: 1.75;
+  max-width: 560px; margin-bottom: 40px;
+  opacity: 0; animation: fadeUp 0.6s 0.35s forwards;
+}
+.cover-sub strong { color: rgba(250,250,242,0.95); font-weight: 500; }
+.cover-meta {
+  display: flex; gap: 0;
+  border-top: 1px solid rgba(255,255,255,0.12);
+  padding-top: 28px; margin-top: 8px;
+  opacity: 0; animation: fadeUp 0.6s 0.5s forwards;
+  flex-wrap: wrap;
+}
+.cover-meta-item {
+  padding: 0 32px 0 0;
+  margin-right: 32px;
+  border-right: 1px solid rgba(255,255,255,0.12);
+}
+.cover-meta-item:last-child { border-right: none; }
+.cover-meta-label {
+  font-family: 'Alegreya Sans', sans-serif;
+  font-size: 10px; font-weight: 500;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: rgba(250,250,242,0.45);
+  display: block; margin-bottom: 3px;
+}
+.cover-meta-value {
+  font-family: 'Alegreya Sans', sans-serif;
+  font-size: 13px; font-weight: 400;
+  color: rgba(250,250,242,0.85);
+}
+
+/* ─────────────────────────────────────────
+   CONTENTS STRIP
+   ───────────────────────────────────────── */
+.contents-strip {
+  background: var(--nabawi);
+  padding: 20px 0;
+}
+.contents-inner {
+  max-width: 1060px; margin: 0 auto; padding: 0 48px;
+  display: flex; align-items: center; gap: 32px; flex-wrap: wrap;
+}
+.contents-label {
+  font-family: 'Alegreya Sans', sans-serif;
+  font-size: 10px; font-weight: 500;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: rgba(250,250,242,0.45);
+  flex-shrink: 0;
+}
+.contents-links {
+  display: flex; flex-wrap: wrap; gap: 4px 0;
+  list-style: none;
+}
+.contents-links li {
+  font-family: 'Alegreya Sans', sans-serif;
+  font-size: 12.5px; font-weight: 400;
+  color: rgba(250,250,242,0.65);
+}
+.contents-links li::after { content: ' · '; color: rgba(250,250,242,0.25); margin: 0 6px; }
+.contents-links li:last-child::after { display: none; }
+.contents-links a {
+  color: rgba(250,250,242,0.65);
+  transition: color 0.2s;
+}
+.contents-links a:hover { color: var(--pinecone); }
+
+/* ─────────────────────────────────────────
+   SHARED SECTION TYPOGRAPHY
+   ───────────────────────────────────────── */
+.eyebrow {
+  font-family: 'Alegreya Sans', sans-serif;
+  font-size: 11px; font-weight: 500;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 16px;
+}
+.on-green .eyebrow { color: var(--pinecone); opacity: 0.85; }
+
+.section-headline {
+  font-family: 'Alegreya', serif;
+  font-size: clamp(26px, 3vw, 40px);
+  font-weight: 400; line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--kiswah); margin-bottom: 20px;
+}
+.section-headline em { font-style: italic; color: var(--nabawi); }
+.on-green .section-headline { color: var(--on-green-heading); }
+.on-green .section-headline em { color: var(--pinecone); }
+
+.body-text {
+  font-family: 'Alegreya Sans', sans-serif;
+  font-size: 16px; font-weight: 300;
+  color: var(--text-muted); line-height: 1.8;
+}
+.body-text + .body-text { margin-top: 14px; }
+.body-text strong { color: var(--text-primary); font-weight: 500; }
+.on-green .body-text { color: var(--on-green-body); }
+.on-green .body-text strong { color: var(--on-green-heading); }
+
+/* ─────────────────────────────────────────
+   SECTION HEADERS
+   ───────────────────────────────────────── */
+.sec-header {
+  display: flex; align-items: flex-start; gap: 24px;
+  padding-bottom: 36px; margin-bottom: 40px;
+  border-bottom: 1px solid var(--border);
+}
+.on-green { background: var(--bg-green); }
+.on-green .sec-header { border-bottom-color: var(--on-green-border); }
+.sec-num {
+  font-family: 'Alegreya', serif;
+  font-size: 56px; font-weight: 400; line-height: 1;
+  color: rgba(39,93,67,0.18); flex-shrink: 0;
+  padding-top: 4px; min-width: 56px;
+}
+.on-green .sec-num { color: rgba(250,250,242,0.15); }
+.sec-title-wrap {}
+
+/* ─────────────────────────────────────────
+   STAT CARDS — light surface
+   ───────────────────────────────────────── */
+.stat-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1px; background: var(--border);
+  border: 1px solid var(--border);
+  margin: 28px 0;
+}
+.stat-card {
+  background: var(--bg-light);
+  padding: 28px 24px;
+}
+.stat-num {
+  font-family: 'Alegreya', serif;
+  font-size: 48px; font-weight: 400;
+  color: var(--nabawi); line-height: 1;
+  letter-spacing: -0.02em; margin-bottom: 8px;
+}
+.stat-num span { font-size: 26px; color: var(--pinecone); }
+.stat-label {
+  font-family: 'Alegreya Sans', sans-serif;
+  font-size: 12px; font-weight: 400;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--text-muted); line-height: 1.5;
+}
+.stat-source {
+  font-family: 'Alegreya Sans', sans-serif;
+  font-size: 11px; font-weight: 300;
+  color: rgba(107,107,94,0.6); margin-top: 6px;
+}
+
+/* Stat rows — on green (like need section) */
+.stats-stack { display: flex; flex-direction: column; gap: 0; }
+.stat-row-item {
+  display: grid; grid-template-columns: 88px 1fr;
+  gap: 20px; align-items: start;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--on-green-border);
+}
+.stat-row-item:last-child { border-bottom: none; }
+.stat-row-num {
+  font-family: 'Alegreya', serif;
+  font-size: 42px; font-weight: 400;
+  color: var(--pinecone); line-height: 1;
+  letter-spacing: -0.02em; flex-shrink: 0;
+}
+.stat-row-desc {
+  font-family: 'Alegreya Sans', sans-serif;
+  font-size: 15px; font-weight: 300;
+  color: var(--on-green-body); line-height: 1.7;
+  padding-top: 8px;
+}
+.stat-row-desc strong { color: var(--on-green-heading); font-weight: 500; display: block; margin-bottom: 2px; }
+
+/* ─────────────────────────────────────────
+   CALLOUT BOXES
+   ───────────────────────────────────────── */
+.callout {
+  padding: 20px 24px; margin: 20px 0;
+}
+.callout-nabawi {
+  background: rgba(39,93,67,0.06);
+  border-left: 3px solid var(--nabawi);
+}
+.callout-pinecone {
+  background: rgba(224,153,100,0.1);
+  border-left: 3px solid var(--pinecone);
+}
+.on-green .callout-pinecone {
+  background: rgba(255,255,255,0.06);
+  border-left: 3px solid var(--pinecone);
+}
+.callout-label {
+  font-family: 'Alegreya Sans', sans-serif;
+  font-size: 10px; font-weight: 500;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--nabawi); display: block; margin-bottom: 8px;
+}
+.on-green .callout-label { color: var(--pinecone); }
+.callout p, .callout li {
+  font-family: 'Alegreya Sans', sans-serif;
+  font-size: 15px; font-weight: 300;
+  color: var(--text-muted); line-height: 1.75;
+}
+.on-green .callout p, .on-green .callout li { color: var(--on-green-body); }
+.callout strong { color: var(--text-primary); font-weight: 500; }
+.on-green .callout strong { color: var(--on-green-heading); }
+.callout ul { padding-left: 1.2em; }
+.callout li { margin-bottom: 6px; }
+.callout li:last-child { margin-bottom: 0; }
+.callout p { margin-bottom: 0; }
+
+/* ─────────────────────────────────────────
+   CASE CARDS
+   ───────────────────────────────────────── */
+.case-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1px; background: var(--border);
+  border: 1px solid var(--border);
+  margin: 24px 0;
+}
+.case-card {
+  background: var(--bg-light);
+  padding: 28px 24px;
+}
+.case-name {
+  font-family: 'Alegreya', serif;
+  font-size: 22px; font-style: italic;
+  color: var(--nabawi); margin-bottom: 10px;
+}
+.case-body {
+  font-family: 'Alegreya Sans', sans-serif;
+  font-size: 15px; font-weight: 300;
+  color: var(--text-muted); line-height: 1.75;
+}
+.case-body strong { color: var(--text-primary); font-weight: 500; }
+
+/* ─────────────────────────────────────────
+   MESSAGE CARDS — two-column grid
+   ───────────────────────────────────────── */
+.msg-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1px; background: var(--border);
+  border: 1px solid var(--border);
+  margin: 24px 0;
+}
+.msg-card {
+  background: var(--bg-light);
+  padding: 28px 24px;
+}
+.msg-audience {
+  font-family: 'Alegreya Sans', sans-serif;
+  font-size: 10px; font-weight: 500;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--pinecone); margin-bottom: 10px;
+}
+.msg-headline {
+  font-family: 'Alegreya', serif;
+  font-size: 18px; font-weight: 400;
+  line-height: 1.3; color: var(--kiswah);
+  margin-bottom: 10px;
+}
+.msg-headline em { font-style: italic; color: var(--nabawi); }
+.msg-body {
+  font-family: 'Alegreya Sans', sans-serif;
+  font-size: 14px; font-weight: 300;
+  color: var(--text-muted); line-height: 1.75;
+}
+
+/* ─────────────────────────────────────────
+   PHASE BLOCKS
+   ───────────────────────────────────────── */
+.phase {
+  border: 1px solid var(--border);
+  margin-bottom: 1px;
+}
+.phase-header {
+  background: var(--nabawi-dark); color: white;
+  padding: 14px 24px;
+  display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+}
+.phase-tag {
+  font-family: 'Alegreya Sans', sans-serif;
+  font-size: 10px; font-weight: 500;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--pinecone);
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(224,153,100,0.3);
+  padding: 4px 12px; white-space: nowrap;
+}
+.phase-title-text {
+  font-family: 'Alegreya Sans', sans-serif;
+  font-size: 15px; font-weight: 500;
+  color: rgba(250,250,242,0.9);
+}
+.phase-body { padding: 28px 24px; background: var(--bg-light); }
+.phase-body .body-text:last-child { margin-bottom: 0; }
+
+/* ─────────────────────────────────────────
+   TIMELINE
+   ───────────────────────────────────────── */
+.timeline { position: relative; padding-left: 28px; margin: 20px 0; }
+.timeline::before {
+  content: ''; position: absolute;
+  left: 5px; top: 10px; bottom: 10px;
+  width: 1.5px; background: var(--arabica);
+}
+.tl-item { position: relative; margin-bottom: 28px; }
+.tl-item:last-child { margin-bottom: 0; }
+.tl-item::before {
+  content: ''; position: absolute;
+  left: -24px; top: 6px;
+  width: 9px; height: 9px; border-radius: 50%;
+  background: var(--nabawi);
+  border: 2px solid var(--bg-light);
+  box-shadow: 0 0 0 1.5px var(--nabawi);
+}
+.tl-item.milestone::before {
+  width: 13px; height: 13px;
+  background: var(--pinecone);
+  left: -26px; top: 4px;
+  box-shadow: 0 0 0 1.5px var(--pinecone);
+}
+.tl-date {
+  font-family: 'Alegreya Sans', sans-serif;
+  font-size: 10px; font-weight: 500;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--nabawi); margin-bottom: 3px;
+}
+.tl-title {
+  font-family: 'Alegreya Sans', sans-serif;
+  font-size: 15px; font-weight: 500;
+  color: var(--kiswah); margin-bottom: 5px;
+}
+.tl-body {
+  font-family: 'Alegreya Sans', sans-serif;
+  font-size: 14px; font-weight: 300;
+  color: var(--text-muted); line-height: 1.7;
+}
+
+/* ─────────────────────────────────────────
+   CHANNEL CARDS
+   ───────────────────────────────────────── */
+.channel-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1px; background: var(--border);
+  border: 1px solid var(--border);
+  margin: 24px 0;
+}
+.channel-card { background: var(--bg-light); padding: 24px; }
+.channel-icon { font-size: 20px; display: block; margin-bottom: 10px; }
+.channel-name {
+  font-family: 'Alegreya Sans', sans-serif;
+  font-size: 13px; font-weight: 500;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--kiswah); margin-bottom: 4px;
+}
+.channel-cadence {
+  font-family: 'Alegreya Sans', sans-serif;
+  font-size: 11px; font-weight: 500;
+  color: var(--pinecone); letter-spacing: 0.06em;
+  margin-bottom: 10px;
+}
+.channel-body {
+  font-family: 'Alegreya Sans', sans-serif;
+  font-size: 14px; font-weight: 300;
+  color: var(--text-muted); line-height: 1.7;
+}
+
+/* ─────────────────────────────────────────
+   FAQ
+   ───────────────────────────────────────── */
+.faq-item { border: 1px solid var(--border); margin-bottom: 1px; }
+.faq-q {
+  padding: 16px 24px;
+  font-family: 'Alegreya Sans', sans-serif;
+  font-size: 15px; font-weight: 500;
+  color: var(--kiswah); background: var(--bg-light);
+  border-left: 3px solid var(--nabawi);
+}
+.faq-a {
+  padding: 16px 24px;
+  font-family: 'Alegreya Sans', sans-serif;
+  font-size: 15px; font-weight: 300;
+  color: var(--text-muted); line-height: 1.75;
+  border-top: 1px solid var(--border);
+  background: white;
+}
+.faq-a p { margin-bottom: 10px; }
+.faq-a p:last-child { margin-bottom: 0; }
+.faq-a strong { color: var(--text-primary); font-weight: 500; }
+
+/* ─────────────────────────────────────────
+   TABLES
+   ───────────────────────────────────────── */
+.tbl-wrap {
+  overflow-x: auto; margin: 20px 0;
+  border: 1px solid var(--border);
+}
+table { width: 100%; border-collapse: collapse; }
+th {
+  background: var(--nabawi-dark); color: rgba(250,250,242,0.9);
+  text-align: left; padding: 12px 16px;
+  font-family: 'Alegreya Sans', sans-serif;
+  font-size: 10px; font-weight: 500;
+  letter-spacing: 0.12em; text-transform: uppercase;
+}
+td {
+  padding: 12px 16px; vertical-align: top;
+  border-bottom: 1px solid var(--border);
+  font-family: 'Alegreya Sans', sans-serif;
+  font-size: 14px; font-weight: 300;
+  color: var(--text-muted); line-height: 1.7;
+}
+tr:last-child td { border-bottom: none; }
+tr:nth-child(even) td { background: rgba(39,93,67,0.03); }
+td strong { color: var(--text-primary); font-weight: 500; }
+
+.badge {
+  display: inline-block; font-size: 10px; font-weight: 500;
+  padding: 2px 8px; letter-spacing: 0.06em; text-transform: uppercase;
+  font-family: 'Alegreya Sans', sans-serif;
+}
+.badge-red    { background: rgba(180,40,30,0.08); color: #8B1A12; }
+.badge-amber  { background: rgba(224,153,100,0.15); color: #8B5A1A; }
+.badge-green  { background: rgba(39,93,67,0.08); color: var(--nabawi); }
+
+/* ─────────────────────────────────────────
+   PULL QUOTE
+   ───────────────────────────────────────── */
+.pull-quote {
+  border-left: 3px solid var(--nabawi);
+  padding: 16px 24px; margin: 28px 0;
+}
+.on-green .pull-quote { border-left-color: var(--pinecone); }
+.pull-quote p {
+  font-family: 'Alegreya', serif;
+  font-size: 22px; font-style: italic;
+  font-weight: 400; color: var(--nabawi);
+  line-height: 1.45; margin-bottom: 8px;
+}
+.on-green .pull-quote p { color: var(--on-green-heading); }
+.pull-quote cite {
+  font-family: 'Alegreya Sans', sans-serif;
+  font-size: 12px; font-weight: 300;
+  color: var(--text-muted); font-style: normal;
+}
+.on-green .pull-quote cite { color: var(--on-green-muted); }
+
+/* ─────────────────────────────────────────
+   BRIDGE LIST
+   ───────────────────────────────────────── */
+.bridge-list { list-style: none; padding: 0; margin: 0; }
+.bridge-list li {
+  padding: 12px 0 12px 28px;
+  position: relative;
+  border-bottom: 1px solid var(--border);
+  font-family: 'Alegreya', serif;
+  font-size: 18px; font-style: italic;
+  color: var(--kiswah); line-height: 1.5;
+}
+.on-green .bridge-list li {
+  border-bottom-color: var(--on-green-border);
+  color: var(--on-green-heading);
+}
+.bridge-list li:last-child { border-bottom: none; }
+.bridge-list li::before {
+  content: '"';
+  position: absolute; left: 0; top: 10px;
+  font-family: 'Alegreya', serif; font-size: 28px;
+  color: var(--arabica); line-height: 1;
+}
+.on-green .bridge-list li::before { color: rgba(255,255,255,0.2); }
+
+/* ─────────────────────────────────────────
+   DINNER TABLE
+   ───────────────────────────────────────── */
+.dinner-table { display: flex; flex-direction: column; gap: 1px; margin: 24px 0; }
+.dinner-row {
+  display: grid; grid-template-columns: 160px 1fr 180px;
+  gap: 0; background: var(--border);
+}
+.dinner-cell {
+  background: var(--bg-light); padding: 16px 20px;
+  font-family: 'Alegreya Sans', sans-serif;
+  font-size: 14px; font-weight: 300;
+  color: var(--text-muted); line-height: 1.7;
+}
+.dinner-cell:first-child {
+  font-weight: 500; color: var(--kiswah);
+  border-right: 1px solid var(--border);
+}
+.dinner-cell:last-child {
+  font-size: 13px; color: var(--nabawi);
+  border-left: 1px solid var(--border);
+  font-style: italic; font-family: 'Alegreya', serif;
+}
+.dinner-header .dinner-cell {
+  background: var(--nabawi-dark); color: rgba(250,250,242,0.7);
+  font-size: 10px; font-weight: 500;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  border-color: rgba(255,255,255,0.08);
+  font-style: normal; font-family: 'Alegreya Sans', sans-serif;
+}
+/* dinner table always uses its own bg regardless of section context */
+.on-green .dinner-cell { background: var(--bg-light); color: var(--text-muted); }
+.on-green .dinner-cell:first-child { color: var(--kiswah); }
+.on-green .dinner-cell:last-child { color: var(--nabawi); }
+.on-green .dinner-header .dinner-cell { background: var(--nabawi-dark); color: rgba(250,250,242,0.7); }
+
+/* ─────────────────────────────────────────
+   FOOTER
+   ───────────────────────────────────────── */
+footer {
+  background: var(--kiswah); padding: 32px 0;
+}
+.footer-inner {
+  display: flex; justify-content: space-between;
+  align-items: center; flex-wrap: wrap; gap: 16px;
+}
+.footer-name {
+  font-family: 'Alegreya Sans', sans-serif;
+  font-size: 13px; font-weight: 500;
+  color: rgba(250,250,242,0.8);
+}
+.footer-links {
+  font-family: 'Alegreya Sans', sans-serif;
+  font-size: 12px; font-weight: 300;
+  color: rgba(250,250,242,0.4);
+}
+.footer-links a { color: rgba(250,250,242,0.5); transition: color 0.2s; }
+.footer-links a:hover { color: var(--pinecone); }
+.footer-divider { color: rgba(250,250,242,0.2); margin: 0 8px; }
+
+/* ─── ensure white-surface components stay white inside green sections ─── */
+.on-green .phase-body       { background: #fff; }
+.on-green .channel-card     { background: #fff; }
+.on-green .faq-a            { background: #fff; }
+
+/* reset text inside white surfaces back to dark */
+.on-green .phase-body .body-text,
+.on-green .phase-body li,
+.on-green .phase-body p        { color: var(--text-muted); }
+.on-green .phase-body .body-text strong,
+.on-green .phase-body li strong,
+.on-green .phase-body p strong { color: var(--text-primary); }
+.on-green .channel-card .channel-body { color: var(--text-muted); }
+.on-green .channel-card .channel-name { color: var(--kiswah); }
+.on-green .faq-a p        { color: var(--text-muted); }
+.on-green .faq-a strong   { color: var(--text-primary); }
+.on-green .faq-q            { background: rgba(255,255,255,0.08); color: var(--on-green-heading); border-left-color: var(--pinecone); }
+.on-green .case-card        { background: rgba(255,255,255,0.06); }
+.on-green .case-name        { color: var(--pinecone); }
+.on-green .case-body        { color: var(--on-green-body); }
+.on-green .case-body strong { color: var(--on-green-heading); }
+.on-green .msg-card         { background: rgba(255,255,255,0.06); }
+.on-green .msg-headline     { color: var(--on-green-heading); }
+.on-green .msg-body         { color: var(--on-green-body); }
+.on-green .stat-cards       { background: var(--on-green-border); border-color: var(--on-green-border); }
+.on-green .stat-card        { background: rgba(255,255,255,0.06); }
+.on-green .stat-num         { color: var(--pinecone); }
+.on-green .stat-label       { color: var(--on-green-muted); }
+.on-green .stat-source      { color: var(--on-green-muted); }
+.on-green .channel-name     { color: var(--on-green-heading); }
+.on-green .channel-body     { color: var(--on-green-body); }
+.on-green .tl-title         { color: var(--on-green-heading); }
+.on-green .tl-body          { color: var(--on-green-body); }
+.on-green .tl-date          { color: var(--pinecone); }
+.on-green .timeline::before { background: var(--on-green-border); }
+.on-green .tl-item::before  { background: var(--pinecone); border-color: var(--bg-green); box-shadow: 0 0 0 1.5px var(--pinecone); }
+
+/* bridge list on green */
+.on-green .bridge-list li   { color: var(--on-green-heading); border-bottom-color: var(--on-green-border); }
+
+/* table on green */
+.on-green table th    { background: var(--nabawi-dark); }
+.on-green table td    { color: var(--on-green-body); border-bottom-color: var(--on-green-border); }
+.on-green table td strong { color: var(--on-green-heading); }
+.on-green tr:nth-child(even) td { background: rgba(255,255,255,0.04); }
+.on-green .tbl-wrap   { border-color: var(--on-green-border); }
+
+/* callout on green */
+.on-green .callout-nabawi  { background: rgba(255,255,255,0.06); border-left-color: var(--pinecone); }
+.on-green .callout p,
+.on-green .callout li      { color: var(--on-green-body); }
+.on-green .callout strong  { color: var(--on-green-heading); }
+
+/* ─────────────────────────────────────────
+   ANIMATIONS
+   ───────────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.5s, transform 0.5s; }
+.reveal.visible { opacity: 1; transform: none; }
+.reveal-d1 { transition-delay: 0.1s; }
+.reveal-d2 { transition-delay: 0.2s; }
+
+/* ─────────────────────────────────────────
+   RESPONSIVE
+   ───────────────────────────────────────── */
+@media (max-width: 720px) {
+  .container { padding: 0 24px; }
+  .cover-inner { padding: 56px 24px 48px; }
+  .section { padding: 56px 0; }
+  .nav-inner { padding: 0 24px; }
+  .contents-inner { padding: 0 24px; }
+  .cover-meta { gap: 16px 0; flex-direction: column; }
+  .cover-meta-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 12px; }
+  .dinner-row { grid-template-columns: 1fr; }
+  .dinner-cell:first-child, .dinner-cell:last-child { border: none; }
+}
+@media print {
+  nav, .contents-strip { display: none; }
+  .cover { padding-top: 0; }
+  body { font-size: 11pt; }
+  .phase, .section { break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════ NAV ══════════════ -->
+<nav id="nav">
+  <div class="nav-inner">
+    <div class="nav-brand">
+      <img src="https://halalfund.ca/islamicfamily.png" width="34" height="34" alt="IslamicFamily">
+      <div>
+        <div class="nav-logo-text">Affordable Housing Communication Plan</div>
+        <span class="nav-logo-sub">Internal document · IslamicFamily · July 2026</span>
+      </div>
+    </div>
+    <div class="nav-right">
+      <div class="doc-badge">Confidential · Internal Use Only</div>
+      <button class="nav-hamburger" id="navHamburger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Slide-out drawer -->
+<div class="nav-drawer" id="navDrawer">
+  <div class="nav-drawer-inner">
+    <div class="nav-drawer-header">
+      <span class="nav-drawer-label">Contents</span>
+      <button class="nav-drawer-close" id="navDrawerClose" aria-label="Close">✕</button>
+    </div>
+    <nav class="drawer-links">
+      <a href="#why" class="drawer-link">01 · Why Housing</a>
+      <a href="#our-work" class="drawer-link">02 · Our Work Is Already Housing</a>
+      <a href="#data" class="drawer-link">03 · The Data</a>
+      <a href="#how" class="drawer-link">04 · How We Did This</a>
+      <a href="#concerns" class="drawer-link">05 · Addressing Concerns</a>
+      <a href="#messaging" class="drawer-link">06 · Key Messaging</a>
+      <a href="#timeline" class="drawer-link">07 · Communication Timeline</a>
+      <a href="#social" class="drawer-link">08 · Social Media</a>
+      <a href="#dinner" class="drawer-link">09 · AGM or Special Housing Event</a>
+      <a href="#obstacles" class="drawer-link">10 · Obstacles &amp; Setbacks</a>
+    </nav>
+    <div class="drawer-contact">
+      <div class="drawer-contact-line">omary@islamicfamily.ca · 780.695.7477</div>
+      <div class="drawer-contact-line">halalfund.ca · halalhousinglab.ca</div>
+    </div>
+  </div>
+</div>
+<div class="nav-overlay" id="navOverlay"></div>
+
+
+<!-- ══════════════ COVER ══════════════ -->
+<section class="cover">
+  <div class="cover-inner">
+    <div class="cover-tag">Internal Communication Plan</div>
+    <h1>Building<br><em>what our community</em><br>needs most.</h1>
+    <p class="cover-sub">
+      A strategic guide for IslamicFamily staff and leadership on messaging, timing, and stakeholder engagement for the Halal Affordable Housing Initiative — from now through <strong>Diamond at Dunluce move-in in 2028.</strong>
+    </p>
+    <div class="cover-meta">
+      <div class="cover-meta-item">
+        <span class="cover-meta-label">Prepared by</span>
+        <span class="cover-meta-value">Omar Yaqub</span>
+      </div>
+      <div class="cover-meta-item">
+        <span class="cover-meta-label">Date</span>
+        <span class="cover-meta-value">July 2026</span>
+      </div>
+      <div class="cover-meta-item">
+        <span class="cover-meta-label">Project</span>
+        <span class="cover-meta-value">Diamond at Dunluce · 96 units</span>
+      </div>
+      <div class="cover-meta-item">
+        <span class="cover-meta-label">First Close</span>
+        <span class="cover-meta-value">August 15, 2026</span>
+      </div>
+      <div class="cover-meta-item">
+        <span class="cover-meta-label">Move-In Target</span>
+        <span class="cover-meta-value">2028</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════ CONTENTS STRIP ══════════════ -->
+<div class="contents-strip">
+  <div class="contents-inner">
+    <span class="contents-label">Contents</span>
+    <ul class="contents-links">
+      <li><a href="#why">Why Housing</a></li>
+      <li><a href="#our-work">Our Work Is Already Housing</a></li>
+      <li><a href="#data">The Data</a></li>
+      <li><a href="#how">How We Did This</a></li>
+      <li><a href="#concerns">Addressing Concerns</a></li>
+      <li><a href="#messaging">Key Messaging</a></li>
+      <li><a href="#timeline">Communication Timeline</a></li>
+      <li><a href="#social">Social Media</a></li>
+      <li><a href="#dinner">AGM or Special Housing Event</a></li>
+      <li><a href="#obstacles">Obstacles &amp; Setbacks</a></li>
+    </ul>
+  </div>
+</div>
+
+
+<!-- ══════════════ 01: WHY HOUSING ══════════════ -->
+<section class="section" id="why">
+  <div class="container">
+    <div class="sec-header reveal">
+      <div class="sec-num">01</div>
+      <div class="sec-title-wrap">
+        <div class="eyebrow">The Foundation</div>
+        <h2 class="section-headline">Why Housing —<br><em>the case we stand on.</em></h2>
+      </div>
+    </div>
+
+    <p class="body-text reveal">Housing is not a new direction for IslamicFamily. It is, in many ways, the original wound — the need that has been present in our community since the beginning, that we have been working toward for over a decade. Our communication must always start here: with the families we know, and with the research that proves what they have always told us.</p>
+
+    <div class="eyebrow reveal" style="margin-top:36px;">The Human Reality</div>
+    <div class="case-grid">
+      <div class="case-card reveal">
+        <div class="case-name">Sarah</div>
+        <p class="case-body">A mother in an abusive situation caring for both her children and her parents. Shelters won't accept her whole family. The choice she is given: leave her parents, abandon her kids, or stay. <strong>This is not a choice.</strong></p>
+      </div>
+      <div class="case-card reveal reveal-d1">
+        <div class="case-name">Adam</div>
+        <p class="case-body">Because of war, he now cares for his nephews, nieces, and his own children — a family of twelve. There is no apartment large enough. After all that hardship, they cannot even be together under one roof.</p>
+      </div>
+      <div class="case-card reveal reveal-d2">
+        <div class="case-name">A grandmother's family</div>
+        <p class="case-body">A grandmother, her daughter, and four grandchildren shared 700 sq ft for eleven months. Three children slept in the living room. Their caseworker: <strong>"There is simply nothing available at the size they need."</strong></p>
+      </div>
+    </div>
+
+    <div class="eyebrow reveal" style="margin-top:40px;">The Research Foundation</div>
+
+    <div class="callout callout-pinecone reveal">
+      <span class="callout-label">The Halal Housing Lab (2021–2023) · National Award-Winning Research</span>
+      <p>A two-year CMHC Solutions Lab investigation that won both the Alberta Institute of Planners and Canadian Institute of Planners awards. It produced the fund structure, architectural model, financing framework, and partnership logic that makes this project possible. The resulting open-source toolkit — <strong>halalhousinglab.ca</strong> — documents 15 building blocks for culturally appropriate Muslim housing. Core finding: Canadian housing policy structurally discriminates against larger and extended families, and halal-compliant community housing financing has never existed in Canada — until now.</p>
+    </div>
+
+    <div class="callout callout-pinecone reveal">
+      <span class="callout-label">Effective Zakat in Canada (2022) · share.islamicfamily.ca/effectivezakat</span>
+      <p>Co-developed with Dr. Katherine Bullock and reviewed by Islamic finance scholars, this paper establishes that piecemeal, transactional zakat — emergency food hampers, small one-time payments — <strong>does not disrupt the structural poverty it is meant to address.</strong> Families come back to our door year after year with the same unresolved needs. This research is the foundation for our zakat-as-rent-supplement model: using community generosity at a systemic level, not just a symptomatic one. It is also the basis for our alignment with MAC's Zakat House and the Canadian Council of Imams.</p>
+    </div>
+
+    <div class="pull-quote reveal">
+      <p>"Whoever among you wakes up secure in his home, healthy in his body, and has food for the day, it is as though he possesses the whole world."</p>
+      <cite>— The Prophet ﷺ</cite>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════ 02: OUR WORK ══════════════ -->
+<section class="section on-green" id="our-work">
+  <div class="container">
+    <div class="sec-header reveal">
+      <div class="sec-num">02</div>
+      <div class="sec-title-wrap">
+        <div class="eyebrow">Internal Framing</div>
+        <h2 class="section-headline">Our work is<br><em>already housing.</em></h2>
+      </div>
+    </div>
+
+    <p class="body-text reveal">This is not a departure from our mission. It is a deepening of work we are already doing — work our caseworkers have been doing quietly for years, constrained by systems that were never designed for the families we serve.</p>
+
+    <div class="stats-stack reveal" style="margin-top:36px;">
+      <div class="stat-row-item">
+        <div class="stat-row-num">30%</div>
+        <div class="stat-row-desc"><strong>Of all IslamicFamily zakat funds are used for housing stabilization</strong> — every year. We are already a housing organization. We are now becoming one that can build.</div>
+      </div>
+      <div class="stat-row-item">
+        <div class="stat-row-num">#1</div>
+        <div class="stat-row-desc"><strong>Top request in community outreach</strong> — support finding affordable housing. Not food. Not counselling. Housing.</div>
+      </div>
+      <div class="stat-row-item">
+        <div class="stat-row-num">5,000<span style="font-size:24px;color:var(--pinecone);">+</span></div>
+        <div class="stat-row-desc"><strong>Families served monthly across Alberta</strong> — housing instability underpins the majority of their presenting needs.</div>
+      </div>
+    </div>
+
+    <div class="callout callout-pinecone reveal" style="margin-top:32px;">
+      <span class="callout-label">The core argument for staff</span>
+      <p>IslamicFamily does not need to justify entering housing. We need to explain why it took us this long — and why the conditions that previously blocked us have now been resolved. <strong>We have always been a housing organization. We are now becoming one that can actually build.</strong></p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════ 03: THE DATA ══════════════ -->
+<section class="section" id="data">
+  <div class="container">
+    <div class="sec-header reveal">
+      <div class="sec-num">03</div>
+      <div class="sec-title-wrap">
+        <div class="eyebrow">Evidence</div>
+        <h2 class="section-headline">The data —<br><em>evidence our audience can hold.</em></h2>
+      </div>
+    </div>
+
+    <p class="body-text reveal">These are the numbers that anchor every conversation. Know them. Use them. They are drawn from Statistics Canada, CMHC, the City of Edmonton, and IslamicFamily's own research.</p>
+
+    <div class="stat-cards reveal" style="margin-top:32px;">
+      <div class="stat-card">
+        <div class="stat-num">10,000<span>+</span></div>
+        <div class="stat-label">People currently on Edmonton's affordable housing waitlist</div>
+        <div class="stat-source">City of Edmonton / Civida</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">~4 <span>yrs</span></div>
+        <div class="stat-label">Average wait for larger families seeking affordable housing in Edmonton</div>
+        <div class="stat-source">Civida; CMHC Rental Market Report</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">11<span>%</span></div>
+        <div class="stat-label">Muslim Canadians in core housing need vs. 4.9% national average</div>
+        <div class="stat-source">Statistics Canada NHS 2021</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">25<span>%</span></div>
+        <div class="stat-label">Muslim Canadian families in low-income households — nearly triple the 8% national rate</div>
+        <div class="stat-source">Statistics Canada NHS</div>
+      </div>
+    </div>
+
+    <div class="callout callout-nabawi reveal">
+      <span class="callout-label">What these numbers mean in plain language</span>
+      <ul>
+        <li>A family contacting us for housing support today will wait <strong>four years</strong> before an appropriate unit becomes available — if one ever does.</li>
+        <li>Muslim families are more than twice as likely to be in core housing need as the average Canadian — and virtually no housing in Canada is designed for how Muslim families actually live.</li>
+        <li>The Canadian affordable housing system was built for nuclear families and childless couples. It was not built for a grandmother, her daughter, and four grandchildren — or for a family of twelve who have survived war and simply want to be under one roof.</li>
+        <li>Doing nothing is not a neutral position. Every year we do not build, the waitlist grows and the families we serve keep returning to the same crisis.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════ 04: HOW WE DID THIS ══════════════ -->
+<section class="section on-green" id="how">
+  <div class="container">
+    <div class="sec-header reveal">
+      <div class="sec-num">04</div>
+      <div class="sec-title-wrap">
+        <div class="eyebrow">Our Approach</div>
+        <h2 class="section-headline">How we did this —<br><em>innovation that protected what existed.</em></h2>
+      </div>
+    </div>
+
+    <p class="body-text reveal">The most important communication point about <em>how</em> this happened: we did not take money from existing programs. We used innovation infrastructure — specifically designed for new, risky, exploratory work — to build something new.</p>
+
+    <div style="margin-top:36px;">
+      <div class="phase reveal">
+        <div class="phase-header">
+          <span class="phase-tag">Condition 1</span>
+          <span class="phase-title-text">CMHC Solutions Lab Funding — Innovation Capital, Not Program Dollars</span>
+        </div>
+        <div class="phase-body">
+          <p class="body-text">The Halal Housing Lab was funded by Canada Mortgage and Housing Corporation's NHS Solutions Labs program — innovation grants specifically designed for exploratory, high-risk research. <strong>Not a single dollar of IslamicFamily's charitable programs or zakat funds was diverted to this work.</strong> The research won both the Alberta Institute of Planners Award and the Canadian Institute of Planners Award.</p>
+        </div>
+      </div>
+
+      <div class="phase reveal">
+        <div class="phase-header">
+          <span class="phase-tag">Condition 2</span>
+          <span class="phase-title-text">Strategic Partnerships — Expertise We Didn't Have to Build From Scratch</span>
+        </div>
+        <div class="phase-body">
+          <p class="body-text" style="margin-bottom:12px;">Rather than building every capability from zero, we assembled a team of values-aligned partners:</p>
+          <ul style="padding-left:1.2em; margin-bottom:0;">
+            <li class="body-text"><strong>SVX Canada</strong> — Fund structure, investor relations, securities compliance. $60M+ in managed assets, $500M+ mobilized.</li>
+            <li class="body-text"><strong>Vivid Homes / Build Edmonton Homes</strong> — Self-financed developer, halal-compliant. No interest-bearing construction debt. Their CEO Issam Saleh has been an IslamicFamily partner for over a decade.</li>
+            <li class="body-text"><strong>Pallett Valo LLP</strong> — Legal counsel for the LP/GP structure and securities compliance.</li>
+            <li class="body-text"><strong>Mufti Zain Baig</strong> — Independent Shariah compliance review.</li>
+            <li class="body-text"><strong>City of Edmonton + Province of Alberta</strong> — $11.1M in confirmed anchor capital (land, municipal grants, provincial grants). 30% of the total project cost secured before a single community investor dollar is committed.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="phase reveal">
+        <div class="phase-header">
+          <span class="phase-tag">Condition 3</span>
+          <span class="phase-title-text">Structural Separation — IslamicFamily's Programs Are Fully Protected</span>
+        </div>
+        <div class="phase-body">
+          <p class="body-text" style="margin-bottom:12px;">The Halal Affordable Housing Investment Fund (HAHIF) is a legally separate Limited Partnership. IslamicFamily is its operator and an equity holder — not a financial guarantor:</p>
+          <ul style="padding-left:1.2em; margin-bottom:0;">
+            <li class="body-text"><strong>No general operating funds</strong> of IslamicFamily are pledged, co-signed, or at risk at any stage.</li>
+            <li class="body-text">Counselling, family support, the food bank, newcomer settlement — none of these are affected, reduced, or compromised.</li>
+            <li class="body-text">The fund is financed by impact investors, government grants, and zakat rent supplements — not by IslamicFamily's existing charitable capital.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════ 05: CONCERNS ══════════════ -->
+<section class="section" id="concerns">
+  <div class="container">
+    <div class="sec-header reveal">
+      <div class="sec-num">05</div>
+      <div class="sec-title-wrap">
+        <div class="eyebrow">Objection Handling</div>
+        <h2 class="section-headline">Addressing concerns —<br><em>what people will ask.</em></h2>
+      </div>
+    </div>
+
+    <p class="body-text reveal">These are the concerns that will surface from staff, volunteers, donors, community members, and board members. Every person on this team should be able to answer these clearly and with confidence. The answers are honest, not defensive.</p>
+
+    <div style="margin-top:28px;">
+      <div class="faq-item reveal">
+        <div class="faq-q">Will this take money away from counselling, the food bank, or other existing programs?</div>
+        <div class="faq-a">
+          <p><strong>No — and it will improve them.</strong> The housing fund is a legally separate entity from IslamicFamily's general operating budget. The fund is capitalized by impact investors and government grants, not from IslamicFamily's charitable programs or zakat distribution.</p>
+          <p>More importantly: when families have stable housing, they need fewer counselling sessions, less emergency food support, and less crisis intervention. Housing doesn't compete with these programs — it makes them more effective.</p>
+        </div>
+      </div>
+
+      <div class="faq-item reveal">
+        <div class="faq-q">Will this pull focus and management time away from other areas of our work?</div>
+        <div class="faq-a">
+          <p><strong>In the short term, it helps offset program and administrative costs — and builds organizational resilience.</strong> Once operational, Diamond at Dunluce will generate sustainable revenue for IslamicFamily through property management — reducing our dependence on the grant cycle that constrains every other program we run.</p>
+          <p>Yes, the ED and senior leadership will invest real time in this project between now and 2028. That is acknowledged and planned for. The commitment is that existing program obligations will be maintained.</p>
+        </div>
+      </div>
+
+      <div class="faq-item reveal">
+        <div class="faq-q">Is this actually halal? Who verified it?</div>
+        <div class="faq-a">
+          <p><strong>Yes — independently reviewed and certified.</strong> Mufti Zain Baig, an independent Islamic finance scholar (not employed by IslamicFamily or SVX), has reviewed and certified the fund's LP/GP structure, the Musharakah framework, the investor return structure, and the absence of any interest-bearing instruments. This is not a workaround. The fund uses no riba. Returns come from shared equity participation in a housing asset — not interest on money.</p>
+        </div>
+      </div>
+
+      <div class="faq-item reveal">
+        <div class="faq-q">What if the project runs into trouble? Is IslamicFamily on the hook?</div>
+        <div class="faq-a">
+          <p><strong>IslamicFamily's finances are protected at every stage.</strong> The fund's legal structure separates IslamicFamily's organizational finances from the project's financial obligations. If the project underperforms, investor capital may be affected — investors enter knowing and accepting this risk — but IslamicFamily's operating budget, programs, and staff are insulated. Multiple Board-approval gates exist before any major commitment is made.</p>
+        </div>
+      </div>
+
+      <div class="faq-item reveal">
+        <div class="faq-q">Is this only for Muslim families? Are we prioritizing some people over others?</div>
+        <div class="faq-a">
+          <p><strong>No. Tenancy is not restricted by religion.</strong> The fund's investment criteria prioritize larger family-sized, affordable units for underserved households. The tenant population will include Muslim and non-Muslim families who qualify under affordability criteria. Muslim families are more than twice as likely to be in core housing need as the average Canadian — responding to that documented, data-grounded need is equitable design, not preferential treatment.</p>
+        </div>
+      </div>
+
+      <div class="faq-item reveal">
+        <div class="faq-q">Why now? Why not wait until we have more resources?</div>
+        <div class="faq-a">
+          <p><strong>Because three conditions that have never simultaneously existed before are open right now — and each has a closing window.</strong> For the first time in our 35-year history, we have a viable halal finance structure, a self-financed culturally aligned builder, and $11.1M in confirmed government anchor capital. Waiting does not preserve the status quo — it forecloses an opportunity that may not recur for another decade.</p>
+        </div>
+      </div>
+
+      <div class="faq-item reveal">
+        <div class="faq-q">Will this initiative compete with or reduce donations to IslamicFamily's existing programs?</div>
+        <div class="faq-a">
+          <p><strong>No — and this is a critical point to be clear on with every donor conversation.</strong> The Halal Affordable Housing Investment Fund is a separate financial vehicle. It draws on a completely different pool of capital: impact investors, government grants, and institutional philanthropy — not the community zakat and sadaqa that funds our counselling, food bank, settlement programs, and youth work.</p>
+          <p>A donor who gives to IslamicFamily's annual campaign is supporting programs. A donor who invests in the HAHIF is deploying capital into a structured fund — a different decision, for a different purpose, from a different part of their financial life. These are not in competition. In fact, housing stability reduces the demand on our emergency programs over time, meaning existing donations go further.</p>
+          <p><strong>The message for donors is straightforward: your annual gift still does exactly what it has always done. The housing fund is additive — it does not replace, redirect, or diminish anything you already support.</strong></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════ 06: MESSAGING ══════════════ -->
+<section class="section on-green" id="messaging">
+  <div class="container">
+    <div class="sec-header reveal">
+      <div class="sec-num">06</div>
+      <div class="sec-title-wrap">
+        <div class="eyebrow">Messaging</div>
+        <h2 class="section-headline">Key messaging<br><em>by audience.</em></h2>
+      </div>
+    </div>
+
+    <p class="body-text reveal">Different audiences need to hear the same story in different registers. The underlying truth does not change — only the entry point.</p>
+
+    <div class="msg-grid" style="margin-top:32px;">
+      <div class="msg-card reveal">
+        <div class="msg-audience">Community Members &amp; General Donors</div>
+        <div class="msg-headline">We are finally building what our community needs — and it won't cost the programs you trust.</div>
+        <p class="msg-body">For 35 years, our families have needed housing that actually fits them. Our food bank, our counselling, our settlement work: none of that changes. This makes all of it more powerful.</p>
+      </div>
+      <div class="msg-card reveal reveal-d1">
+        <div class="msg-audience">Major Donors &amp; Fundraising Dinner Guests</div>
+        <div class="msg-headline">Your giving has always addressed the symptoms. This is the first time you can address <em>the cause.</em></div>
+        <p class="msg-body">The most effective use of your zakat and sadaqa is not a food hamper — it is a roof. You can invest in a building that will house families in perpetuity.</p>
+      </div>
+      <div class="msg-card reveal">
+        <div class="msg-audience">Staff &amp; Volunteers</div>
+        <div class="msg-headline">The revolving door you've watched for years — <em>this is how we stop it.</em></div>
+        <p class="msg-body">You have referred the same families to the housing waitlist more times than you can count. This project builds the housing they need. It doesn't change your work — it changes what your work can accomplish.</p>
+      </div>
+      <div class="msg-card reveal reveal-d1">
+        <div class="msg-audience">Board of Directors</div>
+        <div class="msg-headline">Three enabling conditions have aligned for the first time in our history. <em>The window is open.</em></div>
+        <p class="msg-body">CMHC Solutions Lab research, a self-financed halal-aligned builder, and $11.1M in government anchor capital — none of these existed together before. Each has a closing window. Delay is not a neutral choice.</p>
+      </div>
+      <div class="msg-card reveal">
+        <div class="msg-audience">Government &amp; Institutional Partners</div>
+        <div class="msg-headline">IslamicFamily is Canada's most research-grounded organization working on halal affordable housing. <em>This fund is the first of its kind.</em></div>
+        <p class="msg-body">National planning awards, confirmed grants from three levels of government, a Shariah-compliant LP reviewed by securities counsel and independent scholars. Canada has no comparable vehicle.</p>
+      </div>
+      <div class="msg-card reveal reveal-d1">
+        <div class="msg-audience">Prospective Muslim Investors</div>
+        <div class="msg-headline">For the first time, you can invest your savings — not just donate — <em>in building halal housing for your community.</em></div>
+        <p class="msg-body">Canada's first institutional-quality, Shariah-compliant affordable housing fund. Your capital returns to you — with a modest return for Class 1 investors. The housing stays. The community benefit is generational.</p>
+      </div>
+      <div class="msg-card reveal">
+        <div class="msg-audience">Non-Muslim / Impact Investors</div>
+        <div class="msg-headline">A government-anchored LP with 30% confirmed capital and a 2.5% impact return. <em>You're not going in first.</em></div>
+        <p class="msg-body">Conventional LP/GP structure with strong impact credentials. 30% of the capital stack already secured. SVX Canada — $60M+ in managed assets — is the fund manager. The social case is grounded in data, not sentiment.</p>
+      </div>
+      <div class="msg-card reveal reveal-d1">
+        <div class="msg-audience">Media &amp; Public</div>
+        <div class="msg-headline">Canada's first halal affordable housing fund — built for the families the housing system was <em>never built to house.</em></div>
+        <p class="msg-body">Edmonton's Muslim families wait an average of four years for housing that fits them. IslamicFamily is building 96 units — 30% with 4–5 bedrooms — using Canada's first Shariah-compliant housing fund. Backed by three levels of government.</p>
+      </div>
+    </div>
+
+    <div class="eyebrow reveal" style="margin-top:48px;">Universal Bridge Language — use in any context</div>
+    <div class="callout callout-pinecone reveal">
+      <ul class="bridge-list">
+        <li>Thirty percent of all the zakat IslamicFamily distributes already goes to housing. We are not moving into housing — we are finally building what we've been referring people toward for thirty years.</li>
+        <li>The families on our caseload need three, four, and five bedrooms. The housing system builds studios and one-bedrooms. That gap is what Diamond at Dunluce is designed to close.</li>
+        <li>This didn't cost our programs anything. It was funded by innovation grants, built on partnerships, and structured to legally protect IslamicFamily's existing work at every stage.</li>
+        <li>Every dollar secured in government grants — and we have $11.1 million confirmed — is a dollar the fund doesn't need to raise from community investors.</li>
+        <li>Not acting is not a neutral position. The waitlist grows every year. The families don't go away. They just wait longer.</li>
+        <li>The housing fund draws on impact investors and government grants — not on the annual giving that funds our programs. Your gift to IslamicFamily still does exactly what it has always done. These are not in competition.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════ 07: TIMELINE ══════════════ -->
+<section class="section" id="timeline">
+  <div class="container">
+    <div class="sec-header reveal">
+      <div class="sec-num">07</div>
+      <div class="sec-title-wrap">
+        <div class="eyebrow">Planning</div>
+        <h2 class="section-headline">Communication timeline —<br><em>2026 to 2028.</em></h2>
+      </div>
+    </div>
+
+    <p class="body-text reveal">Three phases. Each has a distinct goal, primary audience, and key activation moments. All external communications coordinate through the ED's office.</p>
+
+    <div style="margin-top:32px;">
+      <div class="phase reveal">
+        <div class="phase-header">
+          <span class="phase-tag">Phase 1 · July – Aug 2026</span>
+          <span class="phase-title-text">Internal Alignment &amp; First Close Activation</span>
+        </div>
+        <div class="phase-body">
+          <p class="body-text" style="margin-bottom:20px;"><strong>Goal:</strong> Ensure all staff, board, and core volunteers understand the project, can answer questions confidently, and are equipped to introduce it to their networks before the August 15 first-close deadline.</p>
+          <div class="timeline">
+            <div class="tl-item">
+              <div class="tl-date">Sept 2026</div>
+              <div class="tl-title">All-Staff Briefing</div>
+              <div class="tl-body">Walk through this plan. Distribute a one-page FAQ (Section 05). Establish who fields which types of questions. Front-line staff who may receive client questions get specific talking points.</div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-date">Sept 2026</div>
+              <div class="tl-title">Volunteer &amp; Community Partner Briefing</div>
+              <div class="tl-body">Brief key community partners and long-serving volunteers before any public announcement. They should hear this from us, not from social media. Email + invitation to a virtual Q&amp;A.</div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-date">July 2026</div>
+              <div class="tl-title">Board Motion — Housing Authorization</div>
+              <div class="tl-body">Board approves the motion to authorize the conditional offer to purchase. Board members briefed on how to discuss with community members they encounter.</div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-date">Late July 2026</div>
+              <div class="tl-title">Soft Launch to Inner Circle</div>
+              <div class="tl-body">Personal outreach from ED to 20–30 major donors, community leaders, and prospective investors. Not a broadcast — a personal conversation. "We are doing something we've been building toward for a decade. I want you to hear it from me first."</div>
+            </div>
+            <div class="tl-item milestone">
+              <div class="tl-date">Aug 15, 2026</div>
+              <div class="tl-title">⭐ First Close Deadline — $400,000</div>
+              <div class="tl-body">All internal communication and network activation leads to this milestone. Coordinate with SVX. Board updated weekly in August. If milestone achieved → Phase 2 announcement. If not → contingency protocol (Section 10).</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase reveal">
+        <div class="phase-header">
+          <span class="phase-tag">Phase 2 · Sept 2026 – Dec 2027</span>
+          <span class="phase-title-text">Public Launch, Fundraising Dinner &amp; Capital Raise</span>
+        </div>
+        <div class="phase-body">
+          <p class="body-text" style="margin-bottom:20px;"><strong>Goal:</strong> Formally introduce the project to Edmonton's Muslim community and broader public. Drive investor commitments toward the $25M full-fund target.</p>
+          <div class="timeline">
+            <div class="tl-item milestone">
+              <div class="tl-date">Oct 2026</div>
+              <div class="tl-title">⭐ Public Launch Announcement</div>
+              <div class="tl-body">Press release, social media launch, email to full community list. Announcement at Friday jumu'ah at key mosques (coordinated with Imam support in advance). Key message: "Canada's first halal affordable housing fund is live — $11.1M in government anchor capital already secured."</div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-date">Feb 2027</div>
+              <div class="tl-title">Annual Fundraising Dinner</div>
+              <div class="tl-body">Annual dinner — housing will be present as one thread of the evening but is not the primary focus. An opportunity for warm cultivation of major donors and community relationships, with housing introduced naturally in context. See Section 09 for dinner plan details.</div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-date">Winter 2026–2027</div>
+              <div class="tl-title">Zakat Campaign — Housing Edition</div>
+              <div class="tl-body">Annual zakat campaign reframed around the housing initiative and the effective zakat research. Introduce the rent supplement model as a concrete, dignified way to use zakat for systemic change.</div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-date">Spring 2027</div>
+              <div class="tl-title">Construction Milestone Communications</div>
+              <div class="tl-body">Site photos, progress videos for social media. "Walls going up" is powerful donor engagement content.</div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-date">Ongoing 2027</div>
+              <div class="tl-title">Monthly Impact Narrative</div>
+              <div class="tl-body">One family story, one construction update, one policy development per month — distributed to investor prospects and confirmed LP holders alongside SVX quarterly updates.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase reveal">
+        <div class="phase-header">
+          <span class="phase-tag">Phase 3 · 2028</span>
+          <span class="phase-title-text">Move-In — A Community Moment</span>
+        </div>
+        <div class="phase-body">
+          <p class="body-text" style="margin-bottom:20px;"><strong>Goal:</strong> Mark the arrival of the first families into Diamond at Dunluce as a community achievement thirty years in the making.</p>
+          <div class="timeline">
+            <div class="tl-item">
+              <div class="tl-date">Early 2028</div>
+              <div class="tl-title">Tenant Selection Communications</div>
+              <div class="tl-body">Communicate clearly how units will be allocated, who is eligible, and how the process will be conducted. Transparency here is essential. Coordinate with MAC, CCI, and community partners on referrals.</div>
+            </div>
+            <div class="tl-item milestone">
+              <div class="tl-date">2028</div>
+              <div class="tl-title">⭐ Move-In Celebration</div>
+              <div class="tl-body">Formal community event at the building. Families welcomed, prayer, dua, community gathering in the courtyard. Invite major donors, government funders, board, community partners. Media invited. Document with photography and video for annual impact reporting.</div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-date">2028 Ongoing</div>
+              <div class="tl-title">Annual Impact Reporting</div>
+              <div class="tl-body">Families housed, bedrooms available, zakat rent supplements delivered, community programming. The accountability document for investors and donors — and the most powerful fundraising tool for the next phase of the platform.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════ 08: SOCIAL MEDIA ══════════════ -->
+<section class="section on-green" id="social">
+  <div class="container">
+    <div class="sec-header reveal">
+      <div class="sec-num">08</div>
+      <div class="sec-title-wrap">
+        <div class="eyebrow">Channel Strategy</div>
+        <h2 class="section-headline">Social media plan —<br><em>a long game.</em></h2>
+      </div>
+    </div>
+
+    <p class="body-text reveal">The goal is not a single viral moment — it is building a consistent narrative over 18+ months so that by the time families move in, the community already feels ownership of this project.</p>
+
+    <div class="channel-grid reveal" style="margin-top:32px;">
+      <div class="channel-card">
+        <span class="channel-icon">📸</span>
+        <div class="channel-name">Instagram</div>
+        <div class="channel-cadence">Once a month</div>
+        <p class="channel-body">Community awareness channel — one considered, high-quality post per month. Prioritize construction progress photos, composite family stories, and Quranic or scholarly quotes on housing. Quality and intentionality over volume.</p>
+      </div>
+      <div class="channel-card">
+        <span class="channel-icon">💼</span>
+        <div class="channel-name">LinkedIn</div>
+        <div class="channel-cadence">1–2 posts/week · Primary fundraising channel</div>
+        <p class="channel-body">The most important channel for the capital raise. Institutional investors, foundations, and impact funders live here. ED thought leadership on Islamic finance, community housing, and social impact. Fund milestones, policy developments, construction progress. Tag SVX, Vivid Homes, government partners. This is where the investor conversation is built over time.</p>
+      </div>
+      <div class="channel-card">
+        <span class="channel-icon">✉️</span>
+        <div class="channel-name">Email Newsletter</div>
+        <div class="channel-cadence">Monthly</div>
+        <p class="channel-body">The highest-trust channel. One family story, one milestone, one policy development, one call to action. Segmented: investors get financial updates; community members get human stories. All link to halalfund.ca.</p>
+      </div>
+      <div class="channel-card">
+        <span class="channel-icon">📺</span>
+        <div class="channel-name">YouTube / Video</div>
+        <div class="channel-cadence">Monthly</div>
+        <p class="channel-body">Documentary-style short videos. Construction walkthroughs. Mufti Zain Baig on why this is halal. Zakat education. These assets live beyond the campaign cycle and build the institutional story over time.</p>
+      </div>
+    </div>
+
+    <div class="eyebrow reveal" style="margin-top:44px;">Content Pillars</div>
+    <div class="tbl-wrap reveal">
+      <table>
+        <tr><th>Pillar</th><th>What It Is</th><th>Cadence</th><th>Sample Posts</th></tr>
+        <tr><td><strong>The Need</strong></td><td>Data and stories that make the problem visceral</td><td>Weekly</td><td>"10,000 families on Edmonton's housing waitlist. Four-year wait for a family with four kids." · Composite family case stories</td></tr>
+        <tr><td><strong>The Progress</strong></td><td>Construction milestones, fund announcements</td><td>Every 2 weeks</td><td>Site photos · "$11.1M in government anchor capital secured." · "96 units. 264 bedrooms. 2028."</td></tr>
+        <tr><td><strong>The Faith Grounding</strong></td><td>Islamic scholarship on housing, zakat, community obligation</td><td>Monthly</td><td>Ayat and hadith on shelter as a right · Mufti Zain Baig clips · Effective zakat research</td></tr>
+        <tr><td><strong>The Team</strong></td><td>People behind the project — staff, partners, scholars</td><td>Monthly</td><td>Caseworker profiles · SVX and Vivid Homes spotlights · Anonymized investor stories</td></tr>
+        <tr><td><strong>The Invitation</strong></td><td>Clear calls to action for investors, donors, and community</td><td>Every 2 weeks</td><td>"$50K minimum · principal + 2.5% annually · a roof over a family's head · halalfund.ca"</td></tr>
+      </table>
+    </div>
+
+    <div class="callout callout-pinecone reveal" style="margin-top:28px;">
+      <span class="callout-label">Key Hashtags &amp; Tags</span>
+      <ul>
+        <li><strong>Primary:</strong> #HalalHousing #DiamondAtDunluce #IslamicFamily #HAHIF</li>
+        <li><strong>Reach:</strong> #AffordableHousing #IslamicFinance #MuslimCommunity #Edmonton #YEG</li>
+        <li><strong>Tag:</strong> @SVXCanada @CityofEdmonton @VividHomes @CMHCca</li>
+        <li><strong>Campaign moments:</strong> Ramadan zakat campaign · First close · Construction milestones · Move-in day</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════ 09: FUNDRAISING DINNER ══════════════ -->
+<section class="section" id="dinner">
+  <div class="container">
+    <div class="sec-header reveal">
+      <div class="sec-num">09</div>
+      <div class="sec-title-wrap">
+        <div class="eyebrow">Events</div>
+        <h2 class="section-headline">AGM or special<br><em>housing event.</em></h2>
+      </div>
+    </div>
+
+    <p class="body-text reveal">The primary vehicle for housing-specific engagement is an intimate event — either the AGM or a dedicated housing gathering — held at the IslamicFamily Hüb. Approximately 50 people. The focus is institutional investors and serious prospective funders, not a broad community audience. Small enough for real conversation, significant enough to signal that this is a serious initiative at an important stage.</p>
+
+    <div class="eyebrow reveal" style="margin-top:36px;">Event Framework</div>
+    <div class="dinner-table reveal">
+      <div class="dinner-row dinner-header">
+        <div class="dinner-cell">Element</div>
+        <div class="dinner-cell">Description</div>
+        <div class="dinner-cell">Goal</div>
+      </div>
+      <div class="dinner-row">
+        <div class="dinner-cell">Venue &amp; Scale</div>
+        <div class="dinner-cell">IslamicFamily Hüb. ~50 people. Invitation-only — institutional investors, prospective funders, key community champions, and a small number of community members who lend credibility to the room.</div>
+        <div class="dinner-cell">Intimate enough for real conversation</div>
+      </div>
+      <div class="dinner-row">
+        <div class="dinner-cell">Opening</div>
+        <div class="dinner-cell">Brief welcome from ED. Context-setting: what IslamicFamily is, why housing, why now. 5 minutes — assume some guests are new to the organization.</div>
+        <div class="dinner-cell">Orient the room; establish credibility</div>
+      </div>
+      <div class="dinner-row">
+        <div class="dinner-cell">The Case</div>
+        <div class="dinner-cell">15 minutes from ED and SVX: the fund structure, the capital stack, the Diamond at Dunluce project, construction progress. Data-led, investor-facing. No community-facing softening.</div>
+        <div class="dinner-cell">Make the investment case clearly</div>
+      </div>
+      <div class="dinner-row">
+        <div class="dinner-cell">Shariah Grounding</div>
+        <div class="dinner-cell">5 minutes from Mufti Zain Baig (live or video): independent Shariah certification, what that means for Muslim investors, why this structure is authentic and not a workaround.</div>
+        <div class="dinner-cell">Address the compliance question directly</div>
+      </div>
+      <div class="dinner-row">
+        <div class="dinner-cell">One Family Story</div>
+        <div class="dinner-cell">A single, brief composite case — Adam or Sarah — delivered by a caseworker or the ED. 2 minutes. Grounds the financial conversation in human reality without turning the evening into a charity appeal.</div>
+        <div class="dinner-cell">Remind investors what the capital actually builds</div>
+      </div>
+      <div class="dinner-row">
+        <div class="dinner-cell">The Ask</div>
+        <div class="dinner-cell">Direct ask for investment commitments — Class 0 and Class 1 LP units. SVX walks through the process. Commitment cards available. No general donation ask; this room is here for the fund.</div>
+        <div class="dinner-cell">Close or advance institutional commitments</div>
+      </div>
+      <div class="dinner-row">
+        <div class="dinner-cell">Closing &amp; Conversation</div>
+        <div class="dinner-cell">Dua. Informal networking. ED, SVX, and Mufti Zain Baig available for one-on-one conversations. Light hospitality at the Hüb.</div>
+        <div class="dinner-cell">Deepen individual investor relationships</div>
+      </div>
+    </div>
+
+    <div class="eyebrow reveal" style="margin-top:40px;">Guest List Principles</div>
+    <div class="callout callout-nabawi reveal">
+      <ul>
+        <li><strong>Primary guests:</strong> Institutional investors and philanthropic funders in active conversation with SVX or IslamicFamily — this is a closing event, not an introductory one.</li>
+        <li><strong>Secondary guests:</strong> Community champions and board members who can speak credibly to the organization's track record and lend social proof to the room.</li>
+        <li><strong>Not the right room for:</strong> Broad community members, general donors, or anyone who hasn't already been introduced to the fund. Those relationships belong in different channels.</li>
+        <li><strong>Size discipline:</strong> Keep to ~50. A room of 50 serious people is more powerful than a room of 200 casual ones.</li>
+      </ul>
+    </div>
+
+    <div class="callout callout-pinecone reveal" style="margin-top:20px;">
+      <span class="callout-label">Follow-Up Protocol — 48 Hours Post-Event</span>
+      <ul>
+        <li>SVX follows up directly with every guest who filled out a commitment card — within 48 hours, not 5 days</li>
+        <li>ED sends a personal note to every institutional guest, regardless of whether they committed — relationship maintenance matters as much as the close</li>
+        <li>Anyone who attended but didn't commit gets a follow-up meeting offer from SVX within two weeks</li>
+        <li>Event summary (attendees, commitments, pipeline status) reported to the Board within one week</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════ 10: OBSTACLES ══════════════ -->
+<section class="section on-green" id="obstacles">
+  <div class="container">
+    <div class="sec-header reveal">
+      <div class="sec-num">10</div>
+      <div class="sec-title-wrap">
+        <div class="eyebrow">Risk Communications</div>
+        <h2 class="section-headline">Obstacle &amp; setback<br><em>protocols.</em></h2>
+      </div>
+    </div>
+
+    <p class="body-text reveal">Transparency is our most important asset. When things go wrong — and in a project of this complexity, some things will — the community will forgive honest difficulty far more readily than evasion. These are the scenarios to plan for.</p>
+
+    <div class="tbl-wrap reveal" style="margin-top:32px;">
+      <table>
+        <tr><th>Scenario</th><th>Risk Level</th><th>Protocol</th><th>Key Message</th></tr>
+        <tr>
+          <td><strong>First close not reached by Aug 15</strong></td>
+          <td><span class="badge badge-red">High</span></td>
+          <td>Board briefed immediately. Staff within 24 hours. No public announcement yet. ED reviews options with SVX within 48 hours.</td>
+          <td>"We fell short of the milestone required to proceed. IslamicFamily's finances are fully protected. We are reviewing next steps and will keep you informed. The need has not gone away."</td>
+        </tr>
+        <tr>
+          <td><strong>Construction delays</strong></td>
+          <td><span class="badge badge-amber">Medium</span></td>
+          <td>Proactive update in investor email as soon as delay is confirmed. Social media post with revised timeline. Do not wait for community members to ask.</td>
+          <td>"Diamond at Dunluce is experiencing a [X-month] delay due to [reason]. Move-in target is now [new date]. Nothing about the project's fundamentals has changed."</td>
+        </tr>
+        <tr>
+          <td><strong>Cost overruns</strong></td>
+          <td><span class="badge badge-amber">Medium</span></td>
+          <td>Immediate notification to Board Finance Committee. Disclosure in next investor update. ED statement on mitigation steps.</td>
+          <td>"Project costs have increased due to [specific cause]. Here is how this affects the capital stack and what management and SVX are doing to address it."</td>
+        </tr>
+        <tr>
+          <td><strong>Community criticism or skepticism</strong></td>
+          <td><span class="badge badge-amber">Medium</span></td>
+          <td>Engage directly — never ignore. Invite critics to a Q&amp;A. Publish Shariah compliance documentation publicly if the concern is about halal status. Respond once, clearly, with facts.</td>
+          <td>Use the FAQ from Section 05. Be direct, not defensive. The research, the scholars, and the government support are all publicly documented.</td>
+        </tr>
+        <tr>
+          <td><strong>Loss of a key partner</strong></td>
+          <td><span class="badge badge-red">High</span></td>
+          <td>Immediate board notification. Internal assessment of impact before any public communication. If the project can continue, announce the change and explain the path forward.</td>
+          <td>"[Partner] is no longer part of this project. Here is how we are responding." — Followed immediately by the mitigation plan.</td>
+        </tr>
+        <tr>
+          <td><strong>Staff questions about program impacts</strong></td>
+          <td><span class="badge badge-green">Low</span></td>
+          <td>Field through direct managers. Any question not answered by this plan escalates to ED within 24 hours.</td>
+          <td>"This project does not touch existing program budgets. If you have a concern, please raise it with your manager or directly with Omar."</td>
+        </tr>
+        <tr>
+          <td><strong>Move-in delays / families asking for updates</strong></td>
+          <td><span class="badge badge-amber">Medium</span></td>
+          <td>Proactive communication to families who have expressed interest. Honest timelines. Regular updates — even if the update is "no change." Silence is the worst response here.</td>
+          <td>"Move-in is expected in [timeframe]. We will contact you directly as the process moves forward. Your place on our list is not affected."</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="eyebrow reveal" style="margin-top:44px;">General Setback Principles</div>
+    <div class="callout callout-pinecone reveal">
+      <ul>
+        <li><strong>Internal before external.</strong> Board and staff always hear from us before the community does.</li>
+        <li><strong>Named, specific, honest.</strong> Never vague. Say what happened, why, and what we are doing about it.</li>
+        <li><strong>Lead with organizational protection.</strong> In any difficult announcement, the first sentence after the news is: "IslamicFamily's existing programs and general operating funds are not affected."</li>
+        <li><strong>Keep the human story central.</strong> Even in a setback, the families who need this housing are still waiting. That doesn't change, and neither does our commitment.</li>
+        <li><strong>One voice externally.</strong> All media and major community communications go through the ED or a designated spokesperson. Staff should direct external inquiries to Omar.</li>
+      </ul>
+    </div>
+
+    <div class="pull-quote reveal" style="margin-top:36px;">
+      <p>"The community will forgive honest difficulty. It will not forgive the discovery that we knew something and didn't tell them."</p>
+      <cite>— Internal principle, IslamicFamily communications</cite>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════ FOOTER ══════════════ -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div>
+        <div class="footer-name">IslamicFamily · Affordable Housing Communication Plan · July 2026</div>
+        <div class="footer-links" style="margin-top:4px;">
+          <a href="https://halalfund.ca">halalfund.ca</a>
+          <span class="footer-divider">·</span>
+          <a href="https://halalhousinglab.ca">halalhousinglab.ca</a>
+          <span class="footer-divider">·</span>
+          <a href="https://share.islamicfamily.ca/effectivezakat">effectivezakat</a>
+          <span class="footer-divider">·</span>
+          <span>omary@islamicfamily.ca</span>
+        </div>
+      </div>
+      <div style="font-family:'Alegreya',serif; font-size:24px; color:rgba(250,250,242,0.2);">✸</div>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+  // Scroll reveal
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add("visible"); });
+  }, { threshold: 0.08, rootMargin: "0px 0px -20px 0px" });
+  document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+
+  // Nav scroll shadow
+  const nav = document.getElementById("nav");
+  window.addEventListener("scroll", () => {
+    nav.classList.toggle("scrolled", window.scrollY > 40);
+  });
+
+  // Hamburger drawer
+  const hamburger = document.getElementById("navHamburger");
+  const drawer    = document.getElementById("navDrawer");
+  const overlay   = document.getElementById("navOverlay");
+  const closeBtn  = document.getElementById("navDrawerClose");
+  if (hamburger) {
+    hamburger.addEventListener("click", () => {
+      drawer.classList.add("open");
+      overlay.classList.add("open");
+      document.body.style.overflow = "hidden";
+    });
+    const close = () => {
+      drawer.classList.remove("open");
+      overlay.classList.remove("open");
+      document.body.style.overflow = "";
+    };
+    closeBtn.addEventListener("click", close);
+    overlay.addEventListener("click", close);
+    drawer.querySelectorAll(".drawer-link").forEach(l => l.addEventListener("click", close));
+  }
+</script>
+</body>
+</html>
