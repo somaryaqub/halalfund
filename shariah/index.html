@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shariah Foundation — Housing Prosperity Fund</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400;0,500;0,700;0,800;1,400;1,500&family=Alegreya+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Noto+Naskh+Arabic:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --nabawi-green:#275D43; --nabawi-dark:#1C4433; --nabawi-mid:#326B50;
+    --pinecone:#E09964; --mist:#FAFAF2; --kiswah:#353535; --yaqoot:#BB2D37;
+    --sun:#F7AF29; --warm-sand:#EECBAF; --arabica:#DCD9B8;
+    --serif:'Alegreya',Georgia,serif; --sans:'Alegreya Sans',system-ui,sans-serif; --arabic:'Noto Naskh Arabic',serif;
+    --nav-h:66px;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body {
+    background:var(--mist); color:var(--kiswah); font-family:var(--sans);
+    font-size:1.12rem; line-height:1.7; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+  }
+  .wrap { max-width:960px; margin:0 auto; padding:0 32px; }
+  .col { max-width:720px; }
+
+  /* ---------- Top bar + drawer (IsDB data-room chrome) ---------- */
+  .topbar {
+    position:fixed; top:0; left:0; right:0; height:var(--nav-h); z-index:60;
+    background:rgba(250,250,242,0.94); backdrop-filter:saturate(140%) blur(8px);
+    border-bottom:1px solid var(--arabica);
+    display:flex; align-items:center; justify-content:space-between; padding:0 24px;
+  }
+  .brand { display:flex; align-items:center; gap:12px; text-decoration:none; }
+  .brand img { height:34px; width:auto; display:block; }
+  .brand .fallback { font-family:var(--serif); font-weight:800; font-size:1.15rem; color:var(--nabawi-green); letter-spacing:-0.01em; }
+  .menu-btn { background:none; border:none; cursor:pointer; display:flex; flex-direction:column; gap:5px; padding:10px; margin:-10px; border-radius:6px; }
+  .menu-btn span { width:26px; height:2px; background:var(--nabawi-dark); display:block; transition:transform .3s ease, opacity .3s ease; }
+  .menu-btn:focus-visible { outline:2px solid var(--pinecone); outline-offset:2px; }
+
+  .drawer { position:fixed; top:0; right:0; height:100%; width:min(340px,84vw); z-index:80; background:var(--nabawi-dark); color:var(--mist); transform:translateX(100%); transition:transform .34s cubic-bezier(.4,0,.2,1); padding:26px 30px; display:flex; flex-direction:column; }
+  .drawer.open { transform:none; }
+  .drawer-head { display:flex; justify-content:space-between; align-items:center; margin-bottom:28px; }
+  .drawer-head .lbl { font-family:var(--sans); font-weight:700; letter-spacing:.2em; text-transform:uppercase; font-size:.72rem; color:var(--pinecone); }
+  .drawer-close { background:none; border:none; color:var(--mist); font-size:1.7rem; line-height:1; cursor:pointer; padding:4px 8px; margin:-4px -8px; }
+  .drawer-close:focus-visible { outline:2px solid var(--pinecone); outline-offset:2px; }
+  .drawer nav a { display:block; font-family:var(--serif); font-size:1.3rem; color:var(--mist); text-decoration:none; padding:12px 0; border-bottom:1px solid rgba(238,203,175,.14); }
+  .drawer nav a .idx { font-family:var(--sans); font-size:.8rem; color:var(--pinecone); margin-right:12px; letter-spacing:.1em; }
+  .drawer nav a:hover { color:var(--warm-sand); }
+  .drawer .drawer-foot { margin-top:auto; font-family:var(--sans); font-size:.82rem; letter-spacing:.08em; text-transform:uppercase; color:rgba(238,203,175,.55); }
+  .scrim { position:fixed; inset:0; background:rgba(28,68,51,.5); opacity:0; visibility:hidden; transition:opacity .3s ease; z-index:70; }
+  .scrim.open { opacity:1; visibility:visible; }
+
+  /* ---------- Hero ---------- */
+  .hero { background:var(--nabawi-dark); color:var(--mist); margin-top:var(--nav-h); padding:70px 0 84px; position:relative; overflow:hidden; }
+  .hero::before { content:""; position:absolute; inset:0; background:radial-gradient(120% 90% at 82% 8%, rgba(50,107,80,.55), transparent 60%); pointer-events:none; }
+  .hero::after { content:"✸"; position:absolute; right:-46px; bottom:-70px; font-size:360px; color:rgba(224,153,100,.08); line-height:1; pointer-events:none; }
+  .hero .wrap { position:relative; z-index:1; }
+  .bismillah { font-family:var(--arabic); font-size:clamp(1.35rem,3vw,1.75rem); color:var(--pinecone); direction:rtl; text-align:center; margin:0 auto 40px; line-height:1.2; opacity:.95; }
+  .eyebrow { font-family:var(--sans); font-weight:700; letter-spacing:.22em; text-transform:uppercase; font-size:.76rem; color:var(--pinecone); }
+  .hero h1 { font-family:var(--serif); font-weight:800; font-size:clamp(2.5rem,6vw,3.9rem); line-height:1.08; letter-spacing:-0.01em; margin:18px 0 24px; color:var(--mist); max-width:16ch; }
+  .hero .thesis { font-family:var(--serif); font-style:italic; font-weight:400; font-size:clamp(1.25rem,3vw,1.55rem); line-height:1.5; color:var(--warm-sand); max-width:38ch; }
+
+  /* ---------- Section scaffold ---------- */
+  section.block { padding:64px 0; border-top:1px solid var(--arabica); scroll-margin-top:var(--nav-h); }
+  section.block:first-of-type { border-top:none; }
+  .section-label { font-family:var(--sans); font-weight:700; letter-spacing:.2em; text-transform:uppercase; font-size:.74rem; color:var(--nabawi-mid); display:flex; align-items:center; gap:14px; margin-bottom:16px; }
+  .section-label .rn { font-family:var(--serif); font-weight:800; font-size:1.5rem; color:var(--pinecone); line-height:1; }
+  h2.head { font-family:var(--serif); font-weight:700; font-size:clamp(1.7rem,4vw,2.25rem); line-height:1.15; color:var(--nabawi-dark); margin-bottom:18px; letter-spacing:-0.005em; }
+  .block p { margin-bottom:18px; }
+  .block p:last-child { margin-bottom:0; }
+  .block strong { font-weight:700; color:var(--nabawi-dark); }
+  .block em { font-style:italic; }
+  abbr { text-decoration:none; border-bottom:1px dotted var(--nabawi-mid); cursor:help; }
+
+  .lede { font-family:var(--serif); font-size:1.5rem; line-height:1.55; color:var(--nabawi-dark); }
+  .lede strong { font-weight:700; color:var(--nabawi-green); }
+
+  .pull { font-family:var(--serif); font-style:italic; font-size:1.5rem; line-height:1.45; color:var(--nabawi-green); border-left:3px solid var(--pinecone); padding:6px 0 6px 24px; margin:26px 0; }
+
+  /* ---------- The stack (signature) ---------- */
+  .stack { margin:26px 0 12px; box-shadow:0 1px 0 rgba(53,53,53,.04); }
+  .layer { background:#fff; border:1px solid var(--arabica); border-left:5px solid var(--nabawi-green); padding:24px 26px; }
+  .layer + .layer { border-top:none; }
+  .layer:first-child { border-radius:5px 5px 0 0; }
+  .layer:last-child { border-radius:0 0 5px 5px; }
+  .layer-tag { font-family:var(--sans); font-weight:700; letter-spacing:.16em; text-transform:uppercase; font-size:.7rem; color:var(--pinecone); display:block; margin-bottom:7px; }
+  .layer h3 { font-family:var(--serif); font-weight:700; font-size:1.4rem; color:var(--nabawi-dark); margin-bottom:10px; line-height:1.2; }
+  .layer p { font-size:1.05rem; line-height:1.6; margin:0; }
+  .stack-note { font-family:var(--sans); font-size:.92rem; color:var(--nabawi-mid); text-align:center; letter-spacing:.06em; margin-top:16px; }
+  .stack-note span { color:var(--pinecone); }
+
+  /* ---------- Callout ---------- */
+  .callout { background:var(--nabawi-green); color:var(--mist); padding:44px 42px; border-radius:6px; margin:36px 0 6px; position:relative; overflow:hidden; }
+  .callout::after { content:"✸"; position:absolute; right:20px; top:10px; font-size:92px; color:rgba(250,250,242,.08); line-height:1; }
+  .callout p { font-family:var(--serif); font-size:1.5rem; line-height:1.5; color:var(--mist); margin:0; position:relative; z-index:1; }
+
+  /* ---------- Investment overview (from the one-pager) ---------- */
+  .overview { background:var(--mist); border-top:1px solid var(--arabica); padding:64px 0; scroll-margin-top:var(--nav-h); }
+  .ov-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:36px; margin-top:30px; }
+  .ov-col h3 { font-family:var(--sans); font-weight:700; letter-spacing:.14em; text-transform:uppercase; font-size:.82rem; color:var(--pinecone); padding-bottom:10px; margin-bottom:18px; border-bottom:2px dotted var(--warm-sand); }
+  .ov-item { margin-bottom:18px; }
+  .ov-item:last-child { margin-bottom:0; }
+  .ov-item .k { display:block; font-family:var(--sans); font-weight:700; letter-spacing:.08em; text-transform:uppercase; font-size:.72rem; color:var(--nabawi-mid); margin-bottom:3px; }
+  .ov-item .v { font-family:var(--sans); font-size:1.02rem; line-height:1.52; color:var(--kiswah); }
+  .ov-item .v strong { color:var(--nabawi-dark); font-weight:700; }
+
+  /* ---------- Terms strip ---------- */
+  .terms { background:var(--nabawi-green); color:var(--mist); }
+  .terms .wrap { display:flex; flex-wrap:wrap; gap:16px 40px; justify-content:space-between; align-items:center; padding-top:26px; padding-bottom:26px; }
+  .terms .offer { font-family:var(--sans); font-size:1.02rem; letter-spacing:.02em; }
+  .terms .offer .lbl, .terms .close .lbl { color:var(--pinecone); font-weight:700; letter-spacing:.14em; text-transform:uppercase; font-size:.76rem; margin-right:8px; }
+  .terms .close { font-family:var(--serif); font-size:1.15rem; }
+  .terms .close strong { color:var(--sun); font-weight:700; }
+
+  /* ---------- Footer ---------- */
+  footer { background:var(--nabawi-dark); color:var(--warm-sand); padding:40px 0; }
+  .foot-meta { font-family:var(--sans); font-size:.84rem; letter-spacing:.1em; text-transform:uppercase; color:rgba(238,203,175,.6); }
+
+  /* ---------- Motion ---------- */
+  .reveal { opacity:0; transform:translateY(16px); transition:opacity .7s ease, transform .7s ease; }
+  .reveal.in { opacity:1; transform:none; }
+  @media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } .reveal { opacity:1; transform:none; transition:none; } .drawer { transition:none; } }
+
+  @media (max-width:720px) {
+    .ov-grid { grid-template-columns:1fr; gap:32px; }
+  }
+  @media (max-width:560px) {
+    body { font-size:1.06rem; }
+    .hero { padding:52px 0 58px; }
+    .bismillah { margin-bottom:34px; }
+    .lede { font-size:1.28rem; }
+    .callout { padding:32px 26px; }
+    .callout p { font-size:1.25rem; }
+    section.block, .overview { padding:48px 0; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="topbar">
+    <a class="brand" href="#top" aria-label="IslamicFamily home">
+      <img src="https://halalfund.ca/islamicfamily.png" alt="IslamicFamily" onerror="this.style.display='none';this.nextElementSibling.style.display='inline';">
+      <span class="fallback" style="display:none;">IslamicFamily</span>
+    </a>
+    <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="drawer">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+  <div class="scrim" id="scrim"></div>
+  <aside class="drawer" id="drawer" aria-hidden="true">
+    <div class="drawer-head">
+      <span class="lbl">Shariah Foundation</span>
+      <button class="drawer-close" id="drawerClose" aria-label="Close menu">&times;</button>
+    </div>
+    <nav>
+      <a href="#foundation"><span class="idx">I</span>Founded on Shariah</a>
+      <a href="#origin"><span class="idx">II</span>Born of refusing riba</a>
+      <a href="#guidance"><span class="idx">III</span>Scholarship from the start</a>
+      <a href="#structure"><span class="idx">IV</span>Free of interest, every level</a>
+      <a href="#investor"><span class="idx">✸</span>What it means for you</a>
+      <a href="#overview"><span class="idx">✸</span>Investment overview</a>
+    </nav>
+    <div class="drawer-foot">Housing Prosperity Fund · <a href="https://halalfund.ca" style="color:var(--pinecone);text-decoration:none;border-bottom:1px solid rgba(224,153,100,.4);">halalfund.ca</a></div>
+  </aside>
+
+  <header class="hero" id="top">
+    <div class="wrap">
+      <div class="bismillah">﷽</div>
+      <div class="eyebrow">For Muslim Investors</div>
+      <h1>Built on Shariah, from the ground up.</h1>
+      <p class="thesis">This fund was designed to remove barriers and enable equity, dignity, & access for the Muslim community to the tools needed to serve and sustain our community.</p>
+    </div>
+  </header>
+
+  <div class="wrap">
+  <div class="col">
+
+    <section class="block reveal">
+      <p class="lede"><strong>Shariah compliance is not a veneer, it is our foundation.</strong> This fund has taken over a decade to develop, and is professionally built, run, and governed. This is Canada's first Shariah-based, institutional-quality impact fund.</p>
+    </section>
+
+    <section class="block reveal" id="foundation">
+      <div class="section-label"><span class="rn">I</span> Foundation</div>
+      <h2 class="head">Founded on Shariah, not retrofitted.</h2>
+      <p>There is a real difference between a fund that is Shariah-<em>compliant</em> and one that is Shariah-<em>based</em>. Compliance is a screen applied to a conventional structure after the fact: take an ordinary vehicle, strip out what is prohibited, and certify what survives. A Shariah-based fund begins from the other direction. The principles come first, and the structure is built to serve them.</p>
+      <p>The Housing Prosperity Fund is Shariah-based. Its ownership, its returns, and its sharing of risk were designed around Islamic finance from the outset, not adapted to it later. Everything you will read below, the equity structure, the absence of interest-bearing debt, the treatment of tenants, exists because the fund was shaped around these commitments <strong>before it was shaped around anything else.</strong></p>
+    </section>
+
+    <section class="block reveal" id="origin">
+      <div class="section-label"><span class="rn">II</span> Origin</div>
+      <h2 class="head">Born of a decade spent refusing riba.</h2>
+      <p>IslamicFamily began working on affordable housing in 2016. For the better part of a decade, the same wall stood in the way: the financing that makes affordable housing possible in Canada, the <abbr title="Canada Mortgage and Housing Corporation">CMHC</abbr>-backed programs everyone else relies on, are built on interest-bearing debt.</p>
+      <p>We walked away from deals rather than sign a conventional mortgage, <strong>even when the rate offered was below prime.</strong> A lower rate is still riba, and a project that houses Muslim families on the back of interest was not a project we were willing to build.</p>
+      <div class="pull">That refusal cost us time and more than one opportunity. It also produced the conviction, and eventually the structure, that there had to be a halal way to finance shelter at scale in this country.</div>
+      <p>Our conviction led to two years of research, the <a href="https://halalhousinglab.ca">Halal Housing Lab</a>, and now this fund. This research connected the barriers we face with conventional finance, with the opportunities to more intentionally channel community wealth transfers (zakat). The Halal Housing Lab research won a Canadian Institute of Planners' National Award, and an Alberta Professional Planners Institute (APPI) Merit Award.</p>
+    </section>
+
+    <section class="block reveal" id="guidance">
+      <div class="section-label"><span class="rn">III</span> Guidance</div>
+      <h2 class="head">Scholarship at the table from the beginning.</h2>
+      <p>Shariah oversight on this fund is not a certificate collected at the end. It has been part of the work from the earliest stages.</p>
+      <p>Certification is handled by <strong>Mufti Mirza-Zain Baig</strong>, an <abbr title="Accounting and Auditing Organization for Islamic Financial Institutions">AAOIFI</abbr> Certified Shariah Advisor and Auditor (CSAA) who specialises in Islamic finance within the Canadian context. Working in a Canadian context matters here. The rulings that govern this fund have to sit correctly against Canadian property law, tenancy law, and the specific instruments our counsel at Pallett Valo draft. A scholar working close to those realities can review the actual contracts, not an idealised version of them.</p>
+      <p>Mufti Mirza-Zain has been engaged with the structure alongside our legal team and <abbr title="SVX, the fund's fractional fund manager and general-partner co-sponsor">SVX</abbr> throughout, and will review each contract as it is finalised before providing certification. The fund's design is also grounded in the contemporary scholarship that draws the line between Shariah-based and merely Shariah-compliant finance, the same distinction this document opens with.</p>
+    </section>
+
+    <section class="block reveal" id="structure">
+      <div class="section-label"><span class="rn">IV</span> Structure</div>
+      <h2 class="head">Free of interest at every level.</h2>
+      <p>The test of a Shariah-based fund is not the headline. It is whether interest has been kept out of every layer, including the ones investors rarely see. Here is the fund read from the top down.</p>
+
+      <div class="stack">
+        <div class="layer">
+          <span class="layer-tag">Capital &amp; ownership</span>
+          <h3>A partnership, not a loan.</h3>
+          <p>The fund is structured as a <strong>musharakah</strong>: a general partnership between IslamicFamily (60%) and SVX (40%), with investors participating as limited partners who own a share of the asset and share in its risk and its return. Returns come from the housing itself, from rent and the value of real property, never from interest on money lent. <abbr title="Catalytic, concessionary capital">Class 0</abbr> units carry concessionary capital; <abbr title="Return-seeking capital">Class 1</abbr> units seek a modest return of roughly three percent. No investor is promised a fixed rate detached from the performance of the asset, because a guaranteed return on capital is the very thing we are avoiding.</p>
+        </div>
+        <div class="layer">
+          <span class="layer-tag">Acquisition &amp; financing</span>
+          <h3>No interest-bearing debt in the stack.</h3>
+          <p>There is <strong>no riba-based leverage anywhere</strong> in the acquisition or the financing of the project, now or at any later stage. The years of walking away from conventional mortgages were not wasted: the same discipline governs the fund itself. Where the structure calls for financing beyond the initial raise, it is arranged through halal, equity-based means, and never a conventional loan.</p>
+        </div>
+        <div class="layer">
+          <span class="layer-tag">Tenants &amp; operations</span>
+          <h3>No interest charged to the people we house.</h3>
+          <p>Tenants are never charged interest, including on late rent. As a social service organisation, IslamicFamily works to prevent late payment in the first place, through financial literacy, community-based rent supplements, help accessing government programs, and the wraparound support our tenants are already connected to. Where late payment does occur, it is handled by a professional third-party manager, with a clear line between property management and social work. <strong>Compassion and professionalism, but never riba.</strong></p>
+        </div>
+        <div class="layer">
+          <span class="layer-tag">Contracts &amp; disputes</span>
+          <h3>The commitment reaches the paperwork.</h3>
+          <p>The purchase agreement and the fund's instruments are drafted to be free of <em>riba</em>, <em>gharar</em>, and <em>maysir</em>, and reviewed on that basis. Even the dispute-resolution terms are written so that no interest can be charged on amounts in dispute. Shariah is a binding constraint on every document, <strong>not a principle that stops at the summary page.</strong></p>
+        </div>
+      </div>
+      <p class="stack-note"><span>✸</span> &nbsp;Four layers, one standard &nbsp;<span>✸</span></p>
+    </section>
+
+    <section class="block reveal" id="investor">
+      <div class="section-label"><span class="rn">✸</span> What this means for you</div>
+      <h2 class="head">Permitted, and purposeful.</h2>
+      <p>For a Muslim investor, this fund offers something rare: capital placed in a way that is not only halal but purposeful. Your investment builds homes for the larger and extended families the housing system was never designed for, beginning with the <strong>Diamond at Dunluce</strong> in Edmonton, 96 homes now under construction. It is <em>sadaqah jariyah</em> alongside a stable return, an act of <em>ibadah</em> that also does the ordinary, honourable work of sheltering people.</p>
+      <p>The fund also carries a <strong>zakat-funded rent supplement</strong>, structured so the zakat becomes the tenant's own (<em>tamlik</em>) through a <em>wakalah</em> agency arrangement, so that zakat can be deployed correctly within the model rather than bent to fit it.</p>
+      <div class="callout">
+        <p>This is not a conventional fund made acceptable. It is a halal structure built for a halal purpose, guided by scholarship from the beginning, and free of interest at every level. That is the standard we hold ourselves to, and the one we invite you to hold us to.</p>
+      </div>
+    </section>
+
+  </div>
+  </div>
+
+  <section class="overview" id="overview">
+    <div class="wrap">
+      <div class="section-label"><span class="rn">✸</span> Investment overview</div>
+      <h2 class="head" style="max-width:20ch;">The fund at a glance.</h2>
+      <div class="ov-grid">
+
+        <div class="ov-col reveal">
+          <h3>Stable returns</h3>
+          <div class="ov-item"><span class="k">Real asset</span><span class="v">Income-generating real estate.</span></div>
+          <div class="ov-item"><span class="k">High demand</span><span class="v">Larger-family affordable housing has the longest waitlist, and the halal impact segment has yet to be served.</span></div>
+          <div class="ov-item"><span class="k">Scalability</span><span class="v">A national pipeline of projects, targeting <strong>$100M</strong>.</span></div>
+          <div class="ov-item"><span class="k">Sustainable, conservative returns</span><span class="v">Roughly <strong>3%</strong> from 2028, with capital-return options beginning in 2032.</span></div>
+          <div class="ov-item"><span class="k">Backing &amp; security</span><span class="v">30% of capital plus land secured, a fixed-price contract caps overruns, and an Owner's Representative is in place to protect quality.</span></div>
+        </div>
+
+        <div class="ov-col reveal">
+          <h3>Trusted leadership</h3>
+          <div class="ov-item"><span class="k">SVX</span><span class="v"><strong>$500M+</strong> mobilised. Canada's leading social impact fund manager.</span></div>
+          <div class="ov-item"><span class="k">IslamicFamily</span><span class="v">Imagine Canada accredited, with 40+ years of social change.</span></div>
+          <div class="ov-item"><span class="k">Vivid Homes</span><span class="v">35+ years of building experience.</span></div>
+          <div class="ov-item"><span class="k">Mufti Mirza-Zain Baig</span><span class="v">AAOIFI Certified Shariah Advisor and Auditor (CSAA).</span></div>
+        </div>
+
+        <div class="ov-col reveal">
+          <h3>Quantifiable impact</h3>
+          <div class="ov-item"><span class="k">Homes delivered</span><span class="v">Affordable, deeply affordable, and rent-geared-to-income homes for larger and extended families in need.</span></div>
+          <div class="ov-item"><span class="k">Outcomes tracked</span><span class="v">Income, social determinants of health, and youth resilience, published in an annual community impact report.</span></div>
+          <div class="ov-item"><span class="k">Aligned to</span><span class="v">UN Sustainable Development Goals 1, 10, and 11.</span></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="terms">
+    <div class="wrap">
+      <div class="offer"><span class="lbl">Offer</span>$50K minimum · accredited investors only · 5-year term</div>
+      <div class="close"><span class="lbl">First close</span><strong>August 15, 2026</strong></div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="wrap">
+      <p class="foot-meta">Housing Prosperity Fund · IslamicFamily · <a href="https://halalfund.ca" style="color:var(--pinecone);text-decoration:none;border-bottom:1px solid rgba(224,153,100,.4);">halalfund.ca</a></p>
+    </div>
+  </footer>
+
+<script>
+  (function () {
+    var btn=document.getElementById('menuBtn'), drawer=document.getElementById('drawer'),
+        scrim=document.getElementById('scrim'), close=document.getElementById('drawerClose');
+    function open(){ drawer.classList.add('open'); scrim.classList.add('open'); btn.setAttribute('aria-expanded','true'); drawer.setAttribute('aria-hidden','false'); }
+    function shut(){ drawer.classList.remove('open'); scrim.classList.remove('open'); btn.setAttribute('aria-expanded','false'); drawer.setAttribute('aria-hidden','true'); btn.focus(); }
+    btn.addEventListener('click',open);
+    close.addEventListener('click',shut);
+    scrim.addEventListener('click',shut);
+    document.addEventListener('keydown',function(e){ if(e.key==='Escape' && drawer.classList.contains('open')) shut(); });
+    drawer.querySelectorAll('a').forEach(function(a){ a.addEventListener('click',shut); });
+
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var items = document.querySelectorAll('.reveal');
+    if (reduce || !('IntersectionObserver' in window)) { items.forEach(function(el){ el.classList.add('in'); }); return; }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold:0.12 });
+    items.forEach(function(el){ io.observe(el); });
+  })();
+</script>
+</body>
+</html>
