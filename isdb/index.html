@@ -49,7 +49,7 @@
   .masthead h1 { color: #fff; font-size: 34px; margin: 2px 0 6px; }
   .masthead .sub { color: rgba(255,255,255,0.86); font-size: 14px; max-width: 720px; }
   .img { background-image: var(--rendering); background-size: cover; background-repeat: no-repeat; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-  .hero { position: relative; aspect-ratio: 2 / 0.78; max-height: 430px; background-position: center 38%; }
+  .hero { position: relative; display: block; width: 100%; height: clamp(250px, 36vw, 440px); background-position: center 38%; }
   .hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(27,60,42,0) 55%, rgba(27,60,42,0.55) 100%); }
   .caption { position: absolute; left: 18px; bottom: 12px; z-index: 2; color: #fff; font-size: 12px; font-weight: 500; text-shadow: 0 1px 4px rgba(0,0,0,0.6); }
 
@@ -67,6 +67,7 @@
   .ask .big { font-family: 'Alegreya', Georgia, serif; font-size: 34px; font-weight: 700; line-height: 1.1; margin-top: 4px; }
   .ask p { margin: 8px 0 0; font-size: 14.5px; opacity: 0.95; max-width: 640px; }
   .facts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 6px; }
+  .facts.three { grid-template-columns: repeat(3, 1fr); }
   .fact { background: var(--green-light); border-radius: 8px; padding: 10px 12px; text-align: center; }
   .fact b { display: block; font-family: 'Alegreya', Georgia, serif; font-size: 20px; color: var(--green); line-height: 1.1; }
   .fact span { font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); }
@@ -75,6 +76,12 @@
   td { padding: 7px 10px; border-top: 1px solid var(--border); vertical-align: top; }
   td:first-child { font-weight: 700; width: 28%; }
   td.num { text-align: right; white-space: nowrap; }
+  .retrow { display: grid; grid-template-columns: 220px 1fr; gap: 20px; align-items: center; margin-bottom: 12px; }
+  .retbig { background: var(--green-light); padding: 16px 14px; text-align: center; border-radius: 8px; }
+  .retbig b { display: block; font-family: 'Alegreya', Georgia, serif; font-size: 44px; line-height: 1; color: var(--green); }
+  .retbig span { display: block; margin-top: 6px; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+  .retrow p { margin: 0; font-size: 16px; }
+  .lead { font-size: 16px; margin-bottom: 14px; }
   .tag { display: inline-block; padding: 1px 8px; border-radius: 3px; font-size: 11px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; }
   .done { background: #e8f7f0; color: #0a6640; }
   .prog { background: var(--brown-light); color: var(--brown-dark); }
@@ -134,7 +141,7 @@
   .callout::before { margin-bottom: 14px; }
   .callout::after { margin-top: 14px; }
 
-  .banner { aspect-ratio: 2 / 0.5; max-height: 250px; border-radius: 10px; position: relative; background-size: 175% auto; background-position: 96% 88%; margin-bottom: 14px; }
+  .banner { display: block; width: 100%; height: clamp(150px, 26vw, 250px); border-radius: 10px; position: relative; background-size: 175% auto; background-position: 96% 88%; margin-bottom: 14px; }
   .tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 12px; }
   .big3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 6px 0 12px; }
   .big3 div { background: var(--brown-light); border-radius: 8px; padding: 10px 12px; font-size: 13px; }
@@ -175,11 +182,12 @@
 
   @media (max-width: 720px) {
     .contact { grid-template-columns: 1fr; }
+    .retrow { grid-template-columns: 1fr; }
     .facts, .tiles { grid-template-columns: repeat(2, 1fr); }
     .cols, .cols3, .profile, .families, .classes, .steps, .docs, .big3 { grid-template-columns: 1fr; }
     .figs { grid-template-columns: repeat(2, 1fr); }
     .masthead h1 { font-size: 27px; }
-    .hero { aspect-ratio: 2 / 1; }
+    .hero { height: clamp(200px, 58vw, 300px); }
   }
   @media print {
     body { background: #fff; font-size: 11.5px; line-height: 1.42; }
@@ -188,15 +196,15 @@
     .wrap { max-width: none; padding: 0; }
     .masthead { padding: 14px 20px; }
     .masthead h1 { font-size: 24px; }
-    .hero { max-height: 220px; }
+    .hero { height: 220px; }
     h2 { font-size: 17px; margin: 14px 0 6px; break-after: avoid; }
     table, .card, .ask, .contact, .family, .person, .class, .step, .tabs { break-inside: avoid; }
     .annex-divider { break-before: page; margin-top: 0; padding: 18px 20px; }
     td, th { padding: 4px 8px; }
     table { font-size: 11px; }
     .family img { height: 120px; }
-    .banner { max-height: 150px; }
-    .ask, .fact, th, .tag, .masthead, .annex-divider, .tabs, .figs, .avatar, h2 .idx, .big3 div { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .banner { height: 150px; }
+    .ask, .fact, th, .tag, .masthead, .annex-divider, .tabs, .figs, .avatar, .retbig, h2 .idx, .big3 div { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
     .tabbar label { display: none; }
   }
 </style>
@@ -206,11 +214,11 @@
 <nav class="topnav" aria-label="Page navigation">
   <div class="navrow">
     <span class="navlabel">Concept note</span>
-    <a href="#ask">The ask</a><a href="#fit">Why IsDB</a><a href="#funds">Use of funds</a><a href="#structure">Structure</a><a href="#shariah">Shariah</a><a href="#governance">Governance</a><a href="#risks">Risks</a><a href="#milestones">Milestones</a><a href="#next">Next steps</a>
+    <a href="#ask">The ask</a><a href="#fit">Why IsDB</a><a href="#funds">Use of funds</a><a href="#structure">Structure</a><a href="#return">Return</a><a href="#shariah">Shariah Leadership</a><a href="#governance">Governance</a><a href="#risks">Risks</a><a href="#milestones">Milestones</a><a href="#next">Next steps</a>
   </div>
   <div class="navrow">
     <span class="navlabel">Annex</span>
-    <a href="#about">Who we are</a><a href="#team">Team</a><a href="#terms">Fund terms</a><a href="#families">Families</a><a href="#project">Project</a><a href="#impact">Impact</a><a href="#growth">Growth</a><a href="#docs">Documents</a>
+    <a href="#about">Who we are</a><a href="#team">Team</a><a href="#terms">Fund terms</a><a href="#families">Families</a><a href="#project">Project</a><a href="#impact">Impact</a><a href="#growth">Growth</a><a href="#docs">Documents</a><a href="#contact">Contact</a>
   </div>
 </nav>
 
@@ -236,11 +244,10 @@
       <div class="big">$15 million in equity or halal debt</div>
       <p>IslamicFamily and SVX Canada invite IsDB to participate in a Shariah-compliant fund that will purchase a purpose-built, family-sized affordable housing project in Canada. We are flexible on instrument, size, phasing and terms.</p>
     </div>
-    <div class="facts">
+    <div class="facts three">
       <div class="fact"><b>~$20M</b><span>Fund raise</span></div>
       <div class="fact"><b>$37.6M</b><span>Project cost</span></div>
       <div class="fact"><b>$12.9M</b><span>Grants confirmed (34%)</span></div>
-      <div class="fact"><b>~3%</b><span>Target annual return</span></div>
     </div>
     <p class="note">The Fund raises $5.67M by 2028 and ~$15M in 2031. The project is 96 homes and 290 bedrooms, with 72 homes below market rent. Groundbreaking is complete.</p>
   </section>
@@ -276,34 +283,56 @@
     <h2><span class="idx">3</span>Structure and participation</h2>
     <p>The Fund is a GP/LP limited partnership. The General Partner is owned 60% by IslamicFamily and 40% by SVX Canada. IsDB can participate in the way that best fits its mandate:</p>
     <ul>
-      <li><strong>Equity.</strong> Class 1 (target return ~3% above return of capital) or Class 0 (capital return only, for concessional investors).</li>
-      <li><strong>Halal debt.</strong> Murabaha, Ijara or a similar structure, in place of or alongside equity.</li>
+      <li><strong>Equity.</strong> Class 1 (projected return ~3.5% above return of capital) or Class 0 (capital return only, for concessional investors).</li>
+      <li><strong>Halal debt.</strong> Murabaha, Ijara or a similar structure, in place of or alongside equity, modelled at the same ~3.5% projected return.</li>
       <li><strong>Flexibility.</strong> We are open to discussing ticket size, phasing, tenor, reporting, and the level of IsDB's engagement in governance.</li>
     </ul>
     <p class="xref">Full terms and investor classes are in <a href="#terms">Annex A3</a>.</p>
   </section>
 
+  <section id="return">
+    <h2><span class="idx">4</span>Projected return</h2>
+    <p class="lead">Impact comes first. Diamond at Dunluce is built to house families, and the return follows from that mission. Over 20 years the project is projected to house about 1,740 people. <a href="#impact">See the impact figures</a>.</p>
+    <div class="retrow">
+      <div class="retbig"><b>~3.5%</b><span>Projected annual return, current pro forma</span></div>
+      <p>The projected return is currently ~3.5%. It is based on a very conservative pro forma that prioritizes community impact and affordability. The model is rigorous and defensible, and our goal is to under-promise and over-deliver.</p>
+    </div>
+    <div class="subhead">Built for stability</div>
+    <div class="cols3">
+      <div class="card"><h3>The project</h3><p>Purpose-built family homes with multi-year waitlists. The model assumes 72 of 96 homes below market rent and 4% vacancy, and Year 1 income covers financing costs 1.64 times. Confirmed grants already fund 34% of cost.</p></div>
+      <div class="card"><h3>The fund</h3><p>Managed by SVX Canada with institutional governance and reporting. Returns come from a revenue share tied to a real asset, investors are repaid before surplus returns to charity, and investors can exit if targets are not met.</p></div>
+      <div class="card"><h3>The Canadian economy</h3><p>A stable G7 economy with strong legal protections for investors and sustained public commitment to affordable housing, shown by confirmed City and provincial grants and a federal application advancing.</p></div>
+    </div>
+    <p class="note" style="margin-top:8px;">Projected returns are not guarantees. They come from a revenue-share structure tied to the performance of the asset. The full pro forma is available to IsDB's team on request.</p>
+  </section>
+
   <section id="shariah">
-    <h2><span class="idx">4</span>Shariah governance</h2>
-    <p>The Fund uses a Musharakah structure. Returns derive from real asset performance and no interest-bearing instruments are used. The Fund's contracts and agreements are being verified by Mufti Mirza Zain Baig, an AAOIFI-certified scholar, and review is in its final stages. Mufti Mirza Zain is available to speak directly with IsDB's Shariah team.</p>
+    <h2><span class="idx">5</span>Shariah Leadership</h2>
+    <p>This Fund goes beyond mere compliance. From the very start it has been built on Shariah principles, so Shariah is its foundation and not a review applied at the end. Returns come from the real performance of the asset under a Musharakah partnership, and no interest-bearing instruments are used at any level of the capital stack.</p>
+    <div class="cols3" style="margin-bottom: 10px;">
+      <div class="card"><h3>Shariah from day one</h3><p>The structure, contracts and governance were designed around Shariah principles from the first draft.</p></div>
+      <div class="card"><h3>Institutional quality</h3><p>Canada's first institutional-quality Shariah-based fund, with professional fund management, reporting and governance.</p></div>
+      <div class="card"><h3>A door for mainstream capital</h3><p>It opens the door for mainstream institutional investment into Shariah portfolios.</p></div>
+    </div>
+    <p>The Fund's contracts and agreements are being verified by Mufti Mirza Zain Baig, an AAOIFI-certified scholar, and review is in its final stages. Mufti Mirza Zain is available to speak directly with IsDB's Shariah team.</p>
   </section>
 
   <section id="governance">
-    <h2><span class="idx">5</span>Governance and management</h2>
+    <h2><span class="idx">6</span>Governance and management</h2>
     <p><strong>SVX Canada</strong> is our governance and management lead, bringing exceptional governance and visibility to investors. It is a nonprofit financial services firm with $48.4M in assets under management, 527 investors, and over $218M mobilized for affordable housing across more than a dozen funds. SVX co-owns the General Partner and is the contracted fund manager.</p>
     <p><strong>IslamicFamily</strong> is a registered charity in Edmonton and an Imagine Canada accredited organization, with four decades of community service. It operates the housing. Legal counsel is Pallett Valo LLP.</p>
     <p class="xref">Meet the people behind the Fund in <a href="#team">Annex A2</a>.</p>
   </section>
 
   <section id="risks">
-    <h2><span class="idx">6</span>Risks and mitigation</h2>
+    <h2><span class="idx">7</span>Risks and mitigation</h2>
     <table>
       <thead><tr><th>Risk</th><th>Mitigation</th></tr></thead>
       <tbody>
         <tr><td>Vacancy and demand</td><td>Very low expected vacancy: family-sized homes in a market with multi-year waits. The model assumes 4% vacancy and still covers financing costs 1.64 times in Year 1.</td></tr>
         <tr><td>Construction and delivery</td><td>Groundbreaking and building permit are complete. An owner's representative is lined up, and the developer, Vivid Homes, self-finances construction.</td></tr>
         <tr><td>Funding gap</td><td>34% of project cost is already confirmed in grants. Build Canada Homes ($4M) has advanced to next steps. Grants and milestones are tied to deliverables.</td></tr>
-        <tr><td>Returns and liquidity</td><td>The ~3% return is a target within a revenue-share structure, not a guarantee. Investors can exit if the Fund does not hit its targets.</td></tr>
+        <tr><td>Returns and liquidity</td><td>The projected return (currently ~3.5%) comes from a revenue-share structure and is not a guarantee. Investors can exit if the Fund does not hit its targets.</td></tr>
         <tr><td>Shariah</td><td>Verification by an AAOIFI-certified mufti, with no interest-bearing instruments at any level of the capital stack.</td></tr>
         <tr><td>Regulatory, tax and currency</td><td>Structured under the private issuer exemption and reviewed by counsel. Cross-border tax and currency treatment can be explored together.</td></tr>
       </tbody>
@@ -311,7 +340,7 @@
   </section>
 
   <section id="milestones">
-    <h2><span class="idx">7</span>Milestones</h2>
+    <h2><span class="idx">8</span>Milestones</h2>
     <p>A rigid set of milestones, tied to deliverables and grants, governs progress.</p>
     <table>
       <thead><tr><th>Milestone</th><th>Status</th></tr></thead>
@@ -330,15 +359,11 @@
   </section>
 
   <section id="next">
-    <h2><span class="idx">8</span>Next steps</h2>
+    <h2><span class="idx">9</span>Next steps</h2>
     <ul>
       <li>Move into deeper analysis with IsDB's team, starting with this note and the data room at <a href="https://halalfund.ca/isdb-data-room.html">halalfund.ca/isdb-data-room.html</a>.</li>
       <li>Share more detail as the analysis progresses. Audited financial statements are at <a href="https://share.islamicfamily.ca/financials">share.islamicfamily.ca/financials</a>, and further materials are available on request.</li>
     </ul>
-    <div class="contact">
-      <div class="who"><b>Omar Yaqub</b><span>Executive Director, IslamicFamily</span><a href="mailto:o.yaqub@islamicfamily.ca">o.yaqub@islamicfamily.ca</a></div>
-      <div class="who"><b>Adam Spence</b><span>Founder and CEO, SVX Canada</span><a href="mailto:adam.spence@svx.ca">adam.spence@svx.ca</a></div>
-    </div>
   </section>
 </main>
 
@@ -363,7 +388,7 @@
       <div>
         <table style="margin-bottom:0;">
           <tbody>
-            <tr><td>Incorporated</td><td>September 16, 1992, Societies Act of Alberta</td></tr>
+            <tr><td>Service</td><td>Four decades of community service</td></tr>
             <tr><td>CRA charity no.</td><td>873835193 RR 0001</td></tr>
             <tr><td>Territory</td><td>Treaty 6, Edmonton, Alberta</td></tr>
             <tr><td>Accreditation</td><td>Imagine Canada Standards Program</td></tr>
@@ -372,7 +397,7 @@
         </table>
       </div>
       <ol class="journey">
-        <li><b>1992 to 2015</b>Housing identified as the underlying crisis in nearly every family intake file.</li>
+        <li><b>Before 2016</b>Housing identified as the underlying crisis in nearly every family intake file.</li>
         <li><b>2016 to 2019</b>A housing partnership collapsed when interest-bearing debt was required. The financing barrier was formally identified.</li>
         <li><b>2021 to 2023</b>Halal Housing Lab, funded by CMHC, produces the fund structure and wins provincial and national planning awards.</li>
         <li><b>2023 to 2025</b>Land awarded by the City of Edmonton, grants secured, Vivid Homes and SVX Canada engaged.</li>
@@ -431,7 +456,7 @@
     </table>
     <div class="classes">
       <div class="class"><div class="lab">Class 0</div><div class="hd">Capital return only</div><p>Return of principal over a 5-year horizon, for concessional, catalytic or mission-first investors. No profit above return of capital.</p></div>
-      <div class="class c1"><div class="lab">Class 1</div><div class="hd">~3% annual return</div><p>Target equity return of 2.5 to 3% above return of capital over a 10-year horizon, for accredited impact investors seeking modest risk-adjusted returns.</p></div>
+      <div class="class c1"><div class="lab">Class 1</div><div class="hd">~3.5% annual return</div><p>Projected equity return of ~3.5% above return of capital over a 10-year horizon, for accredited impact investors seeking modest risk-adjusted returns.</p></div>
       <div class="class c2"><div class="lab">Class 2</div><div class="hd">IslamicFamily equity</div><p>Residual equity held by IslamicFamily after all LP investor distributions. Residual proceeds flow to charitable purposes.</p></div>
     </div>
     <div class="card"><h3>Philanthropic pathway</h3><p>IsDB and aligned foundations may also provide philanthropic or grant contributions directly to IslamicFamily in support of the Dunluce project. Charitable funds bypass the fund structure and flow directly to IslamicFamily for use in the property purchase.</p></div>
@@ -558,13 +583,22 @@
       <a class="doc" href="https://halalfund.ca/isdb-data-room.html" target="_blank" rel="noopener"><b>IsDB Data Room</b><span>Full detail and interactive impact figures · halalfund.ca</span></a>
       <a class="doc" href="https://share.islamicfamily.ca/financials" target="_blank" rel="noopener"><b>Audited Financial Statements</b><span>IslamicFamily · share.islamicfamily.ca/financials</span></a>
       <a class="doc" href="https://apps.cra-arc.gc.ca/ebci/hacc/srch/pub/dsplyRprtngPrd/873835193RR0001" target="_blank" rel="noopener"><b>CRA Charity Registry: Annual Returns</b><span>Government of Canada · public record</span></a>
-      <a class="doc" href="https://halalfund.ca/certificate.pdf" target="_blank" rel="noopener"><b>Certificate of Incorporation (1992)</b><span>Alberta Societies Act · PDF</span></a>
+      <a class="doc" href="https://halalfund.ca/certificate.pdf" target="_blank" rel="noopener"><b>Certificate of Incorporation</b><span>Alberta Societies Act · PDF</span></a>
       <a class="doc" href="https://halalfund.ca/investor-onepager.pdf" target="_blank" rel="noopener"><b>One-Pager (June 2026)</b><span>PDF</span></a>
       <a class="doc" href="https://halalfund.ca/investor.pdf" target="_blank" rel="noopener"><b>Investor Presentation Deck (June 2026)</b><span>PDF · 43 slides</span></a>
       <a class="doc" href="https://app.notion.com/p/islamicfamily/2aeb46d4433c81e09e5ac0bae5b6e642?v=2aeb46d4433c81b69d90000c005dee3f" target="_blank" rel="noopener"><b>Board of Directors: Current Members</b><span>Governance documentation</span></a>
       <div class="doc pending"><b>Shariah Compliance Certification</b><span>Final review in progress. Issued on completion of the Offer to Purchase and legal documents.</span></div>
     </div>
     <p class="note" style="margin-top:10px;">The June 2026 one-pager and deck pre-date the latest project figures (290 bedrooms and the updated capital stack). Where they differ, this note and the data room govern.</p>
+  </section>
+
+  <section id="contact">
+    <h2>Contact</h2>
+    <p>To discuss this note or arrange the next steps, please reach out to either of us.</p>
+    <div class="contact">
+      <div class="who"><b>Omar Yaqub</b><span>Executive Director, IslamicFamily</span><a href="mailto:o.yaqub@islamicfamily.ca">o.yaqub@islamicfamily.ca</a></div>
+      <div class="who"><b>Adam Spence</b><span>Founder and CEO, SVX Canada</span><a href="mailto:adam.spence@svx.ca">adam.spence@svx.ca</a></div>
+    </div>
   </section>
 
   <div class="foot">Targets are not guarantees. This concept note is for discussion with IsDB and is not an offer of securities. Figures reflect the November 2026 pro forma.</div>
@@ -585,6 +619,11 @@
     });
   }, { rootMargin: '-110px 0px -65% 0px', threshold: 0 });
   ids.forEach(function(id){ var el = document.getElementById(id); if (el) io.observe(el); });
+  function setActive(a){ links.forEach(function(x){ x.classList.remove('active'); }); if (a) a.classList.add('active'); }
+  window.addEventListener('scroll', function(){
+    if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 6) setActive(map['contact']);
+  }, { passive: true });
+  links.forEach(function(a){ a.addEventListener('click', function(){ setActive(a); }); });
 })();
 </script>
 </body>
